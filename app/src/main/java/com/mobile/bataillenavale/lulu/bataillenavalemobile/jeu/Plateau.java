@@ -6,6 +6,8 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
+
 /**
  * Created by Simon on 18/12/2017.
  */
@@ -13,7 +15,7 @@ import android.widget.TableRow;
 public class Plateau {
     private TableLayout table;
     static private int X = 1;
-    static private int Y = 1;
+    static private int Y = 2;
 
     public Plateau(int x, int y, MainActivity activity){
         if(x<0 || y<0)
@@ -36,8 +38,8 @@ public class Plateau {
                 cell.setGravity(Gravity.CENTER);
                 //implique que xi < 100
                 cell.setId(100*yi+xi);
-                cell.setTag(X,xi);
-                cell.setTag(Y,yi);
+                cell.setTag(R.id.X,xi);
+                cell.setTag(R.id.Y,yi);
             }
             table.addView(row,new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT,1f));
         }
