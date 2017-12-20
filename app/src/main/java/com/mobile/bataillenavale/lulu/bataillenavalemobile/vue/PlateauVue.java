@@ -1,4 +1,4 @@
-package com.mobile.bataillenavale.lulu.bataillenavalemobile.jeu;
+package com.mobile.bataillenavale.lulu.bataillenavalemobile.vue;
 
 import android.graphics.Color;
 import android.view.Gravity;
@@ -7,17 +7,18 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.InitPartieActivity;
 
 /**
  * Created by Simon on 18/12/2017.
  */
 
-public class Plateau {
+public class PlateauVue {
     private TableLayout table;
     static private int X = 1;
     static private int Y = 2;
 
-    public Plateau(int x, int y, MainActivity activity){
+    public PlateauVue(int x, int y, InitPartieActivity activity){
         if(x<0 || y<0)
             throw new IllegalArgumentException("taille negative");
         if(x>99)

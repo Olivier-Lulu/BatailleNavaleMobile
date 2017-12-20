@@ -11,11 +11,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".jeu.MainActivity" android:hardwareAccelerated="true">
+        <activity android:name=".controleur.MenuActivity" android:hardwareAccelerated="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+
+        <activity android:name=".controleur.InitPartieActivity" android:hardwareAccelerated="true">
         </activity>
 
     </application>

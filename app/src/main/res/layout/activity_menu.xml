@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.MenuActivity"
+    tools:context="com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.MenuActivity"
     android:baselineAligned="false"
     android:orientation="vertical">
 
@@ -29,11 +29,5 @@
             android:onClick="clickParametre"
             android:text="Paramètres" />
 
-        <Button
-            android:id="@+id/quitter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="clickQuitter"
-            android:text="Quitter" />
     </LinearLayout>
 </LinearLayout>

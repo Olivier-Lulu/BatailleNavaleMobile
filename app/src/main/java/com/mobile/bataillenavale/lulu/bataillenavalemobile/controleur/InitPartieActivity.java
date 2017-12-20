@@ -1,4 +1,4 @@
-package com.mobile.bataillenavale.lulu.bataillenavalemobile.jeu;
+package com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur;
 
 import android.app.Activity;
 import android.content.ClipData;
@@ -14,8 +14,9 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.PlateauVue;
 
-public class MainActivity extends Activity {
+public class InitPartieActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,7 @@ public class MainActivity extends Activity {
             }
 
         });
-        Plateau p = new Plateau(5,5,this);
+        PlateauVue p = new PlateauVue(5,5,this);
         LinearLayout v = (LinearLayout) findViewById(R.id.main);
         v.addView(p.getTable(),0,new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT,1));
         v.invalidate();
@@ -179,5 +180,6 @@ public class MainActivity extends Activity {
 
             return false;
         }
-    };
+    }
+
 }
