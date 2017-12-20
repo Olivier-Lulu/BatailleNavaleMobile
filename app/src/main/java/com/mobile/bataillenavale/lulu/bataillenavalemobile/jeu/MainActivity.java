@@ -13,9 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
+
 public class MainActivity extends Activity {
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,7 +141,7 @@ public class MainActivity extends Activity {
                     recus = true;
                     RelativeLayout l = (RelativeLayout) v;
                     View b = findViewById(Integer.parseInt((String)dragData));
-                    RelativeLayout pool =(RelativeLayout) findViewById(((View)b.getParent()).getId());
+                    RelativeLayout pool = (RelativeLayout) findViewById(((View)b.getParent()).getId());
                     pool.removeView(b);
                     l.addView(b);
                     // Invalidates the view to force a redraw
