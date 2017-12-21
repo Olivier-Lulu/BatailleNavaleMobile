@@ -17,10 +17,15 @@ public class MenuActivity extends Activity {
 
     public void clickJouer (View v) {
         startActivity(new Intent(this, InitPartieActivity.class));
+        this.finish();
     }
 
     public void clickParametre (View v) {
+        startActivity(new Intent(this, ParametresActivity.class));
+    }
 
+    public void clickQuitter (View v){
+        this.finish();
     }
 
 }

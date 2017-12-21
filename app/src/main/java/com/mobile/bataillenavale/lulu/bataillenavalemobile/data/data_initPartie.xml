@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<datas>
     <item type="integer" name="tabSizeX">5</item>
     <item type="integer" name="tabSizeY">5</item>
 
     <item type="integer" name="nbBateau2">1</item>
-</resources>
+    <item type="integer" name="nbBateau3">1</item>
+    <item type="integer" name="nbBateau4">1</item>
+    <item type="integer"  name="nbBateau5">1</item>
+</datas>

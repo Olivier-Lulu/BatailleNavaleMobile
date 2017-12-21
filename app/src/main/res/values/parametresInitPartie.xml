@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hauteurPlateau">tabSizeX</string>
+    <string name="largeurPlateau">tabSizeY</string>
+
+    <string name="nbBateau3">nbBateau3</string>
+    <string name="nbBateau2">nbBateau2</string>
+    <string name="nbBateau4">nbBateau4</string>
+    <string name="nbBateau5">nbBateau5</string>
+</resources>

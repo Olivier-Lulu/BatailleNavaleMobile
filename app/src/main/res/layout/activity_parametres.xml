@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:verticalScrollbarPosition="defaultPosition">
+
+    <EditText
+        android:id="@+id/nbBateau4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="1"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/nbBateau5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bateau4CasesLabel"
+        app:layout_constraintTop_toBottomOf="@+id/nbBateau3" />
+
+    <EditText
+        android:id="@+id/nbBateau5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="2dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="1"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/boutonValider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bateau5CasesLabel"
+        app:layout_constraintTop_toBottomOf="@+id/nbBateau4" />
+
+    <EditText
+        android:id="@+id/nbBateau3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="2dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="1"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/nbBateau4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bateau3CasesLabel"
+        app:layout_constraintTop_toBottomOf="@+id/nbBateau2" />
+
+    <TextView
+        android:id="@+id/bateau3CasesLabel"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:gravity="center"
+        android:text="Contre-Torpilleur(s) (3 cases)"
+        app:layout_constraintBottom_toTopOf="@+id/bateau4CasesLabel"
+        app:layout_constraintEnd_toStartOf="@+id/nbBateau3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bateau2CasesLabel" />
+
+    <TextView
+        android:id="@+id/bateau4CasesLabel"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:gravity="center"
+        android:text="Croiseur(s) (4 cases)"
+        app:layout_constraintBottom_toTopOf="@+id/bateau5CasesLabel"
+        app:layout_constraintEnd_toStartOf="@+id/nbBateau4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bateau3CasesLabel" />
+
+    <TextView
+        android:id="@+id/bateau5CasesLabel"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:gravity="center"
+        android:text="Porte-avion(s) (5 cases)"
+        app:layout_constraintBottom_toTopOf="@+id/boutonRetour"
+        app:layout_constraintEnd_toStartOf="@+id/nbBateau5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bateau4CasesLabel" />
+
+    <TextView
+        android:id="@+id/largeurPlateauLabel"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Largeur du plateau de jeu"
+        app:layout_constraintBottom_toTopOf="@+id/hauteurPlateauLabel"
+        app:layout_constraintEnd_toStartOf="@+id/largeurPlateauVal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/largeurPlateauVal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:hint="5"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/haueurPlateauVal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/largeurPlateauLabel"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/hauteurPlateauLabel"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Hauteur du plateau de jeu"
+        app:layout_constraintBottom_toTopOf="@+id/bateau2CasesLabel"
+        app:layout_constraintEnd_toStartOf="@+id/haueurPlateauVal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/largeurPlateauLabel" />
+
+    <EditText
+        android:id="@+id/haueurPlateauVal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="2dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="5"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/nbBateau2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/hauteurPlateauLabel"
+        app:layout_constraintTop_toBottomOf="@+id/largeurPlateauVal" />
+
+    <TextView
+        android:id="@+id/bateau2CasesLabel"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Torpilleur(s) (2 cases)"
+        app:layout_constraintBottom_toTopOf="@+id/bateau3CasesLabel"
+        app:layout_constraintEnd_toStartOf="@+id/nbBateau2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hauteurPlateauLabel" />
+
+    <EditText
+        android:id="@+id/nbBateau2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="2dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="1"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/nbBateau3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bateau2CasesLabel"
+        app:layout_constraintTop_toBottomOf="@+id/haueurPlateauVal" />
+
+    <Button
+        android:id="@+id/boutonValider"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="7dp"
+        android:onClick="clickValider"
+        android:text="Valider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toEndOf="@+id/boutonRetour"
+        app:layout_constraintTop_toBottomOf="@+id/nbBateau5" />
+
+    <Button
+        android:id="@+id/boutonRetour"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="7dp"
+        android:onClick="clickRetour"
+        android:text="Retour"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/boutonValider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bateau5CasesLabel" />
+</android.support.constraint.ConstraintLayout>

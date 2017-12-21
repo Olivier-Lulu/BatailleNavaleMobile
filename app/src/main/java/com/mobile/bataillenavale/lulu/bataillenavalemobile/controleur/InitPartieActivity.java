@@ -21,7 +21,7 @@ public class InitPartieActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.plateau2);
+        setContentView(R.layout.activity_initpartie);
         final View star = findViewById(R.id.star);
         star.setTag("STAR");
         star.setOnLongClickListener(new View.OnLongClickListener() {
