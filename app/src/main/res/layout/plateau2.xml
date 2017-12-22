@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/mer"
+            android:background="@android:color/black"
             android:stretchColumns="*">
 
         </TableLayout>
@@ -30,17 +30,13 @@
             android:layout_weight="1"
             android:background="@android:color/holo_purple">
 
-            <RelativeLayout
+            <ImageView
                 android:id="@+id/star"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@mipmap/ic_launcher_round" />
-            </RelativeLayout>
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="0dp"
+                android:padding="0dp"
+                android:src="@mipmap/ic_launcher_round" />
 
         </RelativeLayout>
 
