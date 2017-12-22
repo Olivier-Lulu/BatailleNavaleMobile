@@ -4,12 +4,13 @@ import android.app.Activity;
 import android.content.ClipData;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.PlateauVue;
 
 public class InitPartieActivity extends Activity implements Controleur {
-    private Plateau p;
+    private PlateauVue p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class InitPartieActivity extends Activity implements Controleur {
             }
 
         });
-        p = new Plateau(5,5,this,this);
+        p = new PlateauVue(5,5,this,this);
     }
 
     @Override

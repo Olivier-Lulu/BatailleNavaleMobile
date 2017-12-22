@@ -7,7 +7,8 @@ import android.view.View;
  */
 
 public interface Controleur {
-    boolean canHoastBoat(int x,int y);
 
+    boolean canHostBoat(int x,int y);
     void obtaineBoat(View boat, int xCell, int yCell);
+
 }

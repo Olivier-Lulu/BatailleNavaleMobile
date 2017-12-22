@@ -18,7 +18,7 @@ import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.Controleur
  * Created by Simon on 18/12/2017.
  */
 
-public class Plateau {
+public class PlateauVue {
     private RelativeLayout[][] cells;
     private Controleur controleur;
 
@@ -85,19 +85,17 @@ public class Plateau {
                     if (controleur.canHostBoat((int)v.getTag(R.id.X),(int)v.getTag(R.id.Y))) {
                         //la case peut accepter un bateau, ajoute un liserait vert
                         v.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
-                        //v.setBackgroundColor(Color.GREEN);
                         v.invalidate();
                         return true;
                     }else{
                         //la case n'accepte pas , ajout d'un liserait rouge
-                        //v.setBackgroundColor(Color.RED);
                         v.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
                         v.invalidate();
                         return false;
                     }
 
                 case DragEvent.ACTION_DRAG_ENTERED:
-                    // ajout changement en vert plus foncer pour marquer que l'on est bien dans la case
+                    //TODO ajout changement en vert plus foncer pour marquer que l'on est bien dans la case
                     v.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
                     v.invalidate();
                     return true;
@@ -116,7 +114,6 @@ public class Plateau {
                     return true;
 
                 case DragEvent.ACTION_DRAG_ENDED:
-                    //v.setBackgroundColor(Color.BLUE);
                     v.setBackgroundTintList(null);
                     v.invalidate();
                     return true;
