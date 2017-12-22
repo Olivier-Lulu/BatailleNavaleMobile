@@ -1,4 +1,4 @@
-package com.mobile.bataillenavale.lulu.bataillenavalemobile.jeu;
+package com.mobile.bataillenavale.lulu.bataillenavalemobile.vue;
 
 import android.content.ClipData;
 import android.content.res.ColorStateList;
@@ -12,6 +12,7 @@ import android.widget.TableRow;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.InitPartieActivity;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.Controleur;
 
 /**
  * Created by Simon on 18/12/2017.

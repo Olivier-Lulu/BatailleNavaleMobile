@@ -2,16 +2,8 @@ package com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur;
 
 import android.app.Activity;
 import android.content.ClipData;
-import android.content.ClipDescription;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.DragEvent;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.PlateauVue;

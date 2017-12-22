@@ -9,11 +9,8 @@ import android.view.View;
 
 public class BateauVue extends View {
 
-
     public BateauVue(Context context) {
         super(context);
     }
-
-
 
 }
