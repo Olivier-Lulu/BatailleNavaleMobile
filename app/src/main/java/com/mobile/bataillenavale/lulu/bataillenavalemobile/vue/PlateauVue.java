@@ -1,4 +1,4 @@
-package com.mobile.bataillenavale.lulu.bataillenavalemobile.jeu;
+package com.mobile.bataillenavale.lulu.bataillenavalemobile.vue;
 
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -11,6 +11,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.InitPartieActivity;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.Controleur;
 
 /**
  * Created by Simon on 18/12/2017.
@@ -20,7 +22,7 @@ public class Plateau {
     private RelativeLayout[][] cells;
     private Controleur controleur;
 
-    public Plateau(int x, int y, MainActivity activity,Controleur controleur){
+    public PlateauVue(int x, int y, InitPartieActivity activity, Controleur controleur){
         if(x<0 || y<0)
             throw new IllegalArgumentException("taille negative");
         if(x>99)

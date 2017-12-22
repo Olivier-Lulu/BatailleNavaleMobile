@@ -1,5 +1,7 @@
 package com.mobile.bataillenavale.lulu.bataillenavalemobile.modele;
 
+import android.view.View;
+
 import java.util.Vector;
 
 /**
@@ -8,6 +10,7 @@ import java.util.Vector;
 
 public class Bateau {
 
+    private int id;
     private int taille;
     private int PVrestants;
     private Vector<Integer>[] positions;

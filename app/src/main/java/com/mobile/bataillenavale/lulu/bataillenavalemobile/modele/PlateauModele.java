@@ -8,12 +8,20 @@ import java.util.Vector;
  */
 
 public class PlateauModele {
-    private boolean[][] surface;
+
+    private boolean[][] surfacePendantJeu;
+    private boolean[][] surfaceInitPartie;
     private LinkedList<Bateau> bateaux;
 
     public PlateauModele(int tailleX, int tailleY){
-        surface = new boolean[tailleX][tailleY];
+        surfacePendantJeu = new boolean[tailleX][tailleY];
+        surfaceInitPartie = new boolean[tailleX][tailleY];
         bateaux = new LinkedList<Bateau>();
+        for (int x=0; x<tailleX; x++)
+            for (int y=0; y<tailleY; y++){
+                surfaceInitPartie[x][y] = true;
+                surfacePendantJeu[x][y] = false;
+            }
     }
 
     /*
@@ -21,7 +29,7 @@ public class PlateauModele {
      * 1 pour touche et 2 pour touche coule
      */
     public int touche(Vector<Integer> cible) {
-        if (surface[cible.elementAt(0)][cible.elementAt(0)])
+        if (surfacePendantJeu[cible.elementAt(0)][cible.elementAt(0)])
             return -1;
         for (Bateau bateauCourant : bateaux)
             if (bateauCourant.touche(cible))
@@ -30,5 +38,9 @@ public class PlateauModele {
                 else
                     return 1;
         return 0;
+    }
+
+    public boolean caseEstLibre(int coordX, int coordY){
+        return surfaceInitPartie[coordX][coordY];
     }
 }
