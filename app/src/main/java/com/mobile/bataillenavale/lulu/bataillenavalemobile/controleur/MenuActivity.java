@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.placement.InitPartieActivity;
 
 public class MenuActivity extends Activity {
 
