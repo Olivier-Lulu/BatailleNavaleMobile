@@ -1,4 +1,4 @@
-package com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur;
+package com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.partie;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -21,11 +21,5 @@ public class JeuActivity extends Activity {
         super.onCreate(savedInstanceState);
     }
 
-    public int tir(Joueur joueurCourant, Vector<Integer>cible){
-        if (joueurCourant.getId() == joueur1.getId())
-            return joueur2.recevoirTir(cible);
-        else
-            return joueur1.recevoirTir(cible);
-    }
 
 }

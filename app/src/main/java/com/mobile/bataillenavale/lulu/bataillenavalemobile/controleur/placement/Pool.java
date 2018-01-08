@@ -1,12 +1,16 @@
 package com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.placement;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.SparseArray;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.partie.JeuActivity;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Joueur;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement.BateauVue;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement.PlateauVue;
 
 
 /**
@@ -17,8 +21,9 @@ public class Pool {
     private SparseArray<BateauVue> bateaux;
     private LinearLayout pool;
     private Button finish = null;
+    private InitPartieActivity initialiseur;
 
-    public Pool(int nbTorpilleur, int nbContreTorpilleur, int nbCroiseur, int nbPorteAvion, Activity activity,Controleur controleur){
+    public Pool(int nbTorpilleur, int nbContreTorpilleur, int nbCroiseur, int nbPorteAvion, Activity activity, Controleur controleur){
         int nbBateau = 0;
         bateaux = new SparseArray<>();
         pool = (LinearLayout) activity.findViewById(R.id.pool);
@@ -61,6 +66,8 @@ public class Pool {
 
         Button rotate = (Button) activity.findViewById(R.id.rotate);
         rotate.setOnClickListener(v -> rotate());
+
+        initialiseur = (InitPartieActivity) activity;
     }
 
     public BateauVue getBoat(int key){
@@ -88,11 +95,14 @@ public class Pool {
         return true;
     }
 
-    public void addFinishButton(Activity activity) {
+    public void addFinishButton(Activity activity, Joueur joueur) {
         Button b = new Button(activity);
-        b.setText("start");
-        b.setOnClickListener(v -> System.out.println("finish"));
+        b.setText("Pret !");
+        b.setOnClickListener(v -> activity.startActivity(new Intent(activity.getApplicationContext(), JeuActivity.class)));
         finish = b;
         pool.addView(finish);
     }
+
+
+
 }

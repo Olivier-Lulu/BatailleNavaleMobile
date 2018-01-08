@@ -6,8 +6,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Joueur;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement.BateauVue;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement.PlateauVue;
 
@@ -75,8 +77,11 @@ public class InitPartieActivity extends Activity implements Controleur {
         else
             for(int y = yCell; y<yCell+size;y++)
                 p.addView(xCell,y,b.getParts(y-yCell));
-        if(pool.isEmpty())
-            pool.addFinishButton(this);
+
+        if(pool.isEmpty()) {
+            Joueur joueur = new Joueur(new PlateauVue(p.getXSize(), p.getYSize(), this, this), p);
+            pool.addFinishButton(this, joueur);
+        }
     }
 
     @Override
@@ -102,4 +107,5 @@ public class InitPartieActivity extends Activity implements Controleur {
             for(int y = yCell; y<yCell+size;y++)
                 p.tint(xCell,y,enter);
     }
+
 }

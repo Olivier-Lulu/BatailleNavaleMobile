@@ -150,4 +150,15 @@ public class PlateauVue {
             }
         }
     }
+
+    public int getXSize () {
+        return cells.length;
+    }
+
+    public int getYSize () {
+        return cells[0].length;
+    }
+
+
+
 }

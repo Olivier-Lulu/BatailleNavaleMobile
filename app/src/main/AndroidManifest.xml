@@ -24,5 +24,6 @@
         <activity android:name=".controleur.ParametresActivity" android:hardwareAccelerated="true">
         </activity>
 
+
     </application>
 </manifest>
