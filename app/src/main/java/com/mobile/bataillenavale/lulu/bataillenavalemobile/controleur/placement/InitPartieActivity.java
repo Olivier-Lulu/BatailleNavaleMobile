@@ -6,10 +6,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Joueur;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Humain;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement.BateauVue;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement.PlateauVue;
 
@@ -38,9 +37,11 @@ public class InitPartieActivity extends Activity implements Controleur {
         p = new PlateauVue(x,y,this,this);
     }
 
+    /*
+    definie si la case x,y peut accepter la tete du bateau boat
+     */
     @Override
     public boolean canHostBoat(View boat,int x, int y) {
-        //TODO verif par le modele ?
         int id = (int) boat.getTag(R.id.BoatID);
         int size = pool.getBoat(id).getSize();
         int direction = pool.getBoat(id).getDirection();
@@ -61,9 +62,11 @@ public class InitPartieActivity extends Activity implements Controleur {
         }
     }
 
+    /*
+    ajoute un bateau au plateau, en partant des coordonée xCell,yCell
+     */
     @Override
-    public void obtaineBoat(View boat, int xCell, int yCell) {
-        //TODO ajout dans le modele
+    public void obtainBoat(View boat, int xCell, int yCell) {
         ViewGroup parent = (ViewGroup) boat.getParent();
         parent.removeView(boat);
         int id = (int) boat.getTag(R.id.BoatID);
@@ -79,20 +82,29 @@ public class InitPartieActivity extends Activity implements Controleur {
                 p.addView(xCell,y,b.getParts(y-yCell));
 
         if(pool.isEmpty()) {
-            Joueur joueur = new Joueur(new PlateauVue(p.getXSize(), p.getYSize(), this, this), p);
-            pool.addFinishButton(this, joueur);
+            Humain humain = new Humain(new PlateauVue(p.getXSize(), p.getYSize(), this, this), p);
+            pool.addFinishButton(this, humain);
         }
     }
 
+    /*
+    supprime un bateau du plateau
+     */
     @Override
     public void removeBoat(int id) {
-        //TODO ajout dans le modele
         BateauVue b = pool.getBoat(id);
-        for(int i = 0;i<b.getSize();i++)
-            p.removeView(b.getParts(i));
+        if(b.getDirection() == BateauVue.HORIZONTAL)
+            for(int i = 0;i<b.getSize();i++)
+                p.removeView(b.getParts(i),b.getX()-i,b.getY());
+        else
+            for(int i = 0;i<b.getSize();i++)
+                p.removeView(b.getParts(i),b.getX(),b.getY()+i);
         pool.returnPool(id);
     }
 
+    /*
+    donne une tinte sombre aux au case sous le bateau
+     */
     @Override
     public void tint(View boat, int xCell, int yCell,boolean enter){
         int id = (int) boat.getTag(R.id.BoatID);

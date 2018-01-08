@@ -217,6 +217,14 @@ public class BateauVue{
         return parts[n];
     }
 
+    public int getX(){
+        return x;
+    }
+
+    public int getY(){
+        return y;
+    }
+
     public void setDirection(int direction){
         if(direction != HORIZONTAL && direction != VERTICAL)
             throw new IllegalArgumentException("direction inconnue");

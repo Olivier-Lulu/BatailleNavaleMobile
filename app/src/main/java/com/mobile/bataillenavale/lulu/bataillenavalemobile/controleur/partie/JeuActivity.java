@@ -3,9 +3,7 @@ package com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.partie;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Joueur;
-
-import java.util.Vector;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Humain;
 
 /**
  * Created by lulu on 20/12/17.
@@ -13,8 +11,8 @@ import java.util.Vector;
 
 public class JeuActivity extends Activity {
 
-    private Joueur joueur1;
-    private Joueur joueur2;
+    private Humain humain1;
+    private Humain humain2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

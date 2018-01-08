@@ -1,25 +1,16 @@
 package com.mobile.bataillenavale.lulu.bataillenavalemobile.modele;
 
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.partie.JeuActivity;
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.placement.Controleur;
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.placement.InitPartieActivity;
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement.PlateauVue;
-
 import java.util.Vector;
 
 /**
- * Created by lulu on 11/12/17.
+ * Created by simon on 08/01/18.
  */
 
-public class Joueur {
+public interface Joueur {
 
-    private int id;
-    private PlateauVue plateauModeleJoueur;
-    private PlateauVue plateauModeleAdverse;
+    boolean toucher(int x, int y);
 
-    public Joueur(PlateauVue plateauAdverse, PlateauVue plateauJoueur) {
-        plateauModeleJoueur = plateauJoueur;
-        plateauModeleAdverse = plateauAdverse;
-    }
+    Vector<Integer> tirer();
 
+    void reponse(int x, int y, boolean toucher);
 }

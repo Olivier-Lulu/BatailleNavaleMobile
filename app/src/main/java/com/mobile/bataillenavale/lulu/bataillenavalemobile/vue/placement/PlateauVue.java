@@ -1,9 +1,7 @@
 package com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement;
 
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.View;
@@ -53,7 +51,6 @@ public class PlateauVue {
 
     public void addView(int x, int y, View v) {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(cells[x][y].getWidth(),cells[x][y].getHeight());
-        //du cheat bien degeu mais bon
         if(!dejaExec) {
             for (RelativeLayout[] rs : cells)
                 for (RelativeLayout layout : rs) {
@@ -69,10 +66,8 @@ public class PlateauVue {
         return cells[x][y].getChildCount() == 0;
     }
 
-    public void removeView(View v) {
-        for(RelativeLayout[] rs: cells)
-            for(RelativeLayout layout: rs)
-                layout.removeView(v);
+    public void removeView(View v,int x,int y) {
+        cells[x][y].removeView(v);
     }
 
     public void tint(int xCell, int yCell,boolean enter) {
@@ -100,6 +95,15 @@ public class PlateauVue {
         cells[xCell][yCell].invalidate();
     }
 
+    /*
+    remet tout les backgrounds a bleu
+     */
+    private void allBlue(){
+        for(RelativeLayout[] rs: cells)
+            for(RelativeLayout layout: rs)
+                layout.setBackgroundColor(Color.BLUE);
+    }
+
     public class dragBoat implements View.OnDragListener {
 
         public boolean onDrag(View v, DragEvent event) {
@@ -116,12 +120,10 @@ public class PlateauVue {
                     if (controleur.canHostBoat(dragData,(int)v.getTag(R.id.X),(int)v.getTag(R.id.Y))) {
                         //la case peut accepter un bateau, ajoute un liserait vert
                         v.setBackgroundColor(Color.GREEN);
-                        v.invalidate();
                         return true;
                     }else{
                         //la case n'accepte pas , ajout d'un liserait rouge
                         v.setBackgroundColor(Color.RED);
-                        v.invalidate();
                         return false;
                     }
 
@@ -137,12 +139,11 @@ public class PlateauVue {
                     return true;
 
                 case DragEvent.ACTION_DROP:
-                    controleur.obtaineBoat(dragData,(int)v.getTag(R.id.X),(int)v.getTag(R.id.Y));
+                    controleur.obtainBoat(dragData,(int)v.getTag(R.id.X),(int)v.getTag(R.id.Y));
+                    allBlue();
                     return true;
 
                 case DragEvent.ACTION_DRAG_ENDED:
-                    v.setBackgroundColor(Color.BLUE);
-                    v.invalidate();
                     return true;
 
                 default:
