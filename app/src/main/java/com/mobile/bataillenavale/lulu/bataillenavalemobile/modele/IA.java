@@ -8,10 +8,17 @@ import java.util.Vector;
  */
 
 public class IA implements Joueur {
-    Boolean[][] monPlauteau;
-    Boolean[][] adverse;
-    Vector<Integer> dernierCoup;
-    int derniereDirection;
+    private Boolean[][] monPlauteau;
+    private int[][] adverse;
+    //0 non decouvert
+    //1 toucher
+    //2 couler
+    private Vector<Integer> dernierCoup = null;
+
+    public IA(int x, int y){
+        monPlauteau = new Boolean[x][y];
+        adverse = new int[x][y];
+    }
 
     public boolean toucher(int x, int y){
         if(monPlauteau[x][y]) {
@@ -22,19 +29,62 @@ public class IA implements Joueur {
     }
 
     public Vector<Integer> tirer(){
-        int x = dernierCoup.get(0);
-        int y = dernierCoup.get(1);
-        if(adverse[x][y]){
-            if(Math.random()<0.5){
-
-            }else{
-
+        int x;
+        int y;
+        if(dernierCoup != null) {
+            x = dernierCoup.get(0);
+            y = dernierCoup.get(1);
+            if (adverse[x][y] == 1) {
+                double direction = Math.random();
+                if (direction > 0.75) {
+                    //haut
+                    if (y > 0 && adverse[x][y - 1] == 0) {
+                        dernierCoup = new Vector<>();
+                        dernierCoup.add(0, x);
+                        dernierCoup.add(1, y - 1);
+                        return dernierCoup;
+                    }
+                } else if (direction > 0.5) {
+                    //droite
+                    if (x + 1 < adverse.length && adverse[x + 1][y] == 0) {
+                        dernierCoup = new Vector<>();
+                        dernierCoup.add(0, x + 1);
+                        dernierCoup.add(1, y);
+                        return dernierCoup;
+                    }
+                } else if (direction > 0.25) {
+                    //bas
+                    if (y + 1 < adverse[0].length && adverse[x][y + 1] == 0) {
+                        dernierCoup = new Vector<>();
+                        dernierCoup.add(0, x);
+                        dernierCoup.add(1, y + 1);
+                        return dernierCoup;
+                    }
+                } else {
+                    //gauche
+                    if (x > adverse.length && adverse[x - 1][y] == 0) {
+                        dernierCoup = new Vector<>();
+                        dernierCoup.add(0, x - 1);
+                        dernierCoup.add(1, y);
+                        return dernierCoup;
+                    }
+                }
             }
         }
-        return null;
+        do {
+            x = (int) (Math.random() * adverse.length);
+            y = (int) (Math.random() * adverse[0].length);
+        }while(adverse[x][y] != 0);
+        dernierCoup = new Vector<>();
+        dernierCoup.add(0,x);
+        dernierCoup.add(1,y);
+        return dernierCoup;
     }
 
     public void reponse(int x, int y, boolean toucher){
-        adverse[x][y] = toucher;
+        if (toucher)
+            adverse[x][y] = 1;
+        else
+            adverse[x][y] = 2;
     }
 }
