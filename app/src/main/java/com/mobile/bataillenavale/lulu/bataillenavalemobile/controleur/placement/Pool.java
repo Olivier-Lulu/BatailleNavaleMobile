@@ -8,8 +8,10 @@ import android.widget.LinearLayout;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.jeu.EcranAdverseActivity;
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Humain;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Bateau;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.BateauVue;
+
+import java.util.List;
 
 
 /**
@@ -22,10 +24,35 @@ public class Pool {
     private Button finish = null;
     private InitPartieActivity initialiseur;
 
-    public Pool(int nbTorpilleur, int nbContreTorpilleur, int nbCroiseur, int nbPorteAvion, Activity activity, ControleurPlacement controleurPlacement){
+    public Pool(int nbTorpilleur, int nbContreTorpilleur, int nbCroiseur, int nbPorteAvion, Activity activity, ControleurPlacement controleurPlacement, List<Bateau> bateauxPlateau){
         int nbBateau = 0;
         bateaux = new SparseArray<>();
         pool = (LinearLayout) activity.findViewById(R.id.pool);
+        initialiseur = (InitPartieActivity) activity;
+
+        for(Bateau bateau: bateauxPlateau){
+            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
+            param.setMargins(5,5,5,5);
+            BateauVue b =  new BateauVue(bateau.getType(), nbBateau, activity, controleurPlacement);
+            bateaux.put(nbBateau,b);
+            nbBateau++;
+            b.setDirection(bateau.getDirection());
+            initialiseur.putBoat(b,bateau.getX(),bateau.getY());
+            switch(bateau.getType()){
+                case Bateau.TORPILLEUR:
+                    nbTorpilleur--;
+                    break;
+                case Bateau.CONTRE_TORPILLEUR:
+                    nbContreTorpilleur--;
+                    break;
+                case Bateau.CROISEUR:
+                    nbCroiseur--;
+                    break;
+                case Bateau.PORTE_AVION:
+                    nbPorteAvion--;
+                    break;
+            }
+        }
 
         for(int i=0;i<nbTorpilleur;++i) {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
@@ -65,8 +92,6 @@ public class Pool {
 
         Button rotate = (Button) activity.findViewById(R.id.rotate);
         rotate.setOnClickListener(v -> rotate());
-
-        initialiseur = (InitPartieActivity) activity;
     }
 
     public BateauVue getBoat(int key){

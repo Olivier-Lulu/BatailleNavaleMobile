@@ -32,4 +32,8 @@ public class Humain extends Joueur{
     public void poser (int x, int y, int direction, int type) {
         plateauModele.poser(x, y, direction, type);
     }
+
+    public void remove(int x, int y) {
+        plateauModele.supprimerBateau(x,y);
+    }
 }

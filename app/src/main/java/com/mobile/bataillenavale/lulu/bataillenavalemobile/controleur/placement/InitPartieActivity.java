@@ -8,10 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Humain;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Bateau;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Modele;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.BateauVue;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement.PlateauPlacement;
+
+import java.util.List;
 
 public class InitPartieActivity extends Activity implements ControleurPlacement {
     private PlateauPlacement p;
@@ -24,20 +26,33 @@ public class InitPartieActivity extends Activity implements ControleurPlacement 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initpartie);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         SharedPreferences option = getSharedPreferences(getString(R.string.preference_file_initPartie), Context.MODE_PRIVATE);
 
-        x = option.getInt(getString(R.string.largeurPlateau), 0);
-        y = option.getInt(getString(R.string.hauteurPlateau),0);
+        x = option.getInt(getString(R.string.largeurPlateau), 3);
+        y = option.getInt(getString(R.string.hauteurPlateau),3);
 
-        int nbTorpilleur = option.getInt(getString(R.string.nbBateau2), 0);
-        int nbContreTorpilleur = option.getInt(getString(R.string.nbBateau3), 0);
-        int nbCroiseur = option.getInt(getString(R.string.nbBateau4), 0);
-        int nbPorteAvion = option.getInt(getString(R.string.nbBateau5), 0);
+        p = new PlateauPlacement(x,y,this,this);
+
+        int nbTorpilleur = option.getInt(getString(R.string.nbBateau2), 1);
+        int nbContreTorpilleur = option.getInt(getString(R.string.nbBateau3), 1);
+        int nbCroiseur = option.getInt(getString(R.string.nbBateau4), 1);
+        int nbPorteAvion = option.getInt(getString(R.string.nbBateau5), 1);
 
         controleurModele = Modele.getInstanceInit(x, y, nbTorpilleur, nbContreTorpilleur, nbCroiseur, nbPorteAvion);
-        pool = new Pool(nbTorpilleur,nbContreTorpilleur,nbCroiseur,nbPorteAvion,this,this);
-        p = new PlateauPlacement(x,y,this,this);
+
+        List<Bateau> bateaux = controleurModele.getListeBateaux();
+
+        pool = new Pool(nbTorpilleur,nbContreTorpilleur,nbCroiseur,nbPorteAvion,this,this, bateaux);
+
+        if(pool.isEmpty()) {
+            pool.addFinishButton(this);
+        }
     }
 
     /*
@@ -74,8 +89,8 @@ public class InitPartieActivity extends Activity implements ControleurPlacement 
         parent.removeView(boat);
         int id = (int) boat.getTag(R.id.BoatID);
         BateauVue b = pool.getBoat(id);
-        int size = b.getSize();
         int direction = b.getDirection();
+        int size = b.getSize();
         b.setCoord(xCell,yCell);
         if(direction == BateauVue.HORIZONTAL)
             for(int x = xCell; x>xCell-size;x--)
@@ -83,12 +98,22 @@ public class InitPartieActivity extends Activity implements ControleurPlacement 
         else
             for(int y = yCell; y<yCell+size;y++)
                 p.addView(xCell,y,b.getParts(y-yCell));
-
         controleurModele.poser(xCell, yCell, direction, b.getSize());
-
         if(pool.isEmpty()) {
             pool.addFinishButton(this);
         }
+    }
+
+    public void putBoat(BateauVue b, int xCell, int yCell){
+        int size = b.getSize();
+        int direction = b.getDirection();
+        b.setCoord(xCell,yCell);
+        if(direction == BateauVue.HORIZONTAL)
+            for(int x = xCell; x>xCell-size;x--)
+                p.addView2(x,yCell,b.getParts(xCell-x));
+        else
+            for(int y = yCell; y<yCell+size;y++)
+                p.addView2(xCell,y,b.getParts(y-yCell));
     }
 
     /*
@@ -103,6 +128,9 @@ public class InitPartieActivity extends Activity implements ControleurPlacement 
         else
             for(int i = 0;i<b.getSize();i++)
                 p.removeView(b.getParts(i),b.getX(),b.getY()+i);
+
+        controleurModele.remove(b.getX(),b.getY());
+
         pool.returnPool(id);
     }
 
@@ -115,7 +143,6 @@ public class InitPartieActivity extends Activity implements ControleurPlacement 
         BateauVue b = pool.getBoat(id);
         int size = b.getSize();
         int direction = b.getDirection();
-        b.setCoord(xCell,yCell);
         if(direction == BateauVue.HORIZONTAL)
             for(int x = xCell; x>xCell-size;x--)
                 p.tint(x,yCell,enter);

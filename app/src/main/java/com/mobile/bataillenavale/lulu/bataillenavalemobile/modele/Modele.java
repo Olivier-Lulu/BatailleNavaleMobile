@@ -54,4 +54,8 @@ public class Modele {
     public List<Bateau> getListeBateaux() {
         return humain.getListeBateaux();
     }
+
+    public void remove(int x, int y) {
+        humain.remove(x,y);
+    }
 }

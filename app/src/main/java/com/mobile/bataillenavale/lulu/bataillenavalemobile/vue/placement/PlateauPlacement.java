@@ -41,21 +41,18 @@ public class PlateauPlacement {
                 TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT);
                 params.setMargins(1,1,1,1);
                 row.addView(cell,xi,params);
-                cell.setOnDragListener(new dragBoat());
+                cell.setOnDragListener(new dragBoat(xi,yi));
                 cell.setGravity(Gravity.CENTER);
                 cell.setBackgroundColor(Color.BLUE);
-                cell.setId(View.generateViewId());
-                cell.setTag(R.id.X,xi);
-                cell.setTag(R.id.Y,yi);
                 cells[xi][yi] = cell;
             }
             table.addView(row,new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT,1f));
         }
     }
 
-
     public void addView(int x, int y, View v) {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(cells[x][y].getWidth(),cells[x][y].getHeight());
+        //RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
         if(!dejaExec) {
             for (RelativeLayout[] rs : cells)
                 for (RelativeLayout layout : rs) {
@@ -64,6 +61,12 @@ public class PlateauPlacement {
                 }
             dejaExec = true;
         }
+        cells[x][y].addView(v,params);
+    }
+
+
+    public void addView2(int x, int y, View v) {
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT);
         cells[x][y].addView(v,params);
     }
 
@@ -100,16 +103,16 @@ public class PlateauPlacement {
         cells[xCell][yCell].invalidate();
     }
 
-    /*
-    remet tout les backgrounds a bleu
-     */
-    private void allBlue(){
-        for(RelativeLayout[] rs: cells)
-            for(RelativeLayout layout: rs)
-                layout.setBackgroundColor(Color.BLUE);
-    }
-
     public class dragBoat implements View.OnDragListener {
+        private int x;
+        private int y;
+        private boolean accept;
+
+        public dragBoat(int x, int y){
+            super();
+            this.x = x;
+            this.y = y;
+        }
 
         public boolean onDrag(View v, DragEvent event) {
 
@@ -122,33 +125,37 @@ public class PlateauPlacement {
                 case DragEvent.ACTION_DRAG_STARTED:
 
                     //on ne drag qu'un type de truc donc on a juste a tester si la cas est deja pris
-                    if (controleurPlacement.canHostBoat(dragData,(int)v.getTag(R.id.X),(int)v.getTag(R.id.Y))) {
+                    if (controleurPlacement.canHostBoat(dragData,x,y)) {
                         //la case peut accepter un bateau, ajoute un liserait vert
                         v.setBackgroundColor(Color.GREEN);
-                        return true;
+                        accept = true;
                     }else{
                         //la case n'accepte pas , ajout d'un liserait rouge
                         v.setBackgroundColor(Color.RED);
-                        return false;
+                        accept = false;
                     }
+                    return true;
 
                 case DragEvent.ACTION_DRAG_ENTERED:
-                    controleurPlacement.tint(dragData,(int)v.getTag(R.id.X),(int)v.getTag(R.id.Y),true);
+                    if (accept)
+                        controleurPlacement.tint(dragData,x,y,true);
                     return true;
 
                 case DragEvent.ACTION_DRAG_LOCATION:
                     return true;
 
                 case DragEvent.ACTION_DRAG_EXITED:
-                    controleurPlacement.tint(dragData,(int)v.getTag(R.id.X),(int)v.getTag(R.id.Y),false);
+                    if (accept)
+                        controleurPlacement.tint(dragData,x,y,false);
                     return true;
 
                 case DragEvent.ACTION_DROP:
-                    controleurPlacement.obtainBoat(dragData,(int)v.getTag(R.id.X),(int)v.getTag(R.id.Y));
-                    allBlue();
+                    if (accept)
+                        controleurPlacement.obtainBoat(dragData,x,y);
                     return true;
 
                 case DragEvent.ACTION_DRAG_ENDED:
+                    v.setBackgroundColor(Color.BLUE);
                     return true;
 
                 default:

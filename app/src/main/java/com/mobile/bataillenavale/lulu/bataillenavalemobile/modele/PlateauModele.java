@@ -39,9 +39,14 @@ public class PlateauModele {
     }
 
     public void supprimerBateau (int x, int y){
+        Bateau aSupprimer = null;
         for (Bateau curseur : bateaux)
-            if (curseur.estIci(x, y))
-                bateaux.remove(curseur);
+            if (curseur.estIci(x, y)){
+                aSupprimer = curseur;
+                break;
+            }
+        if(aSupprimer != null)
+            bateaux.remove(aSupprimer);
     }
 
     public int getSizeX() {

@@ -51,7 +51,6 @@ public class PlateauJeu {
                 row.addView(cell,xi,params);
                 cell.setGravity(Gravity.CENTER);
                 cell.setBackgroundColor(Color.BLUE);
-                cell.setId(View.generateViewId());
                 cell.setTag(R.id.X,xi);
                 cell.setTag(R.id.Y,yi);
 
