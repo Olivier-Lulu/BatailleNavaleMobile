@@ -103,7 +103,7 @@ public class InitPartieActivity extends Activity implements Controleur {
     }
 
     /*
-    donne une tinte sombre aux au case sous le bateau
+    donne une tinte sombre aux au cases sous le bateau
      */
     @Override
     public void tint(View boat, int xCell, int yCell,boolean enter){

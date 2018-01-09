@@ -15,9 +15,14 @@ public class IA implements Joueur {
     //2 couler
     private Vector<Integer> dernierCoup = null;
 
-    public IA(int x, int y){
-        monPlauteau = new Boolean[x][y];
-        adverse = new int[x][y];
+    public IA(int tailleX, int tailleY, int nbTorpilleur, int nbContreTorpilleur, int nbCroiseur, int nbPorteAvion){
+        monPlauteau = new Boolean[tailleX][tailleY];
+        adverse = new int[tailleX][tailleY];
+        boolean ok = true;
+        /*do{
+            for(nbPorteAvion)
+        }while(ok);
+        */
     }
 
     public boolean toucher(int x, int y){
