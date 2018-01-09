@@ -14,10 +14,8 @@ public class IA extends Joueur {
     //2 couler
     private Vector<Integer> dernierCoup = null;
 
-    private IA(){}
-
     public IA(int tailleX, int tailleY, int nbTorpilleur, int nbContreTorpilleur, int nbCroiseur, int nbPorteAvion){
-        super();
+        super(tailleX, tailleY);
         adverse = new int[tailleX][tailleY];
         Runnable run = new initPlateau(plateauModele,nbTorpilleur,nbContreTorpilleur,nbCroiseur,nbPorteAvion,tailleX,tailleY);
         Thread t = new Thread(run);

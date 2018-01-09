@@ -12,7 +12,9 @@ public class PlateauModele {
     private int sizeY;
     private List<Bateau> bateaux;
 
-    public PlateauModele (){
+    public PlateauModele (int x, int y){
+        sizeX = x;
+        sizeY = y;
         bateaux = new LinkedList<Bateau>();
     }
 
@@ -40,5 +42,17 @@ public class PlateauModele {
         for (Bateau curseur : bateaux)
             if (curseur.estIci(x, y))
                 bateaux.remove(curseur);
+    }
+
+    public int getSizeX() {
+        return sizeX;
+    }
+
+    public int getSizeY() {
+        return sizeY;
+    }
+
+    public List<Bateau> getListeBateaux() {
+        return bateaux;
     }
 }

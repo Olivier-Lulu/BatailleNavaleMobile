@@ -1,9 +1,8 @@
-package com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement;
+package com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.jeu;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.View;
@@ -12,23 +11,25 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.placement.InitPartieActivity;
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.placement.ControleurPlacement;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Bateau;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.BateauVue;
+
+import java.util.List;
+
+import static com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.BateauVue.VERTICAL;
 
 /**
  * Created by Simon on 18/12/2017.
  */
 
-public class PlateauVue{
+public class PlateauJeu {
     private RelativeLayout[][] cells;
-    private ControleurPlacement controleurPlacement;
     private boolean dejaExec = false;
 
-    public PlateauVue(int x, int y, InitPartieActivity activity, ControleurPlacement controleurPlacement){
+    public PlateauJeu(int x, int y, Activity activity, int id){
         if(x<0 || y<0)
             throw new IllegalArgumentException("taille negative");
-        this.controleurPlacement = controleurPlacement;
-        TableLayout table = (TableLayout) activity.findViewById(R.id.table);
+        TableLayout table = (TableLayout) activity.findViewById(id);
         cells = new RelativeLayout[x][y];
         for(int yi=0;yi<y;yi++) {
             TableRow row = new TableRow(activity.getApplicationContext());
@@ -39,7 +40,6 @@ public class PlateauVue{
                 TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT);
                 params.setMargins(1,1,1,1);
                 row.addView(cell,xi,params);
-                cell.setOnDragListener(new dragBoat());
                 cell.setGravity(Gravity.CENTER);
                 cell.setBackgroundColor(Color.BLUE);
                 cell.setId(View.generateViewId());
@@ -51,6 +51,23 @@ public class PlateauVue{
         }
     }
 
+    public PlateauJeu (int x, int y, Activity activity, int id, List<Bateau> listeBateaux){
+        this(x, y, activity, id);
+
+        for (Bateau curseur : listeBateaux) {
+            int type = curseur.getType();
+            int direction = curseur.getDirection();
+            int coordX = curseur.getX();
+            int coordY = curseur.getY();
+            BateauVue bateauCourant = new BateauVue(type, 0, activity, null);
+            if (direction == VERTICAL)
+                for (int yBateau = 0; yBateau < type; yBateau++)
+                    cells[coordX][coordY + yBateau].addView(bateauCourant.getParts(yBateau));
+            else
+                for (int xBateau = 0; xBateau < type; xBateau++)
+                    cells[coordX + xBateau][coordY].addView(bateauCourant.getParts(xBateau));
+        }
+    }
 
     public void addView(int x, int y, View v) {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(cells[x][y].getWidth(),cells[x][y].getHeight());
@@ -107,54 +124,6 @@ public class PlateauVue{
                 layout.setBackgroundColor(Color.BLUE);
     }
 
-    public class dragBoat implements View.OnDragListener {
-
-        public boolean onDrag(View v, DragEvent event) {
-
-            int action = event.getAction();
-
-            View dragData = (View) event.getLocalState();
-
-            switch(action) {
-
-                case DragEvent.ACTION_DRAG_STARTED:
-
-                    //on ne drag qu'un type de truc donc on a juste a tester si la cas est deja pris
-                    if (controleurPlacement.canHostBoat(dragData,(int)v.getTag(R.id.X),(int)v.getTag(R.id.Y))) {
-                        //la case peut accepter un bateau, ajoute un liserait vert
-                        v.setBackgroundColor(Color.GREEN);
-                        return true;
-                    }else{
-                        //la case n'accepte pas , ajout d'un liserait rouge
-                        v.setBackgroundColor(Color.RED);
-                        return false;
-                    }
-
-                case DragEvent.ACTION_DRAG_ENTERED:
-                    controleurPlacement.tint(dragData,(int)v.getTag(R.id.X),(int)v.getTag(R.id.Y),true);
-                    return true;
-
-                case DragEvent.ACTION_DRAG_LOCATION:
-                    return true;
-
-                case DragEvent.ACTION_DRAG_EXITED:
-                    controleurPlacement.tint(dragData,(int)v.getTag(R.id.X),(int)v.getTag(R.id.Y),false);
-                    return true;
-
-                case DragEvent.ACTION_DROP:
-                    controleurPlacement.obtainBoat(dragData,(int)v.getTag(R.id.X),(int)v.getTag(R.id.Y));
-                    allBlue();
-                    return true;
-
-                case DragEvent.ACTION_DRAG_ENDED:
-                    return true;
-
-                default:
-                    throw new IllegalArgumentException("DragEvent inconnue");
-            }
-        }
-    }
-
     public int getXSize () {
         return cells.length;
     }
@@ -162,7 +131,5 @@ public class PlateauVue{
     public int getYSize () {
         return cells[0].length;
     }
-
-
 
 }

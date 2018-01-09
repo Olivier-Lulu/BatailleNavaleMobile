@@ -4,4 +4,6 @@
     <item type="id" name="Y" />
     <item type="id" name="BoatID" />
     <item type="id" name="Rotation" />
+    <item type="id" name="tableadverse" />
+    <item type="id" name="tablejoueur" />
 </resources>

@@ -1,4 +1,4 @@
-package com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement;
+package com.mobile.bataillenavale.lulu.bataillenavalemobile.vue;
 
 import android.app.Activity;
 import android.content.ClipData;

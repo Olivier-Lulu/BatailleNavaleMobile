@@ -1,5 +1,9 @@
 package com.mobile.bataillenavale.lulu.bataillenavalemobile.modele;
 
+import android.app.Activity;
+
+import java.util.List;
+
 /**
  * Created by simon on 09/01/18.
  */
@@ -27,7 +31,7 @@ public class Modele {
     }
 
     private Modele(int tailleX, int tailleY, int nbTorpilleur, int nbContreTorpilleur, int nbCroiseur, int nbPorteAvion) {
-        humain = new Humain();
+        humain = new Humain(tailleX, tailleY);
         j2 = new IA(tailleX, tailleY, nbTorpilleur, nbContreTorpilleur, nbCroiseur, nbPorteAvion);
     }
 
@@ -37,5 +41,18 @@ public class Modele {
 
     public void poser (int x, int y, int direction, int type){
         humain.poser(x, y, direction, type);
+    }
+
+    public int getSizeX() {
+        return humain.getSizeX();
+    }
+
+    public int getSizeY() {
+        return humain.getSizeY();
+    }
+
+
+    public List<Bateau> getListeBateaux() {
+        return humain.getListeBateaux();
     }
 }

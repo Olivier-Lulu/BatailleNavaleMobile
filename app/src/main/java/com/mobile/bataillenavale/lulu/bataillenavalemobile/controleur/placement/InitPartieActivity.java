@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Humain;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Modele;
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement.BateauVue;
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement.PlateauVue;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.BateauVue;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement.PlateauPlacement;
 
 public class InitPartieActivity extends Activity implements ControleurPlacement {
-    private PlateauVue p;
+    private PlateauPlacement p;
     private Pool pool;
     private int x;
     private int y;
@@ -35,8 +35,9 @@ public class InitPartieActivity extends Activity implements ControleurPlacement 
         int nbCroiseur = option.getInt(getString(R.string.nbBateau4), 0);
         int nbPorteAvion = option.getInt(getString(R.string.nbBateau5), 0);
 
+        controleurModele = Modele.getInstanceInit(x, y, nbTorpilleur, nbContreTorpilleur, nbCroiseur, nbPorteAvion);
         pool = new Pool(nbTorpilleur,nbContreTorpilleur,nbCroiseur,nbPorteAvion,this,this);
-        p = new PlateauVue(x,y,this,this);
+        p = new PlateauPlacement(x,y,this,this);
     }
 
     /*
@@ -86,8 +87,7 @@ public class InitPartieActivity extends Activity implements ControleurPlacement 
         controleurModele.poser(xCell, yCell, direction, b.getSize());
 
         if(pool.isEmpty()) {
-            Humain humain = new Humain(new PlateauVue(p.getXSize(), p.getYSize(), this, this), p);
-            pool.addFinishButton(this, humain);
+            pool.addFinishButton(this);
         }
     }
 

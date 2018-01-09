@@ -1,4 +1,4 @@
-package com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.partie;
+package com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.jeu;
 
 import android.app.Activity;
 import android.os.Bundle;

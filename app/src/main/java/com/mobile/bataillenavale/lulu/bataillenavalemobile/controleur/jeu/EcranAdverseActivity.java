@@ -1,4 +1,4 @@
-package com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.partie;
+package com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.jeu;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,8 @@ import android.view.View;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.OnSwipeTouchListener;
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement.PlateauVue;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Modele;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.jeu.PlateauJeu;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -16,13 +17,14 @@ import org.jetbrains.annotations.Nullable;
 
 public class EcranAdverseActivity extends BaseEcranJeu {
 
-    private PlateauVue plateau;
+    private PlateauJeu plateau;
+    private Modele controleurModele;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ecranadverse);
-        View root = findViewById(R.id.root);
+        View root = findViewById(R.id.tableadverse);
 
         root.setOnTouchListener(new OnSwipeTouchListener(this){
             @Override
@@ -37,5 +39,9 @@ public class EcranAdverseActivity extends BaseEcranJeu {
                 EcranAdverseActivity.super.onPause();
             }
         });
+
+        controleurModele = Modele.getInstance();
+        plateau = new PlateauJeu(controleurModele.getSizeX(), controleurModele.getSizeY(), this, R.id.tableadverse);
+
     }
 }

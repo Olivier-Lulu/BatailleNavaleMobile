@@ -27,6 +27,22 @@ public class Bateau {
         this.pv = type;
     }
 
+    public int getDirection() {
+        return direction;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
     public void poser(int x, int y, int direction){
         if(direction != VERTICAL && direction != HORIZONTAL)
             throw new IllegalArgumentException("direction inconnue");

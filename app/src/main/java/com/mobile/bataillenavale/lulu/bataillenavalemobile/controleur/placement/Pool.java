@@ -7,9 +7,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.partie.EcranAdverseActivity;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.jeu.EcranAdverseActivity;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Humain;
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement.BateauVue;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.BateauVue;
 
 
 /**
@@ -94,7 +94,7 @@ public class Pool {
         return true;
     }
 
-    public void addFinishButton(Activity activity, Humain humain) {
+    public void addFinishButton(Activity activity) {
         Button b = new Button(activity);
         b.setText("Pret !");
         b.setOnClickListener(v -> clickStart());
