@@ -1,5 +1,6 @@
 package com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.partie;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -27,6 +28,12 @@ public class EcranAdverseActivity extends BaseEcranJeu {
             @Override
             public void onSwipeLeft() {
                 super.onSwipeLeft();
+                System.out.println("swipeleft");
+
+                Intent resumeJoueurActivity = new Intent(EcranAdverseActivity.this, EcranJoueurActivity.class);
+                resumeJoueurActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivityIfNeeded(resumeJoueurActivity, 0);
+
                 EcranAdverseActivity.super.onPause();
             }
         });

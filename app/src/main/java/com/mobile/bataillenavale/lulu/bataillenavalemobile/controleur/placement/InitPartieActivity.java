@@ -12,7 +12,7 @@ import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Humain;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement.BateauVue;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement.PlateauVue;
 
-public class InitPartieActivity extends Activity implements Controleur {
+public class InitPartieActivity extends Activity implements ControleurPlacement {
     private PlateauVue p;
     private Pool pool;
     private int x;

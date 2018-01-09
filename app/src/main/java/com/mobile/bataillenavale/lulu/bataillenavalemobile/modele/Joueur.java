@@ -6,11 +6,14 @@ import java.util.Vector;
  * Created by simon on 08/01/18.
  */
 
-public interface Joueur {
+public abstract class Joueur {
+    private PlateauModele plateauModele;
 
-    boolean toucher(int x, int y);
+    public boolean toucher(int x, int y){
+        return plateauModele.toucher(x, y);
+    }
 
-    Vector<Integer> tirer();
+    abstract public Vector<Integer> tirer();
 
-    void reponse(int x, int y, boolean toucher);
+    abstract public void reponse(int x, int y, boolean toucher);
 }

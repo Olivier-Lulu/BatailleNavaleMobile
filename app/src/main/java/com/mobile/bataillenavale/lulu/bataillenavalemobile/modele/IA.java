@@ -7,8 +7,7 @@ import java.util.Vector;
  * Created by simon on 08/01/18.
  */
 
-public class IA implements Joueur {
-    private PlateauModele plateau;
+public class IA extends Joueur {
     private int[][] adverse;
     //0 non decouvert
     //1 toucher
@@ -16,32 +15,12 @@ public class IA implements Joueur {
     private Vector<Integer> dernierCoup = null;
 
     public IA(int tailleX, int tailleY, int nbTorpilleur, int nbContreTorpilleur, int nbCroiseur, int nbPorteAvion){
-        //monPlauteau = new Boolean[tailleX][tailleY];
         adverse = new int[tailleX][tailleY];
         boolean ok = true;
-
-    }
-
-    private Vector<Integer> trouverPosition(int i) {
-        //int x = (int) (Math.random() * monPlauteau.length);
-        //int y = (int) (Math.random() * monPlauteau[0].length);
-        double direction = Math.random();
-
-        if(direction < 0.5){
-
-        }else{
-
-        }
-        return null;
-
-    }
-
-    public boolean toucher(int x, int y){
-      /*  if(monPlauteau[x][y]) {
-            monPlauteau[x][y] = false;
-            return true;
-        }*/
-        return false;
+        /*do{
+            for(nbPorteAvion)
+        }while(ok);
+        */
     }
 
     public Vector<Integer> tirer(){

@@ -8,11 +8,12 @@ import java.util.Vector;
  * Created by lulu on 11/12/17.
  */
 
-public class Humain implements Joueur{
+public class Humain extends Joueur{
 
     private int id;
     private PlateauVue plateauModeleJoueur;
     private PlateauVue plateauModeleAdverse;
+
 
     public Humain(){
 

@@ -2,6 +2,8 @@ package com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.View;
@@ -11,21 +13,21 @@ import android.widget.TableRow;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.placement.InitPartieActivity;
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.placement.Controleur;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.placement.ControleurPlacement;
 
 /**
  * Created by Simon on 18/12/2017.
  */
 
-public class PlateauVue {
+public class PlateauVue implements Parcelable {
     private RelativeLayout[][] cells;
-    private Controleur controleur;
+    private ControleurPlacement controleurPlacement;
     private boolean dejaExec = false;
 
-    public PlateauVue(int x, int y, InitPartieActivity activity, Controleur controleur){
+    public PlateauVue(int x, int y, InitPartieActivity activity, ControleurPlacement controleurPlacement){
         if(x<0 || y<0)
             throw new IllegalArgumentException("taille negative");
-        this.controleur = controleur;
+        this.controleurPlacement = controleurPlacement;
         TableLayout table = (TableLayout) activity.findViewById(R.id.table);
         cells = new RelativeLayout[x][y];
         for(int yi=0;yi<y;yi++) {
@@ -48,6 +50,22 @@ public class PlateauVue {
             table.addView(row,new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT,1f));
         }
     }
+
+    protected PlateauVue(Parcel in) {
+        dejaExec = in.readByte() != 0;
+    }
+
+    public static final Creator<PlateauVue> CREATOR = new Creator<PlateauVue>() {
+        @Override
+        public PlateauVue createFromParcel(Parcel in) {
+            return new PlateauVue(in);
+        }
+
+        @Override
+        public PlateauVue[] newArray(int size) {
+            return new PlateauVue[size];
+        }
+    };
 
     public void addView(int x, int y, View v) {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(cells[x][y].getWidth(),cells[x][y].getHeight());
@@ -104,6 +122,17 @@ public class PlateauVue {
                 layout.setBackgroundColor(Color.BLUE);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
+        parcel.writeByte((byte) (dejaExec ? 1 : 0));
+    }
+
     public class dragBoat implements View.OnDragListener {
 
         public boolean onDrag(View v, DragEvent event) {
@@ -117,7 +146,7 @@ public class PlateauVue {
                 case DragEvent.ACTION_DRAG_STARTED:
 
                     //on ne drag qu'un type de truc donc on a juste a tester si la cas est deja pris
-                    if (controleur.canHostBoat(dragData,(int)v.getTag(R.id.X),(int)v.getTag(R.id.Y))) {
+                    if (controleurPlacement.canHostBoat(dragData,(int)v.getTag(R.id.X),(int)v.getTag(R.id.Y))) {
                         //la case peut accepter un bateau, ajoute un liserait vert
                         v.setBackgroundColor(Color.GREEN);
                         return true;
@@ -128,18 +157,18 @@ public class PlateauVue {
                     }
 
                 case DragEvent.ACTION_DRAG_ENTERED:
-                    controleur.tint(dragData,(int)v.getTag(R.id.X),(int)v.getTag(R.id.Y),true);
+                    controleurPlacement.tint(dragData,(int)v.getTag(R.id.X),(int)v.getTag(R.id.Y),true);
                     return true;
 
                 case DragEvent.ACTION_DRAG_LOCATION:
                     return true;
 
                 case DragEvent.ACTION_DRAG_EXITED:
-                    controleur.tint(dragData,(int)v.getTag(R.id.X),(int)v.getTag(R.id.Y),false);
+                    controleurPlacement.tint(dragData,(int)v.getTag(R.id.X),(int)v.getTag(R.id.Y),false);
                     return true;
 
                 case DragEvent.ACTION_DROP:
-                    controleur.obtainBoat(dragData,(int)v.getTag(R.id.X),(int)v.getTag(R.id.Y));
+                    controleurPlacement.obtainBoat(dragData,(int)v.getTag(R.id.X),(int)v.getTag(R.id.Y));
                     allBlue();
                     return true;
 

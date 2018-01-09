@@ -6,4 +6,10 @@ package com.mobile.bataillenavale.lulu.bataillenavalemobile.modele;
 
 public class PlateauModele {
     private boolean[][] plateau1;
+
+    public boolean toucher (int x, int y){
+        return false;
+    }
+
+
 }

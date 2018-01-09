@@ -22,7 +22,7 @@ public class Pool {
     private Button finish = null;
     private InitPartieActivity initialiseur;
 
-    public Pool(int nbTorpilleur, int nbContreTorpilleur, int nbCroiseur, int nbPorteAvion, Activity activity, Controleur controleur){
+    public Pool(int nbTorpilleur, int nbContreTorpilleur, int nbCroiseur, int nbPorteAvion, Activity activity, ControleurPlacement controleurPlacement){
         int nbBateau = 0;
         bateaux = new SparseArray<>();
         pool = (LinearLayout) activity.findViewById(R.id.pool);
@@ -30,7 +30,7 @@ public class Pool {
         for(int i=0;i<nbTorpilleur;++i) {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
             param.setMargins(5,5,5,5);
-            BateauVue bateau =  new BateauVue(BateauVue.TORPILLEUR, nbBateau, activity,controleur);
+            BateauVue bateau =  new BateauVue(BateauVue.TORPILLEUR, nbBateau, activity, controleurPlacement);
             bateaux.put(nbBateau,bateau);
             pool.addView(bateau.getComplet(),param);
             nbBateau++;
@@ -39,7 +39,7 @@ public class Pool {
         for(int i=0;i<nbContreTorpilleur;++i) {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
             param.setMargins(5,5,5,5);
-            BateauVue bateau =  new BateauVue(BateauVue.CONTRE_TORPILLEUR, nbBateau, activity,controleur);
+            BateauVue bateau =  new BateauVue(BateauVue.CONTRE_TORPILLEUR, nbBateau, activity, controleurPlacement);
             bateaux.put(nbBateau,bateau);
             pool.addView(bateau.getComplet(),param);
             nbBateau++;
@@ -48,7 +48,7 @@ public class Pool {
         for(int i=0;i<nbCroiseur;++i) {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
             param.setMargins(5,5,5,5);
-            BateauVue bateau =  new BateauVue(BateauVue.CROISEUR, nbBateau, activity,controleur);
+            BateauVue bateau =  new BateauVue(BateauVue.CROISEUR, nbBateau, activity, controleurPlacement);
             bateaux.put(nbBateau,bateau);
             pool.addView(bateau.getComplet(),param);
             nbBateau++;
@@ -57,7 +57,7 @@ public class Pool {
         for(int i=0;i<nbPorteAvion;++i) {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
             param.setMargins(5,5,5,5);
-            BateauVue bateau =  new BateauVue(BateauVue.PORTE_AVION, nbBateau, activity,controleur);
+            BateauVue bateau =  new BateauVue(BateauVue.PORTE_AVION, nbBateau, activity, controleurPlacement);
             bateaux.put(nbBateau,bateau);
             pool.addView(bateau.getComplet(),param);
             nbBateau++;
@@ -103,13 +103,7 @@ public class Pool {
     }
 
     public void clickStart () {
-        //ecriture du modele
-        //lancement de l'activite
-        Intent i = new Intent(initialiseur,EcranAdverseActivity.class);
-
-        initialiseur.startActivity(i);
+        initialiseur.startActivity(new Intent(initialiseur,EcranAdverseActivity.class));
     }
-
-
 
 }

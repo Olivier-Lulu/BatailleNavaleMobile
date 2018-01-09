@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.placement.Controleur;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.placement.ControleurPlacement;
 
 /**
  * Created by lulu on 20/12/17.
@@ -27,13 +27,13 @@ public class BateauVue{
     private ImageView complet;
     private ImageView[] parts;
     private int id;
-    private Controleur controleur;
+    private ControleurPlacement controleurPlacement;
     private int x = -1;
     private int y = -1;
     private int direction = VERTICAL;
 
-    public BateauVue(int type,int id, Activity activity,Controleur controleur){
-        this.controleur =controleur;
+    public BateauVue(int type,int id, Activity activity,ControleurPlacement controleurPlacement){
+        this.controleurPlacement = controleurPlacement;
         this.id = id;
         switch(type){
             case TORPILLEUR:
@@ -242,7 +242,7 @@ public class BateauVue{
     }
 
     private void remove(){
-        controleur.removeBoat(id);
+        controleurPlacement.removeBoat(id);
     }
 
     public int getSize() {

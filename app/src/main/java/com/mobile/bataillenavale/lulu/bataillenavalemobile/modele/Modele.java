@@ -20,8 +20,8 @@ public class Modele {
     }
 
     /*
-    retourne l'instance de modele
-     */
+    *  retourne l'instance de modele
+    */
     public static Modele getInstance() {
         return instance;
     }
