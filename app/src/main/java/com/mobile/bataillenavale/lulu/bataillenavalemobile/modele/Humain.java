@@ -10,24 +10,10 @@ import java.util.Vector;
 
 public class Humain extends Joueur{
 
-    private int id;
-    private PlateauVue plateauModeleJoueur;
-    private PlateauVue plateauModeleAdverse;
-    private PlateauModele plateauModele;
-
-
-    public Humain(){
-
-    }
-
-    public Humain(PlateauVue plateauAdverse, PlateauVue plateauJoueur) {
-        plateauModeleJoueur = plateauJoueur;
-        plateauModeleAdverse = plateauAdverse;
-    }
 
     @Override
-    public boolean toucher(int x, int y) {
-        return false;
+    public int toucher(int x, int y) {
+        return 0;
     }
 
     @Override

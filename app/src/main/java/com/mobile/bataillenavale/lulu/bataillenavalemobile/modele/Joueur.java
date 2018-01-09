@@ -7,9 +7,9 @@ import java.util.Vector;
  */
 
 public abstract class Joueur {
-    private PlateauModele plateauModele;
+    protected PlateauModele plateauModele = new PlateauModele();
 
-    public boolean toucher(int x, int y){
+    public int toucher(int x, int y){
         return plateauModele.toucher(x, y);
     }
 

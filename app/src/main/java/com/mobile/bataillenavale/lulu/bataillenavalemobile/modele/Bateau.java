@@ -59,4 +59,26 @@ public class Bateau {
         return (this.x==x && this.y==y);
     }
 
+    public boolean intersect(Bateau bateau) {
+       if(this.direction == bateau.direction) {
+           if (this.direction == HORIZONTAL){
+                if(this.y != bateau.y)
+                    return false;
+                else
+                    return !(this.x - this.type > bateau.x || this.x < bateau.x - bateau.type);
+
+           }else
+               if(this.x != bateau.x)
+                   return false;
+                else
+                    return !(this.y + this.type < bateau.y || this.y < bateau.y + bateau.type);
+       }else{
+           if(this.direction == HORIZONTAL)
+               return this.y >= bateau.y && this.y<bateau.y+bateau.type
+                       && bateau.x>=this.x && bateau.x < this.x+this.type;
+           else
+               return bateau.y >= this.y && bateau.y<this.y+this.type
+                       && this.x>=bateau.x && this.x < bateau.x+bateau.type;
+       }
+    }
 }

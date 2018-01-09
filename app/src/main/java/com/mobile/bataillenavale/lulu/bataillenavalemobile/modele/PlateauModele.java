@@ -26,10 +26,14 @@ public class PlateauModele {
         return 0;
     }
 
-    public void poser (int x, int y, int direction, int type){
+    public boolean poser (int x, int y, int direction, int type){
         Bateau nouveauBateau = new Bateau(type);
         nouveauBateau.poser(x, y, direction);
+        for (Bateau curseur : bateaux)
+            if(curseur.intersect(nouveauBateau))
+                return false;
         bateaux.add(nouveauBateau);
+        return true;
     }
 
     public void supprimerBateau (int x, int y){

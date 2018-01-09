@@ -19,7 +19,7 @@ import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.placement.
  * Created by Simon on 18/12/2017.
  */
 
-public class PlateauVue implements Parcelable {
+public class PlateauVue{
     private RelativeLayout[][] cells;
     private ControleurPlacement controleurPlacement;
     private boolean dejaExec = false;
@@ -51,21 +51,6 @@ public class PlateauVue implements Parcelable {
         }
     }
 
-    protected PlateauVue(Parcel in) {
-        dejaExec = in.readByte() != 0;
-    }
-
-    public static final Creator<PlateauVue> CREATOR = new Creator<PlateauVue>() {
-        @Override
-        public PlateauVue createFromParcel(Parcel in) {
-            return new PlateauVue(in);
-        }
-
-        @Override
-        public PlateauVue[] newArray(int size) {
-            return new PlateauVue[size];
-        }
-    };
 
     public void addView(int x, int y, View v) {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(cells[x][y].getWidth(),cells[x][y].getHeight());
@@ -120,17 +105,6 @@ public class PlateauVue implements Parcelable {
         for(RelativeLayout[] rs: cells)
             for(RelativeLayout layout: rs)
                 layout.setBackgroundColor(Color.BLUE);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-
-        parcel.writeByte((byte) (dejaExec ? 1 : 0));
     }
 
     public class dragBoat implements View.OnDragListener {
