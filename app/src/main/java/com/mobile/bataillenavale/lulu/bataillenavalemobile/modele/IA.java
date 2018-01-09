@@ -107,8 +107,10 @@ public class IA extends Joueur {
             int x ;
             int y ;
             double direction;
-            boolean reussi = true;
+            boolean reussi;
             do {
+                reussi = true;
+                plateau.clear();
                 for (int i = 0; i < nbPorteAvion; i++) {
                     if(reussi) {
                         int nbTentative = 0;
@@ -121,7 +123,7 @@ public class IA extends Joueur {
                                 direction = Bateau.VERTICAL;
                             } else {
                                 //Horizontal
-                                x = (int) (5 + Math.random() * (sizeX - 5));
+                                x = (int) (4 + Math.random() * (sizeX - 5));
                                 y = (int) (Math.random() * (sizeY - 5));
                                 direction = Bateau.HORIZONTAL;
                             }
@@ -130,8 +132,8 @@ public class IA extends Joueur {
                     }else
                         break;
                 }
-                for (int i = 0; i < nbCroiseur; i++) {
-                    if(reussi) {
+                if(reussi)
+                    for (int i = 0; i < nbCroiseur; i++) {
                         int nbTentative = 0;
                         do {
                             direction = Math.random();
@@ -142,17 +144,15 @@ public class IA extends Joueur {
                                 direction = Bateau.VERTICAL;
                             } else {
                                 //Horizontal
-                                x = (int) (4 + Math.random() * (sizeX - 4));
+                                x = (int) (3 + Math.random() * (sizeX - 4));
                                 y = (int) (Math.random() * (sizeY - 4));
                                 direction = Bateau.HORIZONTAL;
                             }
                             reussi = plateau.poser(x, y, (int) direction, Bateau.CROISEUR);
                         } while (!reussi && nbTentative++ < tentativeMax);
-                    }else
-                        break;
-                }
-                for (int i = 0; i < nbContreTorpilleur; i++) {
-                    if(reussi) {
+                    }
+                if(reussi)
+                    for (int i = 0; i < nbContreTorpilleur; i++) {
                         int nbTentative = 0;
                         do {
                             direction = Math.random();
@@ -163,17 +163,15 @@ public class IA extends Joueur {
                                 direction = Bateau.VERTICAL;
                             } else {
                                 //Horizontal
-                                x = (int) (3 + Math.random() * (sizeX - 3));
+                                x = (int) (2 + Math.random() * (sizeX - 3));
                                 y = (int) (Math.random() * (sizeY - 3));
                                 direction = Bateau.HORIZONTAL;
                             }
                             reussi = plateau.poser(x, y, (int) direction, Bateau.CONTRE_TORPILLEUR);
                         } while (!reussi && nbTentative++ < tentativeMax);
-                    }else
-                        break;
-                }
-                for (int i = 0; i < nbTorpilleur; i++) {
-                    if(reussi) {
+                    }
+                if(reussi)
+                    for (int i = 0; i < nbTorpilleur; i++) {
                         int nbTentative = 0;
                         do {
                             direction = Math.random();
@@ -184,15 +182,13 @@ public class IA extends Joueur {
                                 direction = Bateau.VERTICAL;
                             } else {
                                 //Horizontal
-                                x = (int) (2 + Math.random() * (sizeX - 2));
+                                x = (int) (1 + Math.random() * (sizeX - 2));
                                 y = (int) (Math.random() * (sizeY - 2));
                                 direction = Bateau.HORIZONTAL;
                             }
                             reussi = plateau.poser(x, y, (int) direction, Bateau.TORPILLEUR);
                         } while (!reussi && nbTentative++ < tentativeMax);
-                    }else
-                        break;
-                }
+                    }
             }while(!reussi);
         }
     }

@@ -104,6 +104,7 @@ public class Pool {
 
     public void clickStart () {
         initialiseur.startActivity(new Intent(initialiseur,EcranAdverseActivity.class));
+        initialiseur.finish();
     }
 
 }

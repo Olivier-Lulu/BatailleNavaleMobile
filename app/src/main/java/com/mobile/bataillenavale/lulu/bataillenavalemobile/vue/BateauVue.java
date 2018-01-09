@@ -209,6 +209,94 @@ public class BateauVue{
         }
     }
 
+    public BateauVue(int type,Activity activity){
+        this.controleurPlacement = null;
+        this.id = 0;
+        switch(type){
+            case TORPILLEUR:
+                complet = new ImageView(activity.getApplicationContext());
+                complet.setImageResource(R.drawable.torpilleur);
+
+                parts = new ImageView[2];
+
+                parts[0] = new ImageView(activity.getApplicationContext());
+                parts[0].setImageResource(R.drawable.torpilleurp1);
+
+                parts[1] = new ImageView(activity.getApplicationContext());
+                parts[1].setImageResource(R.drawable.torpilleurp2);
+                break;
+
+            case CONTRE_TORPILLEUR:
+                complet = new ImageView(activity.getApplicationContext());
+                complet.setImageResource(R.drawable.contre);
+                complet.setTag(R.id.BoatID,id);//type
+
+
+                parts = new ImageView[3];
+
+                parts[0] = new ImageView(activity.getApplicationContext());
+                parts[0].setImageResource(R.drawable.contre1);
+
+
+                parts[1] = new ImageView(activity.getApplicationContext());
+                parts[1].setImageResource(R.drawable.contre2);
+
+
+                parts[2] = new ImageView(activity.getApplicationContext());
+                parts[2].setImageResource(R.drawable.contre3);
+
+                break;
+            case CROISEUR:
+                complet = new ImageView(activity.getApplicationContext());
+                complet.setImageResource(R.drawable.croiseur);
+                complet.setTag(R.id.BoatID,id);//type
+
+
+                parts = new ImageView[4];
+
+                parts[0] = new ImageView(activity.getApplicationContext());
+                parts[0].setImageResource(R.drawable.croiseur1);
+
+
+                parts[1] = new ImageView(activity.getApplicationContext());
+                parts[1].setImageResource(R.drawable.croiseur2);
+
+                parts[2] = new ImageView(activity.getApplicationContext());
+                parts[2].setImageResource(R.drawable.croiseur3);
+
+
+                parts[3] = new ImageView(activity.getApplicationContext());
+                parts[3].setImageResource(R.drawable.croiseur4);
+
+                break;
+            case PORTE_AVION:
+                complet = new ImageView(activity.getApplicationContext());
+                complet.setImageResource(R.drawable.porteavion);
+                complet.setTag(R.id.BoatID,id);//type
+
+                parts = new ImageView[5];
+
+                parts[0] = new ImageView(activity.getApplicationContext());
+                parts[0].setImageResource(R.drawable.porteavion1);
+
+                parts[1] = new ImageView(activity.getApplicationContext());
+                parts[1].setImageResource(R.drawable.porteavion2);
+
+                parts[2] = new ImageView(activity.getApplicationContext());
+                parts[2].setImageResource(R.drawable.porteavion3);
+
+                parts[3] = new ImageView(activity.getApplicationContext());
+                parts[3].setImageResource(R.drawable.porteavion4);
+
+                parts[4] = new ImageView(activity.getApplicationContext());
+                parts[4].setImageResource(R.drawable.porteavion5);
+
+                break;
+            default:
+                throw new IllegalArgumentException("unknown ship type") ;
+        }
+    }
+
     public ImageView getComplet(){
         return complet;
     }

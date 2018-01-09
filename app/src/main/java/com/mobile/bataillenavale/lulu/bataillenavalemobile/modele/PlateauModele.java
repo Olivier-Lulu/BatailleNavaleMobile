@@ -55,4 +55,8 @@ public class PlateauModele {
     public List<Bateau> getListeBateaux() {
         return bateaux;
     }
+
+    public void clear() {
+        bateaux.clear();
+    }
 }

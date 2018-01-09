@@ -81,20 +81,20 @@ public class Bateau {
                 if(this.y != bateau.y)
                     return false;
                 else
-                    return !(this.x - this.type > bateau.x || this.x < bateau.x - bateau.type);
+                    return !(this.x - this.type-1 > bateau.x || this.x <= bateau.x - bateau.type-1);
 
            }else
                if(this.x != bateau.x)
                    return false;
                 else
-                    return !(this.y + this.type < bateau.y || this.y < bateau.y + bateau.type);
+                    return !(this.y + this.type-1 < bateau.y || this.y >= bateau.y + bateau.type-1);
        }else{
            if(this.direction == HORIZONTAL)
-               return this.y >= bateau.y && this.y<bateau.y+bateau.type
-                       && bateau.x>=this.x && bateau.x < this.x+this.type;
+               return this.y >= bateau.y && this.y<=bateau.y+bateau.type-1
+                       && bateau.x <=this.x && bateau.x >= this.x-this.type-1;
            else
-               return bateau.y >= this.y && bateau.y<this.y+this.type
-                       && this.x>=bateau.x && this.x < bateau.x+bateau.type;
+               return bateau.y >= this.y && bateau.y<=this.y+this.type-1
+                       && this.x <= bateau.x && this.x >= bateau.x-bateau.type-1;
        }
     }
 }

@@ -113,7 +113,7 @@ public class PlateauJeu {
             int direction = curseur.getDirection();
             int coordX = curseur.getX();
             int coordY = curseur.getY();
-            BateauVue bateauCourant = new BateauVue(type, 0, activity, null);
+            BateauVue bateauCourant = new BateauVue(type,  activity);
             if (direction == VERTICAL){
                 bateauCourant.setDirection(BateauVue.VERTICAL);
                 for (int yBateau = 0; yBateau < type; yBateau++)
