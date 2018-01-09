@@ -104,8 +104,8 @@ public class IA extends Joueur {
         @Override
         public void run() {
             final int tentativeMax = 5;
-            int x = 0;
-            int y = 0;
+            int x ;
+            int y ;
             double direction;
             boolean reussi = true;
             do {

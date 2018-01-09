@@ -1,12 +1,10 @@
 package com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.jeu;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.DragEvent;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
@@ -117,12 +115,15 @@ public class PlateauJeu {
             int coordX = curseur.getX();
             int coordY = curseur.getY();
             BateauVue bateauCourant = new BateauVue(type, 0, activity, null);
-            if (direction == VERTICAL)
-                for (int yPart = 0; yPart < type; yPart++)
-                    cells[coordX][coordY + yPart].addView(bateauCourant.getParts(yPart));
-            else
-                for (int xPart = 0; xPart < type; xPart++)
-                    cells[coordX + xPart][coordY].addView(bateauCourant.getParts(xPart));
+            if (direction == VERTICAL){
+                bateauCourant.setDirection(BateauVue.VERTICAL);
+                for (int yBateau = 0; yBateau < type; yBateau++)
+                    cells[coordX][coordY + yBateau].addView(bateauCourant.getParts(yBateau));
+            }else {
+                bateauCourant.setDirection(BateauVue.HORIZONTAL);
+                for (int xBateau = 0; xBateau < type; xBateau++)
+                    cells[coordX - xBateau][coordY].addView(bateauCourant.getParts(xBateau));
+            }
         }
     }
 
