@@ -34,4 +34,8 @@ public class Modele {
     public Humain getHumain(){
         return humain;
     }
+
+    public void poser (int x, int y, int direction, int type){
+        humain.poser(x, y, direction, type);
+    }
 }

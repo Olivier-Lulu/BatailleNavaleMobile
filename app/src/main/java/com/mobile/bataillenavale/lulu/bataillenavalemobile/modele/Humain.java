@@ -13,6 +13,7 @@ public class Humain extends Joueur{
     private int id;
     private PlateauVue plateauModeleJoueur;
     private PlateauVue plateauModeleAdverse;
+    private PlateauModele plateauModele;
 
 
     public Humain(){
@@ -37,5 +38,9 @@ public class Humain extends Joueur{
     @Override
     public void reponse(int x, int y, boolean toucher) {
 
+    }
+
+    public void poser (int x, int y, int direction, int type) {
+        plateauModele.poser(x, y, direction, type);
     }
 }

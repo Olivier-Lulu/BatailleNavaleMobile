@@ -14,7 +14,6 @@ public class Bateau {
     public static final int HORIZONTAL = 90;
     public static final int VERTICAL = 0;
 
-
     private int x = 0;
     private int y = 0;
     private int direction = 0;
@@ -56,5 +55,8 @@ public class Bateau {
         return pv == 0;
     }
 
+    public boolean estIci(int x, int y) {
+        return (this.x==x && this.y==y);
+    }
 
 }

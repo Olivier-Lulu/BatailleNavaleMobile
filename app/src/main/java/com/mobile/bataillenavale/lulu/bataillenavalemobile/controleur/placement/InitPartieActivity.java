@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Humain;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Modele;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement.BateauVue;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement.PlateauVue;
 
@@ -17,6 +18,7 @@ public class InitPartieActivity extends Activity implements ControleurPlacement 
     private Pool pool;
     private int x;
     private int y;
+    private Modele controleurModele;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,8 @@ public class InitPartieActivity extends Activity implements ControleurPlacement 
         else
             for(int y = yCell; y<yCell+size;y++)
                 p.addView(xCell,y,b.getParts(y-yCell));
+
+        controleurModele.poser(xCell, yCell, direction, b.getSize());
 
         if(pool.isEmpty()) {
             Humain humain = new Humain(new PlateauVue(p.getXSize(), p.getYSize(), this, this), p);
