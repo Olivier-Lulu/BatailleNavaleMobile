@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
  * Created by lulu on 08/01/18.
  */
 
-public class BaseEcranJeu extends Activity {
+public abstract class BaseEcranJeu extends Activity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,5 +32,5 @@ public class BaseEcranJeu extends Activity {
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
     }
 
-
+    public abstract void swipe();
 }

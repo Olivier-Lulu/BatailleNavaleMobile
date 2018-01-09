@@ -51,7 +51,6 @@ public class Modele {
         return humain.getSizeY();
     }
 
-
     public List<Bateau> getListeBateaux() {
         return humain.getListeBateaux();
     }

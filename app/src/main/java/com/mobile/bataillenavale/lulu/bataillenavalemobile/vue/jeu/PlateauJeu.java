@@ -1,16 +1,22 @@
 package com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.jeu;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.DragEvent;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.OnSwipeTouchListener;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.jeu.BaseEcranJeu;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.jeu.EcranAdverseActivity;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.jeu.EcranJoueurActivity;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Bateau;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.BateauVue;
 
@@ -23,12 +29,18 @@ import static com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.BateauVue.
  */
 
 public class PlateauJeu {
+
+    public static final int JOUEUR = 1;
+    public static final int ADVERSE = 2;
+
     private RelativeLayout[][] cells;
     private boolean dejaExec = false;
+    private BaseEcranJeu controleur;
 
-    public PlateauJeu(int x, int y, Activity activity, int id){
+    public PlateauJeu(int typePlateau, BaseEcranJeu controleur, int x, int y, Activity activity, int id){
         if(x<0 || y<0)
             throw new IllegalArgumentException("taille negative");
+        this.controleur = controleur;
         TableLayout table = (TableLayout) activity.findViewById(id);
         cells = new RelativeLayout[x][y];
         for(int yi=0;yi<y;yi++) {
@@ -45,14 +57,59 @@ public class PlateauJeu {
                 cell.setId(View.generateViewId());
                 cell.setTag(R.id.X,xi);
                 cell.setTag(R.id.Y,yi);
+
+                if (typePlateau == ADVERSE) {
+                    /*cell.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            System.out.println(v.getTag(R.id.X)+" "+v.getTag(R.id.Y));
+                        }
+                    });*/
+
+                    cell.setOnTouchListener(new OnSwipeTouchListener(controleur){
+                        @Override
+                        public void onSwipeRight() {
+                            super.onSwipeLeft();
+                            controleur.swipe();
+                        }
+
+                        @Override
+                        public void onSwipeLeft() {
+                            super.onSwipeLeft();
+                            controleur.swipe();
+                        }
+
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            System.out.println(v.getTag(R.id.X)+" "+v.getTag(R.id.Y));
+                            return super.onTouch(v, event);
+                        }
+                    });
+                } else {
+                    cell.setOnTouchListener(new OnSwipeTouchListener(controleur){
+                        @Override
+                        public void onSwipeRight() {
+                            super.onSwipeLeft();
+                            controleur.swipe();
+                        }
+
+                        @Override
+                        public void onSwipeLeft() {
+                            super.onSwipeLeft();
+                            controleur.swipe();
+                        }
+
+                    });
+                }
                 cells[xi][yi] = cell;
             }
             table.addView(row,new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT,1f));
         }
+
     }
 
-    public PlateauJeu (int x, int y, Activity activity, int id, List<Bateau> listeBateaux){
-        this(x, y, activity, id);
+    public PlateauJeu (int typePlateau, BaseEcranJeu controleur, int x, int y, Activity activity, int id, List<Bateau> listeBateaux){
+        this(typePlateau, controleur, x, y, activity, id);
 
         for (Bateau curseur : listeBateaux) {
             int type = curseur.getType();
@@ -61,11 +118,11 @@ public class PlateauJeu {
             int coordY = curseur.getY();
             BateauVue bateauCourant = new BateauVue(type, 0, activity, null);
             if (direction == VERTICAL)
-                for (int yBateau = 0; yBateau < type; yBateau++)
-                    cells[coordX][coordY + yBateau].addView(bateauCourant.getParts(yBateau));
+                for (int yPart = 0; yPart < type; yPart++)
+                    cells[coordX][coordY + yPart].addView(bateauCourant.getParts(yPart));
             else
-                for (int xBateau = 0; xBateau < type; xBateau++)
-                    cells[coordX + xBateau][coordY].addView(bateauCourant.getParts(xBateau));
+                for (int xPart = 0; xPart < type; xPart++)
+                    cells[coordX + xPart][coordY].addView(bateauCourant.getParts(xPart));
         }
     }
 

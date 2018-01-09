@@ -24,12 +24,12 @@ public class EcranJoueurActivity extends BaseEcranJeu {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ecranjoueur);
-        View root = findViewById(R.id.tablejoueur);
+        /*View root = findViewById(R.id.rootjoueur);
 
         root.setOnTouchListener(new OnSwipeTouchListener(this){
             @Override
             public void onSwipeRight() {
-                super.onSwipeLeft();
+                super.onSwipeRight();
                 System.out.println("swiperight");
 
                 Intent resumeAdverseActivity = new Intent(EcranJoueurActivity.this, EcranAdverseActivity.class);
@@ -38,9 +38,20 @@ public class EcranJoueurActivity extends BaseEcranJeu {
 
                 EcranJoueurActivity.super.onPause();
             }
-        });
+        });*/
 
         controleurModele = Modele.getInstance();
-        plateau = new PlateauJeu(controleurModele.getSizeX(), controleurModele.getSizeY(), this, R.id.tablejoueur,controleurModele.getListeBateaux());
+        plateau = new PlateauJeu(PlateauJeu.JOUEUR, this, controleurModele.getSizeX(), controleurModele.getSizeY(), this, R.id.tablejoueur,controleurModele.getListeBateaux());
+    }
+
+    @Override
+    public void swipe(){
+        System.out.println("swipeleft");
+
+        Intent resumeJoueurActivity = new Intent(EcranJoueurActivity.this, EcranAdverseActivity.class);
+        resumeJoueurActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivityIfNeeded(resumeJoueurActivity, 0);
+
+        EcranJoueurActivity.super.onPause();
     }
 }

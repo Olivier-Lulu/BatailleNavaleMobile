@@ -6,4 +6,6 @@
     <item type="id" name="Rotation" />
     <item type="id" name="tableadverse" />
     <item type="id" name="tablejoueur" />
+    <item type="id" name="rootadverse" />
+    <item type="id" name="rootjoueur" />
 </resources>

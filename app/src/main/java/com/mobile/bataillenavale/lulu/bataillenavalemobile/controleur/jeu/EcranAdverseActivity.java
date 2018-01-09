@@ -24,7 +24,7 @@ public class EcranAdverseActivity extends BaseEcranJeu {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ecranadverse);
-        View root = findViewById(R.id.tableadverse);
+        /*View root = findViewById(R.id.rootadverse);
 
         root.setOnTouchListener(new OnSwipeTouchListener(this){
             @Override
@@ -38,10 +38,22 @@ public class EcranAdverseActivity extends BaseEcranJeu {
 
                 EcranAdverseActivity.super.onPause();
             }
-        });
+        });*/
 
         controleurModele = Modele.getInstance();
-        plateau = new PlateauJeu(controleurModele.getSizeX(), controleurModele.getSizeY(), this, R.id.tableadverse);
+        plateau = new PlateauJeu(PlateauJeu.ADVERSE, this, controleurModele.getSizeX(), controleurModele.getSizeY(), this, R.id.tableadverse);
 
     }
+
+    @Override
+    public void swipe(){
+        System.out.println("swipeleft");
+
+        Intent resumeJoueurActivity = new Intent(EcranAdverseActivity.this, EcranJoueurActivity.class);
+        resumeJoueurActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivityIfNeeded(resumeJoueurActivity, 0);
+
+        EcranAdverseActivity.super.onPause();
+    }
+
 }
