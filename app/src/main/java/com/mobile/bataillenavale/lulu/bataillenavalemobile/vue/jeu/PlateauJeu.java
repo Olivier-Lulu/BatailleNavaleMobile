@@ -60,12 +60,15 @@ public class PlateauJeu {
             int coordX = curseur.getX();
             int coordY = curseur.getY();
             BateauVue bateauCourant = new BateauVue(type, 0, activity, null);
-            if (direction == VERTICAL)
+            if (direction == VERTICAL){
+                bateauCourant.setDirection(BateauVue.VERTICAL);
                 for (int yBateau = 0; yBateau < type; yBateau++)
                     cells[coordX][coordY + yBateau].addView(bateauCourant.getParts(yBateau));
-            else
+            }else {
+                bateauCourant.setDirection(BateauVue.HORIZONTAL);
                 for (int xBateau = 0; xBateau < type; xBateau++)
-                    cells[coordX + xBateau][coordY].addView(bateauCourant.getParts(xBateau));
+                    cells[coordX - xBateau][coordY].addView(bateauCourant.getParts(xBateau));
+            }
         }
     }
 
