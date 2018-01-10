@@ -27,6 +27,10 @@ public class Bateau {
         this.pv = type;
     }
 
+    public int getPv() {
+        return pv;
+    }
+
     public int getDirection() {
         return direction;
     }

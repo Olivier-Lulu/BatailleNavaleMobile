@@ -2,8 +2,10 @@ package com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.jeu;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.jeu.PlateauJeu;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -13,6 +15,8 @@ import org.jetbrains.annotations.Nullable;
 
 public abstract class BaseEcranJeu extends Activity {
 
+    protected PlateauJeu plateau;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +25,6 @@ public abstract class BaseEcranJeu extends Activity {
     @Override
     public void finish() {
         super.finish();
-
     }
 
     protected void overrideTransitionEnter(){
@@ -33,4 +36,16 @@ public abstract class BaseEcranJeu extends Activity {
     }
 
     public abstract void swipe();
+
+    public void cibleVide(int x, int y) {
+        plateau.tintCellWhite(x, y);
+    }
+
+    public void cibleTouche(int x, int y) {
+        plateau.tintCellBoom(x,y);
+    }
+
+    public void toast(Toast toast) {
+        toast.show();
+    }
 }

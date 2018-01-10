@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.DragEvent;
+import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,12 +13,15 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.GestureListener;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.OnSwipeTouchListener;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.jeu.BaseEcranJeu;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.jeu.EcranAdverseActivity;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Bateau;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.BateauVue;
 
 import java.util.List;
+import java.util.Vector;
 
 import static com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.BateauVue.VERTICAL;
 
@@ -32,12 +36,12 @@ public class PlateauJeu {
 
     private RelativeLayout[][] cells;
     private boolean dejaExec = false;
-    private BaseEcranJeu controleur;
+
+    private Vector<Integer> cible = null;
 
     public PlateauJeu(int typePlateau, BaseEcranJeu controleur, int x, int y, Activity activity, int id){
         if(x<0 || y<0)
             throw new IllegalArgumentException("taille negative");
-        this.controleur = controleur;
         TableLayout table = (TableLayout) activity.findViewById(id);
         cells = new RelativeLayout[x][y];
         for(int yi=0;yi<y;yi++) {
@@ -54,55 +58,62 @@ public class PlateauJeu {
                 cell.setTag(R.id.X,xi);
                 cell.setTag(R.id.Y,yi);
 
+                final int xFinal = xi;
+                final int yFinal = yi;
+
                 if (typePlateau == ADVERSE) {
-                    /*cell.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            System.out.println(v.getTag(R.id.X)+" "+v.getTag(R.id.Y));
-                        }
-                    });*/
-
-                    cell.setOnTouchListener(new OnSwipeTouchListener(controleur){
-                        @Override
-                        public void onSwipeRight() {
-                            super.onSwipeLeft();
-                            controleur.swipe();
-                        }
+                    cell.setOnTouchListener(new View.OnTouchListener() {
+                        private int historicalX;
 
                         @Override
-                        public void onSwipeLeft() {
-                            super.onSwipeLeft();
-                            controleur.swipe();
-                        }
-
-                        @Override
-                        public boolean onTouch(View v, MotionEvent event) {
-                            System.out.println(v.getTag(R.id.X)+" "+v.getTag(R.id.Y));
-                            return super.onTouch(v, event);
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                                historicalX = (int)motionEvent.getX();
+                            }
+                            if (motionEvent.getAction() == MotionEvent.ACTION_UP){
+                                int deltaX = historicalX - (int)motionEvent.getX();
+                                if (Math.abs(deltaX) >= 100) {
+                                    controleur.swipe();
+                                } else {
+                                    if (cible == null) {
+                                        cible = new Vector<Integer>();
+                                        cible.add(0, xFinal);
+                                        cible.add(1, yFinal);
+                                        ((EcranAdverseActivity) controleur).tour(cible);
+                                    }
+                                }
+                            }
+                            return true;
                         }
                     });
                 } else {
-                    cell.setOnTouchListener(new OnSwipeTouchListener(controleur){
-                        @Override
-                        public void onSwipeRight() {
-                            super.onSwipeLeft();
-                            controleur.swipe();
-                        }
+                    cell.setOnTouchListener(new View.OnTouchListener() {
+                        private int historicalX;
 
                         @Override
-                        public void onSwipeLeft() {
-                            super.onSwipeLeft();
-                            controleur.swipe();
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                                historicalX = (int)motionEvent.getX();
+                            }
+                            if (motionEvent.getAction() == MotionEvent.ACTION_UP){
+                                int deltaX = historicalX - (int)motionEvent.getX();
+                                if (Math.abs(deltaX) >= 100) {
+                                    controleur.swipe();
+                                }
+                            }
+                            return true;
                         }
-
                     });
                 }
+
                 cells[xi][yi] = cell;
             }
             table.addView(row,new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT,1f));
         }
 
     }
+
+    public void resetCible () { cible = null; }
 
     public PlateauJeu (int typePlateau, BaseEcranJeu controleur, int x, int y, Activity activity, int id, List<Bateau> listeBateaux){
         this(typePlateau, controleur, x, y, activity, id);
@@ -188,4 +199,23 @@ public class PlateauJeu {
         return cells[0].length;
     }
 
+    public void activerGrille(){
+        for (RelativeLayout[] cellRow : cells)
+            for (RelativeLayout cell : cellRow)
+                cell.setEnabled(true);
+    }
+
+    public void desactiverGrille() {
+        for (RelativeLayout[] cellRow : cells)
+            for (RelativeLayout cell : cellRow)
+                cell.setEnabled(false);
+    }
+
+    public void tintCellWhite(int x, int y) {
+        cells[x][y].setBackgroundColor(Color.WHITE);
+    }
+
+    public void tintCellBoom(int x, int y) {
+        cells[x][y].setBackgroundColor(Color.RED);
+    }
 }

@@ -64,4 +64,11 @@ public class PlateauModele {
     public void clear() {
         bateaux.clear();
     }
+
+    public boolean perdu() {
+        for (Bateau curseur : bateaux)
+            if (curseur.getPv() > 0)
+                return false;
+        return true;
+    }
 }

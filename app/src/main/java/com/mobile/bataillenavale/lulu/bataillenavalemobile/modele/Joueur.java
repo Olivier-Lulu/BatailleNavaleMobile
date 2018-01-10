@@ -9,9 +9,14 @@ import java.util.Vector;
 
 public abstract class Joueur {
     protected PlateauModele plateauModele;
+    protected boolean[][] grilleTir;
 
     public Joueur (int x, int y){
         plateauModele = new PlateauModele(x, y);
+        grilleTir = new boolean[x][y];
+        for (int i = 0; i<x; i++)
+            for (int j = 0; j<y; j++)
+                grilleTir[i][j]=true;
     }
 
     public int toucher(int x, int y){
@@ -32,5 +37,15 @@ public abstract class Joueur {
 
     public List<Bateau> getListeBateaux () {
         return plateauModele.getListeBateaux();
+    }
+
+    public boolean tirEstValide (int x, int y){
+        return grilleTir[x][y];
+    }
+
+    public void invaliderCase (int x, int y){ grilleTir[x][y]=false; }
+
+    public boolean perdu () {
+        return plateauModele.perdu();
     }
 }
