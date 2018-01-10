@@ -6,10 +6,10 @@ import android.view.View;
  * Created by simon on 20/12/17.
  */
 
-public interface Controleur {
+public interface ControleurPlacement {
 
     boolean canHostBoat(View boat,int x,int y);
-    void obtaineBoat(View boat, int xCell, int yCell);
+    void obtainBoat(View boat, int xCell, int yCell);
     void removeBoat(int id);
 
     void tint(View boat, int xCell, int yCell,boolean enter);

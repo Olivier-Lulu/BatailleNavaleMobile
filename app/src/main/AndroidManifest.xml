@@ -39,5 +39,11 @@
         <activity android:name=".controleur.ParametresActivity" android:hardwareAccelerated="true">
         </activity>
 
+        <activity android:name=".controleur.jeu.EcranAdverseActivity" android:hardwareAccelerated="true">
+        </activity>
+
+        <activity android:name=".controleur.jeu.EcranJoueurActivity" android:hardwareAccelerated="true">
+        </activity>
+
     </application>
 </manifest>

@@ -1,40 +1,51 @@
 package com.mobile.bataillenavale.lulu.bataillenavalemobile.modele;
 
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.JeuActivity;
-
+import java.util.List;
 import java.util.Vector;
 
 /**
- * Created by lulu on 11/12/17.
+ * Created by simon on 08/01/18.
  */
 
-public class Joueur {
+public abstract class Joueur {
+    protected PlateauModele plateauModele;
+    protected boolean[][] grilleTir;
 
-    private int id;
-    private JeuActivity controleurJeuActivity;
-    private PlateauModele plateauModeleJoueur;
-    private PlateauModele plateauModeleAdverse;
-
-    public Joueur(int tailleX, int tailleY, JeuActivity controleur) {
-        plateauModeleJoueur = new PlateauModele(tailleX, tailleY);
-        plateauModeleAdverse = new PlateauModele(tailleX, tailleY);
-        controleurJeuActivity = controleur;
+    public Joueur (int x, int y){
+        plateauModele = new PlateauModele(x, y);
+        grilleTir = new boolean[x][y];
+        for (int i = 0; i<x; i++)
+            for (int j = 0; j<y; j++)
+                grilleTir[i][j]=true;
     }
 
-    public int getId() {
-        return id;
+    public int toucher(int x, int y){
+        return plateauModele.toucher(x, y);
     }
 
-    /*
-     * Retourn -1 pour cibler une case qui a deja ete ciblee, 0 pour non touche,
-     * 1 pour touche et 2 pour touche coule
-     */
-    public int recevoirTir(Vector<Integer>cible) {
-        return plateauModeleJoueur.touche(cible);
+    abstract public Vector<Integer> tirer();
+
+    abstract public void reponse(int x, int y, boolean toucher);
+
+    public int getSizeX (){
+        return plateauModele.getSizeX();
     }
 
-    public int tirer(Vector<Integer>cible) {
-        return controleurJeuActivity.tir(this, cible);
+    public int getSizeY (){
+        return plateauModele.getSizeY();
     }
 
+    public List<Bateau> getListeBateaux () {
+        return plateauModele.getListeBateaux();
+    }
+
+    public boolean tirEstValide (int x, int y){
+        return grilleTir[x][y];
+    }
+
+    public void invaliderCase (int x, int y){ grilleTir[x][y]=false; }
+
+    public boolean perdu () {
+        return plateauModele.perdu();
+    }
 }

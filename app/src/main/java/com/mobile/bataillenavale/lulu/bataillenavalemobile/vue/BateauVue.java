@@ -1,4 +1,4 @@
-package com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement;
+package com.mobile.bataillenavale.lulu.bataillenavalemobile.vue;
 
 import android.app.Activity;
 import android.content.ClipData;
@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.placement.Controleur;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.placement.ControleurPlacement;
 
 /**
  * Created by lulu on 20/12/17.
@@ -23,200 +23,142 @@ public class BateauVue{
 
     public static final int HORIZONTAL = 90;
     public static final int VERTICAL = 0;
-    
+
     private ImageView complet;
     private ImageView[] parts;
-    private int id;
-    private Controleur controleur;
     private int x = -1;
     private int y = -1;
     private int direction = VERTICAL;
 
-    public BateauVue(int type,int id, Activity activity,Controleur controleur){
-        this.controleur =controleur;
-        this.id = id;
+    public BateauVue(int type,Activity activity){
+        //creer la vue complete du bateau puis celles de ses parties
         switch(type){
             case TORPILLEUR:
                 complet = new ImageView(activity.getApplicationContext());
                 complet.setImageResource(R.drawable.torpilleur);
-                complet.setTag(R.id.BoatID,id);//type
-                complet.setOnLongClickListener(
-                        v -> {
-                            ClipData dragData = ClipData.newPlainText("","");
-                            View.DragShadowBuilder myShadow = new testShadow(v);
-                            v.startDrag(dragData,myShadow,v,0 );
-                            return true;
-                        });
 
                 parts = new ImageView[2];
 
                 parts[0] = new ImageView(activity.getApplicationContext());
                 parts[0].setImageResource(R.drawable.torpilleurp1);
-                parts[0].setOnLongClickListener(
-                        v -> {
-                            remove();
-                            return true;
-                        });
 
                 parts[1] = new ImageView(activity.getApplicationContext());
                 parts[1].setImageResource(R.drawable.torpilleurp2);
-                parts[1].setOnLongClickListener(
-                        v -> {
-                            remove();
-                            return true;
-                        });
                 break;
+
             case CONTRE_TORPILLEUR:
                 complet = new ImageView(activity.getApplicationContext());
                 complet.setImageResource(R.drawable.contre);
-                complet.setTag(R.id.BoatID,id);//type
-                complet.setOnLongClickListener(
-                        v -> {
-                            ClipData dragData = ClipData.newPlainText("","");
-                            View.DragShadowBuilder myShadow = new testShadow(v);
-                            v.startDrag(dragData,myShadow,v,0 );
-                            return true;
-                        });
 
                 parts = new ImageView[3];
 
                 parts[0] = new ImageView(activity.getApplicationContext());
                 parts[0].setImageResource(R.drawable.contre1);
-                parts[0].setOnLongClickListener(
-                        v -> {
-                            remove();
-                            return true;
-                        });
+
 
                 parts[1] = new ImageView(activity.getApplicationContext());
                 parts[1].setImageResource(R.drawable.contre2);
-                parts[1].setOnLongClickListener(
-                        v -> {
-                            remove();
-                            return true;
-                        });
+
 
                 parts[2] = new ImageView(activity.getApplicationContext());
                 parts[2].setImageResource(R.drawable.contre3);
-                parts[2].setOnLongClickListener(
-                        v -> {
-                            remove();
-                            return true;
-                        });
+
                 break;
             case CROISEUR:
                 complet = new ImageView(activity.getApplicationContext());
                 complet.setImageResource(R.drawable.croiseur);
-                complet.setTag(R.id.BoatID,id);//type
-                complet.setOnLongClickListener(
-                        v -> {
-                            ClipData dragData = ClipData.newPlainText("","");
-                            View.DragShadowBuilder myShadow = new testShadow(v);
-                            v.startDrag(dragData,myShadow,v,0 );
-                            return true;
-                        });
 
                 parts = new ImageView[4];
 
                 parts[0] = new ImageView(activity.getApplicationContext());
                 parts[0].setImageResource(R.drawable.croiseur1);
-                parts[0].setOnLongClickListener(
-                        v -> {
-                            remove();
-                            return true;
-                        });
+
 
                 parts[1] = new ImageView(activity.getApplicationContext());
                 parts[1].setImageResource(R.drawable.croiseur2);
-                parts[1].setOnLongClickListener(
-                        v -> {
-                            remove();
-                            return true;
-                        });
 
                 parts[2] = new ImageView(activity.getApplicationContext());
                 parts[2].setImageResource(R.drawable.croiseur3);
-                parts[2].setOnLongClickListener(
-                        v -> {
-                            remove();
-                            return true;
-                        });
+
 
                 parts[3] = new ImageView(activity.getApplicationContext());
                 parts[3].setImageResource(R.drawable.croiseur4);
-                parts[3].setOnLongClickListener(
-                        v -> {
-                            remove();
-                            return true;
-                        });
+
                 break;
             case PORTE_AVION:
                 complet = new ImageView(activity.getApplicationContext());
                 complet.setImageResource(R.drawable.porteavion);
-                complet.setTag(R.id.BoatID,id);//type
-                complet.setOnLongClickListener(
-                        v -> {
-                            ClipData dragData = ClipData.newPlainText("","");
-                            View.DragShadowBuilder myShadow = new testShadow(v);
-                            v.startDrag(dragData,myShadow,v,0 );
-                            return true;
-                        });
 
                 parts = new ImageView[5];
 
                 parts[0] = new ImageView(activity.getApplicationContext());
                 parts[0].setImageResource(R.drawable.porteavion1);
-                parts[0].setOnLongClickListener(
-                        v -> {
-                            remove();
-                            return true;
-                        });
 
                 parts[1] = new ImageView(activity.getApplicationContext());
                 parts[1].setImageResource(R.drawable.porteavion2);
-                parts[1].setOnLongClickListener(
-                        v -> {
-                            remove();
-                            return true;
-                        });
 
                 parts[2] = new ImageView(activity.getApplicationContext());
                 parts[2].setImageResource(R.drawable.porteavion3);
-                parts[2].setOnLongClickListener(
-                        v -> {
-                            remove();
-                            return true;
-                        });
 
                 parts[3] = new ImageView(activity.getApplicationContext());
                 parts[3].setImageResource(R.drawable.porteavion4);
-                parts[3].setOnLongClickListener(
-                        v -> {
-                            remove();
-                            return true;
-                        });
 
                 parts[4] = new ImageView(activity.getApplicationContext());
                 parts[4].setImageResource(R.drawable.porteavion5);
-                parts[4].setOnLongClickListener(
-                        v -> {
-                            remove();
-                            return true;
-                        });
+
                 break;
             default:
                 throw new IllegalArgumentException("unknown ship type") ;
         }
     }
 
+    public BateauVue(int type,int id, Activity activity,ControleurPlacement controleurPlacement){
+        this(type,activity);
+        complet.setTag(R.id.BoatID,id);//type
+
+        //ajout de la possibliter de bouger les bateaux
+        complet.setOnLongClickListener(
+                v -> {
+                    ClipData dragData = ClipData.newPlainText("","");
+                    View.DragShadowBuilder myShadow = new testShadow(v);
+                    v.startDrag(dragData,myShadow,v,0 );
+                    return true;
+                });
+
+        //ajout de la possibiliter de renvoyer les bateaux dans le pool a partire des parties
+        for(ImageView partie: parts)
+            partie.setOnLongClickListener(
+                    v -> {
+                        controleurPlacement.removeBoat(id);
+                        return true;
+                    });
+    }
+
+    /*
+        retourne l'image complette
+     */
     public ImageView getComplet(){
         return complet;
     }
 
+    /*
+        retourne la n-eme partie du bateau
+     */
     public ImageView getParts(int n) {
         return parts[n];
     }
 
+    public int getX(){
+        return x;
+    }
+
+    public int getY(){
+        return y;
+    }
+
+    /*
+        tourne le bateau dans la direction donne
+     */
     public void setDirection(int direction){
         if(direction != HORIZONTAL && direction != VERTICAL)
             throw new IllegalArgumentException("direction inconnue");
@@ -226,15 +168,14 @@ public class BateauVue{
         this.direction = direction;
     }
 
+    /*
+        tourne le bateau a 90°
+     */
     public void rotate(){
         if(direction == HORIZONTAL)
             setDirection(VERTICAL);
         else
             setDirection(HORIZONTAL);
-    }
-
-    private void remove(){
-        controleur.removeBoat(id);
     }
 
     public int getSize() {
@@ -246,6 +187,7 @@ public class BateauVue{
         this.y = y;
     }
 
+    //retourne vrais si le bateau est poser sur le plateau
     public boolean isOnBoard() {
         return x > -1;
     }
@@ -254,6 +196,12 @@ public class BateauVue{
         return direction;
     }
 
+    /*
+    class permetant d'avoir une ombre de la meme taille et dans la meme direction que le l'ImageView
+
+    adpater de la reponse trouver ici:
+        https://stackoverflow.com/questions/17049938/how-to-drag-a-rotated-dragshadow
+     */
     private class testShadow extends View.DragShadowBuilder{
         private int width;
         private int height;
