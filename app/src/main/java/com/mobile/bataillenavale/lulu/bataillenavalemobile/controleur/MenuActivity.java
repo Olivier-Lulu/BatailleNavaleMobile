@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.communication.MultijoueurMenuActivity;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.placement.InitPartieActivity;
 
 public class MenuActivity extends Activity {
@@ -29,4 +30,7 @@ public class MenuActivity extends Activity {
         this.finish();
     }
 
+    public void clickMultijoueurMenu(View view) {
+        startActivity(new Intent(this, MultijoueurMenuActivity.class));
+    }
 }

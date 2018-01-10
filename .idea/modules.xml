@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BatailleNavaleMobile.iml" filepath="$PROJECT_DIR$/BatailleNavaleMobile.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/BatailleNavaleMobile.iml" filepath="$PROJECT_DIR$/.idea/BatailleNavaleMobile.iml" />
+      <module fileurl="file://C:\Users\Cyril\Downloads\code source-20171002\BatailleNavaleMobile\BatailleNavaleMobile.iml" filepath="C:\Users\Cyril\Downloads\code source-20171002\BatailleNavaleMobile\BatailleNavaleMobile.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
