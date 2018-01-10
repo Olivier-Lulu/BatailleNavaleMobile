@@ -70,8 +70,7 @@ public class Modele {
     }
 
     public List<Bateau> getListeBateaux() {
-        //return humain.getListeBateaux();
-        return j2.getListeBateaux();
+        return humain.getListeBateaux();
     }
 
     public void tour(int x, int y){
@@ -80,10 +79,10 @@ public class Modele {
         if (humain.tirEstValide(x, y)) {
 
             humain.invaliderCase(x, y);
-
-            if (j2.toucher(x, y) == 1)
+            int toucher = j2.toucher(x, y);
+            if ( toucher == 1)
                 tableauDeJeu.cibleTouche(x, y);
-            else if (j2.toucher(x, y) == 2)
+            else if (toucher == 2)
                 tableauDeJeu.cibleTouche(x, y);
             else
                 tableauDeJeu.cibleVide(x, y);
@@ -103,10 +102,11 @@ public class Modele {
             int xj2 = tirJ2.elementAt(0);
             int yj2 = tirJ2.elementAt(1);
 
-            if (humain.toucher(xj2, yj2) == 1) {
+            toucher = humain.toucher(xj2, yj2);
+            if ( toucher == 1) {
                 affichageJoueur.cibleTouche(xj2, yj2);
                 j2.reponse(xj2,yj2,true);
-            }else if (humain.toucher(xj2, yj2) == 2) {
+            }else if (toucher == 2) {
                 affichageJoueur.cibleTouche(xj2, yj2);
                 j2.reponse(xj2,yj2,true);
             }else {
