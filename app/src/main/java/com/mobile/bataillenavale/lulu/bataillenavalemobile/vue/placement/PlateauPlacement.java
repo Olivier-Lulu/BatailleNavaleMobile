@@ -3,8 +3,6 @@ package com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.View;
@@ -14,7 +12,6 @@ import android.widget.TableRow;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.placement.ControleurPlacement;
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.PlateauModele;
 
 /**
  * Created by Simon on 18/12/2017.
@@ -32,6 +29,8 @@ public class PlateauPlacement {
         this.controleurPlacement = controleurPlacement;
         TableLayout table = (TableLayout) activity.findViewById(R.id.table);
         cells = new RelativeLayout[x][y];
+
+        //ajout des cellules au tableau
         for(int yi=0;yi<y;yi++) {
             TableRow row = new TableRow(activity.getApplicationContext());
             row.setId(yi);
@@ -50,9 +49,11 @@ public class PlateauPlacement {
         }
     }
 
+    /*
+        ajoute une vue a une celulle de cells
+     */
     public void addView(int x, int y, View v) {
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(cells[x][y].getWidth(),cells[x][y].getHeight());
-        //RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+        //permet d'empecher le redimensionnement des celulles
         if(!dejaExec) {
             for (RelativeLayout[] rs : cells)
                 for (RelativeLayout layout : rs) {
@@ -61,30 +62,46 @@ public class PlateauPlacement {
                 }
             dejaExec = true;
         }
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(cells[x][y].getWidth(),cells[x][y].getHeight());
         cells[x][y].addView(v,params);
     }
 
-
+    /*
+        ajoute une vue sans bloquer le redimensionnement des celulles
+     */
     public void addView2(int x, int y, View v) {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT);
         cells[x][y].addView(v,params);
     }
 
+    /*
+        retourne vrais si un cellule n'a pas d'enfant
+     */
     public boolean isEmpty(int x, int y){
         return cells[x][y].getChildCount() == 0;
     }
 
+    /*
+        suprime une vue d'une cellule
+    */
     public void removeView(View v,int x,int y) {
         cells[x][y].removeView(v);
     }
 
-    public void tint(int xCell, int yCell,boolean enter) {
+    /*
+        donne ou supprime une teinte sombre a une cellule
+     */
+    public void tint(int xCell, int yCell,boolean assombrire) {
+        //recuperation des information sur la cellule
         ColorDrawable draw = (ColorDrawable) cells[xCell][yCell].getBackground();
         int color  = draw.getColor();
         int r = Color.red( color );
         int g = Color.green( color );
         int b = Color.blue( color );
-        if(enter) {
+
+        //calcule de la nouvelle teinte
+        if(assombrire) {
             if (r != 0)
                 r -= 100;
             if (g != 0)
@@ -99,11 +116,14 @@ public class PlateauPlacement {
             if (b != 0)
                 b += 100;
         }
+
         cells[xCell][yCell].setBackgroundColor(Color.rgb(r,g,b));
-        cells[xCell][yCell].invalidate();
     }
 
-    public class dragBoat implements View.OnDragListener {
+    /*
+        class s'occupant de gerer la couleur des cellule en fonction du bateau
+     */
+    private class dragBoat implements View.OnDragListener {
         private int x;
         private int y;
         private boolean accept;
@@ -117,26 +137,24 @@ public class PlateauPlacement {
         public boolean onDrag(View v, DragEvent event) {
 
             int action = event.getAction();
-
             View dragData = (View) event.getLocalState();
 
             switch(action) {
 
                 case DragEvent.ACTION_DRAG_STARTED:
-
-                    //on ne drag qu'un type de truc donc on a juste a tester si la cas est deja pris
+                    //si la case peut accepter le bateau elle prend une couleur verte, sinon rouge
                     if (controleurPlacement.canHostBoat(dragData,x,y)) {
-                        //la case peut accepter un bateau, ajoute un liserait vert
                         v.setBackgroundColor(Color.GREEN);
                         accept = true;
                     }else{
-                        //la case n'accepte pas , ajout d'un liserait rouge
                         v.setBackgroundColor(Color.RED);
                         accept = false;
                     }
+                    //on retourne toujours true car on veut etre prevenue de la fin du drag and drop
                     return true;
 
                 case DragEvent.ACTION_DRAG_ENTERED:
+                    //donne une teinte sombre a toute les cases qui recevrons le bateau
                     if (accept)
                         controleurPlacement.tint(dragData,x,y,true);
                     return true;
@@ -145,16 +163,19 @@ public class PlateauPlacement {
                     return true;
 
                 case DragEvent.ACTION_DRAG_EXITED:
+                    //supprime la teinte sombre donne precedement
                     if (accept)
                         controleurPlacement.tint(dragData,x,y,false);
                     return true;
 
                 case DragEvent.ACTION_DROP:
+                    //lance la procedure pour poser un bateau sur le plateau
                     if (accept)
                         controleurPlacement.obtainBoat(dragData,x,y);
                     return true;
 
                 case DragEvent.ACTION_DRAG_ENDED:
+                    //redonne la couleur bleu au cellule
                     v.setBackgroundColor(Color.BLUE);
                     return true;
 
@@ -163,15 +184,5 @@ public class PlateauPlacement {
             }
         }
     }
-
-    public int getXSize () {
-        return cells.length;
-    }
-
-    public int getYSize () {
-        return cells[0].length;
-    }
-
-
 
 }

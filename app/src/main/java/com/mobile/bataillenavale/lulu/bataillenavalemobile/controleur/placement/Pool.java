@@ -30,6 +30,7 @@ public class Pool {
         pool = (LinearLayout) activity.findViewById(R.id.pool);
         initialiseur = (InitPartieActivity) activity;
 
+        //on comence par poser les bateaudeja sur le plateau
         for(Bateau bateau: bateauxPlateau){
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
             param.setMargins(5,5,5,5);
@@ -38,6 +39,8 @@ public class Pool {
             nbBateau++;
             b.setDirection(bateau.getDirection());
             initialiseur.putBoat(b,bateau.getX(),bateau.getY());
+
+            //on baisse le nombre de bateau du type que l'on vient de poser
             switch(bateau.getType()){
                 case Bateau.TORPILLEUR:
                     nbTorpilleur--;
@@ -54,6 +57,9 @@ public class Pool {
             }
         }
 
+        /*
+            on creer les torpilleurs dans le pool
+         */
         for(int i=0;i<nbTorpilleur;++i) {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
             param.setMargins(5,5,5,5);
@@ -63,6 +69,9 @@ public class Pool {
             nbBateau++;
         }
 
+        /*
+            on creer les contre-torpilleurs dans le pool
+         */
         for(int i=0;i<nbContreTorpilleur;++i) {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
             param.setMargins(5,5,5,5);
@@ -72,6 +81,9 @@ public class Pool {
             nbBateau++;
         }
 
+        /*
+            on creer les croiseurs dans le pool
+         */
         for(int i=0;i<nbCroiseur;++i) {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
             param.setMargins(5,5,5,5);
@@ -81,6 +93,9 @@ public class Pool {
             nbBateau++;
         }
 
+        /*
+            on creer les porte-avions dans le pool
+         */
         for(int i=0;i<nbPorteAvion;++i) {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
             param.setMargins(5,5,5,5);
@@ -90,35 +105,52 @@ public class Pool {
             nbBateau++;
         }
 
+        //ajout du bouton permetant de tourner les bateaux
         Button rotate = (Button) activity.findViewById(R.id.rotate);
         rotate.setOnClickListener(v -> rotate());
     }
 
+    /*
+        retourne le bateau ayant pour id key.
+     */
     public BateauVue getBoat(int key){
         return bateaux.get(key);
     }
 
+    /*
+        tourne de 90° tout les pbateau encors dans le pool
+     */
     private void rotate(){
         for(int key = 0;key<bateaux.size();key++)
             if(!bateaux.get(key).isOnBoard())
                bateaux.get(key).rotate();
     }
 
+    /*
+        repose un bateaux dans le pool
+    */
     public void returnPool(int id) {
+        //on enleve le bouton finish si il est resent
         if(finish != null)
             pool.removeView(finish);
+
         BateauVue bateau = bateaux.get(id);
         bateau.setCoord(-1,-1);
         pool.addView(bateau.getComplet());
     }
 
+    /*
+        retourne vrais si le pool est vide
+     */
     public boolean isEmpty() {
         for(int key = 0;key<bateaux.size();key++)
             if(!bateaux.get(key).isOnBoard())
                 return false;
         return true;
     }
-
+    /*
+        ajoute un bouton permetant de passer du placement des bateaux au jeu
+     */
     public void addFinishButton(Activity activity) {
         Button b = new Button(activity);
         b.setText("Pret !");
@@ -127,6 +159,9 @@ public class Pool {
         pool.addView(finish);
     }
 
+    /*
+        lance le jeu et fini le placement
+     */
     public void clickStart () {
         initialiseur.startActivity(new Intent(initialiseur,EcranAdverseActivity.class));
         initialiseur.finish();

@@ -26,13 +26,12 @@ public class BateauVue{
 
     private ImageView complet;
     private ImageView[] parts;
-    private int id;
-    private ControleurPlacement controleurPlacement;
     private int x = -1;
     private int y = -1;
     private int direction = VERTICAL;
 
     public BateauVue(int type,Activity activity){
+        //creer la vue complete du bateau puis celles de ses parties
         switch(type){
             case TORPILLEUR:
                 complet = new ImageView(activity.getApplicationContext());
@@ -115,9 +114,9 @@ public class BateauVue{
 
     public BateauVue(int type,int id, Activity activity,ControleurPlacement controleurPlacement){
         this(type,activity);
-        this.controleurPlacement = controleurPlacement;
-        this.id = id;
         complet.setTag(R.id.BoatID,id);//type
+
+        //ajout de la possibliter de bouger les bateaux
         complet.setOnLongClickListener(
                 v -> {
                     ClipData dragData = ClipData.newPlainText("","");
@@ -125,18 +124,26 @@ public class BateauVue{
                     v.startDrag(dragData,myShadow,v,0 );
                     return true;
                 });
+
+        //ajout de la possibiliter de renvoyer les bateaux dans le pool a partire des parties
         for(ImageView partie: parts)
             partie.setOnLongClickListener(
                     v -> {
-                        remove();
+                        controleurPlacement.removeBoat(id);
                         return true;
                     });
     }
 
+    /*
+        retourne l'image complette
+     */
     public ImageView getComplet(){
         return complet;
     }
 
+    /*
+        retourne la n-eme partie du bateau
+     */
     public ImageView getParts(int n) {
         return parts[n];
     }
@@ -149,6 +156,9 @@ public class BateauVue{
         return y;
     }
 
+    /*
+        tourne le bateau dans la direction donne
+     */
     public void setDirection(int direction){
         if(direction != HORIZONTAL && direction != VERTICAL)
             throw new IllegalArgumentException("direction inconnue");
@@ -158,15 +168,14 @@ public class BateauVue{
         this.direction = direction;
     }
 
+    /*
+        tourne le bateau a 90°
+     */
     public void rotate(){
         if(direction == HORIZONTAL)
             setDirection(VERTICAL);
         else
             setDirection(HORIZONTAL);
-    }
-
-    private void remove(){
-        controleurPlacement.removeBoat(id);
     }
 
     public int getSize() {
@@ -178,6 +187,7 @@ public class BateauVue{
         this.y = y;
     }
 
+    //retourne vrais si le bateau est poser sur le plateau
     public boolean isOnBoard() {
         return x > -1;
     }
@@ -186,6 +196,12 @@ public class BateauVue{
         return direction;
     }
 
+    /*
+    class permetant d'avoir une ombre de la meme taille et dans la meme direction que le l'ImageView
+
+    adpater de la reponse trouver ici:
+        https://stackoverflow.com/questions/17049938/how-to-drag-a-rotated-dragshadow
+     */
     private class testShadow extends View.DragShadowBuilder{
         private int width;
         private int height;
