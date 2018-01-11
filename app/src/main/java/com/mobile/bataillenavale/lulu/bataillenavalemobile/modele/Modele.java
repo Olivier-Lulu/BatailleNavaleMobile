@@ -17,21 +17,10 @@ import java.util.Vector;
 
 public class Modele implements Serializable{
 
-    private static Modele instance = null;
     private Humain humain;
     private Joueur j2;
     private EcranAdverseActivity tableauDeJeu;
     private EcranJoueurActivity affichageJoueur;
-
-    /*
-    initialise et retourne l'instance de modele
-    Ne devrait etre appeler qu'une seule fois
-     */
-    public static synchronized Modele getInstanceInit(int tailleX, int tailleY, int nbTorpilleur, int nbContreTorpilleur, int nbCroiseur, int nbPorteAvion, String niveauIA) {
-        if(instance == null)
-            instance = new Modele(tailleX, tailleY, nbTorpilleur, nbContreTorpilleur, nbCroiseur, nbPorteAvion, niveauIA);
-        return instance;
-    }
 
     public void setTableauJeu(EcranAdverseActivity tableau) {
         if (tableauDeJeu == null)
@@ -42,14 +31,8 @@ public class Modele implements Serializable{
         if (affichageJoueur == null)
             affichageJoueur = tableau;
     }
-    /*
-    *  retourne l'instance de modele
-    */
-    public static Modele getInstance() {
-        return instance;
-    }
 
-    private Modele(int tailleX, int tailleY, int nbTorpilleur, int nbContreTorpilleur, int nbCroiseur, int nbPorteAvion, String niveauIA) {
+    protected Modele(int tailleX, int tailleY, int nbTorpilleur, int nbContreTorpilleur, int nbCroiseur, int nbPorteAvion, String niveauIA) {
         humain = new Humain(tailleX, tailleY);
         switch (niveauIA) {
             case "IAFacile" :
@@ -101,7 +84,7 @@ public class Modele implements Serializable{
                 tableauDeJeu.finish();
                 affichageJoueur.finish();
                 tableauDeJeu.startActivity(new Intent(tableauDeJeu,MenuActivity.class));
-                detruireModele();
+                FactoryModele.detruireModele();
                 return;
             }
 
@@ -127,7 +110,7 @@ public class Modele implements Serializable{
                 tableauDeJeu.finish();
                 affichageJoueur.finish();
                 tableauDeJeu.startActivity(new Intent(tableauDeJeu,MenuActivity.class));
-                detruireModele();
+                FactoryModele.detruireModele();
                 return;
             }
 
@@ -139,17 +122,8 @@ public class Modele implements Serializable{
         }
     }
 
-    public void detruireModele (){
-        instance = null;
-    }
-
     public void remove(int x, int y) {
         humain.remove(x,y);
-    }
-
-    public static void set(Modele m) {
-        if(m != null)
-            instance = m;
     }
 
 }

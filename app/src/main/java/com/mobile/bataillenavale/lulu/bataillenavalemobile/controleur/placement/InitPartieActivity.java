@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Bateau;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.FactoryModele;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Modele;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.BateauVue;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.placement.PlateauPlacement;
@@ -49,7 +50,7 @@ public class InitPartieActivity extends Activity implements ControleurPlacement 
 
         p = new PlateauPlacement(x,y,this,this);
 
-        controleurModele = Modele.getInstanceInit(x, y, nbTorpilleur, nbContreTorpilleur, nbCroiseur, nbPorteAvion, niveauIA);
+        controleurModele = FactoryModele.getInstanceInit(x, y, nbTorpilleur, nbContreTorpilleur, nbCroiseur, nbPorteAvion, niveauIA);
         List<Bateau> bateaux = controleurModele.getListeBateaux();
         pool = new Pool(nbTorpilleur,nbContreTorpilleur,nbCroiseur,nbPorteAvion,this,this, bateaux);
 

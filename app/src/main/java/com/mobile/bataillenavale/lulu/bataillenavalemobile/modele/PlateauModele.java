@@ -11,7 +11,7 @@ import java.util.List;
 public class PlateauModele implements Serializable {
     private int sizeX;
     private int sizeY;
-    private List<Bateau> bateaux;
+    private LinkedList<Bateau> bateaux;
 
     public PlateauModele (int x, int y){
         sizeX = x;

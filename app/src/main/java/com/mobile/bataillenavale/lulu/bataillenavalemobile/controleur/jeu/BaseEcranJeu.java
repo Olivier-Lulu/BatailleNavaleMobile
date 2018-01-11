@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.FactoryModele;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Modele;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.jeu.PlateauJeu;
 
@@ -22,7 +23,7 @@ public abstract class BaseEcranJeu extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        controleurModele = Modele.getInstance();
+        controleurModele = FactoryModele.getInstance();
     }
 
     @Override
