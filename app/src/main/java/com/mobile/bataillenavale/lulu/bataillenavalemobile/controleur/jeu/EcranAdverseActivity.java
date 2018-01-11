@@ -4,12 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Modele;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.jeu.PlateauJeu;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.io.Serializable;
 import java.util.Vector;
 
 /**
@@ -49,4 +47,26 @@ public class EcranAdverseActivity extends BaseEcranJeu {
         controleurModele.tour(cible.elementAt(0), cible.elementAt(1));
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int sizeX = plateau.getXSize();
+        int sizeY = plateau.getYSize();
+
+        for (int i=0; i<sizeX; i++){
+            for (int j=0; j<sizeY; j++){
+                switch (controleurModele.getHumainTirType(i,j)){
+                    case 3 :
+                        plateau.tintCellKaboom(i,j);
+                        break;
+                    case 2 :
+                        plateau.tintCellBoom(i,j);
+                        break;
+                    case 1:
+                        plateau.tintCellWhite(i,j);
+                        break;
+                }
+            }
+        }
+    }
 }

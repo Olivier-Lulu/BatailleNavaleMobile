@@ -10,14 +10,14 @@ import java.util.Vector;
 
 public abstract class Joueur implements Serializable {
     protected PlateauModele plateauModele;
-    protected boolean[][] grilleTir;
+    protected int[][] grilleTir;
 
     public Joueur (int x, int y){
         plateauModele = new PlateauModele(x, y);
-        grilleTir = new boolean[x][y];
+        grilleTir = new int[x][y];
         for (int i = 0; i<x; i++)
             for (int j = 0; j<y; j++)
-                grilleTir[i][j]=true;
+                grilleTir[i][j]=0;
     }
 
     public int toucher(int x, int y){
@@ -41,10 +41,12 @@ public abstract class Joueur implements Serializable {
     }
 
     public boolean tirEstValide (int x, int y){
-        return grilleTir[x][y];
+        return grilleTir[x][y]==0;
     }
 
-    public void invaliderCase (int x, int y){ grilleTir[x][y]=false; }
+    public void invaliderCase (int x, int y, int type){
+        grilleTir[x][y]=type;
+    }
 
     public boolean perdu () {
         return plateauModele.perdu();
@@ -52,5 +54,9 @@ public abstract class Joueur implements Serializable {
 
     public Bateau getBateau(int x, int y) {
         return plateauModele.getBateau(x,y);
+    }
+
+    public int getTirType(int i, int j) {
+        return grilleTir[i][j];
     }
 }

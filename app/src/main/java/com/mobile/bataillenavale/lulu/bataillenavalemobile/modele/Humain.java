@@ -29,4 +29,6 @@ public class Humain extends Joueur{
     public void remove(int x, int y) {
         plateauModele.supprimerBateau(x,y);
     }
+
+
 }

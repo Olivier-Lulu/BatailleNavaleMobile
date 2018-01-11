@@ -41,24 +41,47 @@ public class EcranJoueurActivity extends BaseEcranJeu {
     }
 
     public void partieFinie (){
-        fini = true;
+        deleteFile("save");
     }
+
     @Override
     protected void onPause() {
-        System.out.println(""+fini);
-        if(!fini) {
-            try (ObjectOutputStream oos = new ObjectOutputStream(openFileOutput("save", MODE_PRIVATE))) {
-                oos.writeObject(controleurModele);
-            } catch (FileNotFoundException e) {
-                System.out.println(e.getMessage());
-                Toast toast = Toast.makeText(this, "Erreur fnf: partie non sauvegarder", Toast.LENGTH_LONG);
-                toast.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-                Toast toast = Toast.makeText(this, "Erreur io: partie non sauvegarder", Toast.LENGTH_LONG);
-                toast.show();
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(openFileOutput("save", MODE_PRIVATE))) {
+            oos.writeObject(controleurModele);
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+            Toast toast = Toast.makeText(this, "Erreur fnf: partie non sauvegarder", Toast.LENGTH_LONG);
+            toast.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast toast = Toast.makeText(this, "Erreur io: partie non sauvegarder", Toast.LENGTH_LONG);
+            toast.show();
+        }
+
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int sizeX = plateau.getXSize();
+        int sizeY = plateau.getYSize();
+
+        for (int i=0; i<sizeX; i++){
+            for (int j=0; j<sizeY; j++){
+                switch (controleurModele.getJ2TirType(i,j)){
+                    case 3 :
+                        plateau.tintCellKaboom(i,j);
+                        break;
+                    case 2 :
+                        plateau.tintCellBoom(i,j);
+                        break;
+                    case 1:
+                        plateau.tintCellWhite(i,j);
+                        break;
+                }
             }
         }
-        super.onPause();
     }
 }

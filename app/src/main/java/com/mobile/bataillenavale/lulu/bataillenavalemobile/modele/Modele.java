@@ -69,15 +69,19 @@ public class Modele implements Serializable{
 
         if (humain.tirEstValide(x, y)) {
 
-            humain.invaliderCase(x, y);
+
             int toucher = j2.toucher(x, y);
-            if ( toucher == 1)
+            if (toucher == 1) {
                 tableauDeJeu.cibleTouche(x, y);
-            else if (toucher == 2) {
+                humain.invaliderCase(x, y,2);
+            }else if (toucher == 2) {
                 Bateau couler = j2.getBateau(x,y);
                 tableauDeJeu.cibleCouler(couler.getX(), couler.getY(),couler.getXFin(),couler.getYFin());
-            }else
+                invaliderCouler(couler.getX(), couler.getY(),couler.getXFin(),couler.getYFin(), humain);
+            }else {
                 tableauDeJeu.cibleVide(x, y);
+                humain.invaliderCase(x, y,1);
+            }
 
             if (j2.perdu()){
                 Toast toastVictoire = Toast.makeText(tableauDeJeu, "Victoire !", Toast.LENGTH_LONG);
@@ -96,15 +100,18 @@ public class Modele implements Serializable{
 
             toucher = humain.toucher(xj2, yj2);
             if (toucher == 1) {
+                j2.invaliderCase(xj2, yj2,2);
                 affichageJoueur.cibleTouche(xj2, yj2);
                 j2.reponse(xj2,yj2,true);
             }else if (toucher == 2) {
                 Bateau couler = humain.getBateau(xj2,yj2);
+                invaliderCouler(couler.getX(), couler.getY(),couler.getXFin(),couler.getYFin(), j2);
                 affichageJoueur.cibleCouler(couler.getX(), couler.getY(),couler.getXFin(),couler.getYFin());
                 j2.reponse(xj2,yj2,true);
             }else {
                 affichageJoueur.cibleVide(xj2, yj2);
                 j2.reponse(xj2,yj2,false);
+                j2.invaliderCase(xj2, yj2,1);
             }
 
             if (humain.perdu()){
@@ -126,8 +133,24 @@ public class Modele implements Serializable{
         }
     }
 
+    private void invaliderCouler(int x, int y, int xFin, int yFin, Joueur j) {
+        if(x == xFin)
+            for(int yi = y;yi<yFin;yi++)
+                j.invaliderCase(x,yi,3);
+        else
+            for(int xi = x;xi>xFin;xi--)
+                j.invaliderCase(xi,y,3);
+    }
+
     public void remove(int x, int y) {
         humain.remove(x,y);
     }
 
+    public int getHumainTirType(int i, int j) {
+        return humain.getTirType(i,j);
+    }
+
+    public int getJ2TirType(int i, int j) {
+        return j2.getTirType(i,j);
+    }
 }
