@@ -27,20 +27,6 @@ public class MenuActivity extends Activity {
         setContentView(R.layout.activity_menu);
     }
 
-    @Override
-    protected void onResume() {
-        String[] fileList = fileList();
-        for(String nom:fileList) {
-            if (nom.equals("save")){
-                Button continuer = new Button(this);
-                continuer.setText("CONTINUER");
-                continuer.setOnClickListener(V -> clickContinuer());
-                break;
-            }
-        }
-        super.onResume();
-    }
-
     private void clickContinuer() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("save"))){
             Modele m = (Modele) ois.readObject();
@@ -92,34 +78,39 @@ public class MenuActivity extends Activity {
 
         Button boutonVsIaFacile = new Button(this);
         boutonVsIaFacile.setText("Facile");
-        boutonVsIaFacile.setOnClickListener(lambda -> iaFacile());
+        boutonVsIaFacile.setOnClickListener(lambda -> ia("IAFacile"));
         conteneur.addView(boutonVsIaFacile);
 
         Button boutonVsIaMoinsFacile = new Button(this);
         boutonVsIaMoinsFacile.setText("Moins facile");
-        boutonVsIaMoinsFacile.setOnClickListener(lambda -> iaMoinsFacile());
+        boutonVsIaMoinsFacile.setOnClickListener(lambda -> ia("IAMoinsFacile"));
         conteneur.addView(boutonVsIaMoinsFacile);
+
+        String[] fileList = fileList();
+        for(String nom:fileList) {
+            if (nom.equals("save")){
+                Button continuer = new Button(this);
+                continuer.setText("CONTINUER");
+                continuer.setOnClickListener(V -> clickContinuer());
+                conteneur.addView(continuer);
+                break;
+            }
+        }
     }
 
     private void jouerContreHumain() {
         Intent lancement = new Intent(this, MultijoueurMenuActivity.class);
         lancement.putExtra("typeAdversaire", "Humain");
+        deleteFile("save");
         startActivity(lancement);
         finish();
     }
 
-    private void iaFacile() {
+    private void ia(String niveau) {
         Intent lancement = new Intent(this, InitPartieActivity.class);
         lancement.putExtra("typeAdversaire", "IA");
-        lancement.putExtra("niveauIA", "IAFacile");
-        startActivity(lancement);
-        finish();
-    }
-
-    private void iaMoinsFacile() {
-        Intent lancement = new Intent(this, InitPartieActivity.class);
-        lancement.putExtra("typeAdversaire", "IA");
-        lancement.putExtra("niveauIA", "IAMoinsFacile");
+        lancement.putExtra("niveauIA", niveau);
+        deleteFile("save");
         startActivity(lancement);
         finish();
     }
