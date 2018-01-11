@@ -133,7 +133,6 @@ public class Pool {
         //on enleve le bouton finish si il est resent
         if(finish != null)
             pool.removeView(finish);
-
         BateauVue bateau = bateaux.get(id);
         bateau.setCoord(-1,-1);
         pool.addView(bateau.getComplet());

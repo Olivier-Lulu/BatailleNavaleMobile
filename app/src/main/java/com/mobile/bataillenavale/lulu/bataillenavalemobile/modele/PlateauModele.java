@@ -1,5 +1,6 @@
 package com.mobile.bataillenavale.lulu.bataillenavalemobile.modele;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * Created by lulu on 08/01/18.
  */
 
-public class PlateauModele {
+public class PlateauModele implements Serializable {
     private int sizeX;
     private int sizeY;
     private List<Bateau> bateaux;

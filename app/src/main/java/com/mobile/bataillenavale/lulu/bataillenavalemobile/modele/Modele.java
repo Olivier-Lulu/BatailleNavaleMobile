@@ -7,6 +7,7 @@ import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.MenuActivi
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.jeu.EcranAdverseActivity;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.jeu.EcranJoueurActivity;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Vector;
 
@@ -14,7 +15,7 @@ import java.util.Vector;
  * Created by simon on 09/01/18.
  */
 
-public class Modele {
+public class Modele implements Serializable{
 
     private static Modele instance = null;
     private Humain humain;
@@ -141,5 +142,10 @@ public class Modele {
 
     public void remove(int x, int y) {
         humain.remove(x,y);
+    }
+
+    public static void set(Modele m) {
+        if(m != null)
+            instance = m;
     }
 }

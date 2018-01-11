@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Modele;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.jeu.PlateauJeu;
 
 import org.jetbrains.annotations.Nullable;
@@ -16,10 +17,12 @@ import org.jetbrains.annotations.Nullable;
 public abstract class BaseEcranJeu extends Activity {
 
     protected PlateauJeu plateau;
+    protected Modele controleurModele;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        controleurModele = Modele.getInstance();
     }
 
     @Override

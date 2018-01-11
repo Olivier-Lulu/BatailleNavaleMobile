@@ -3,8 +3,6 @@ package com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.jeu;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.view.DragEvent;
-import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,8 +11,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.GestureListener;
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.OnSwipeTouchListener;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.jeu.BaseEcranJeu;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.jeu.EcranAdverseActivity;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Bateau;

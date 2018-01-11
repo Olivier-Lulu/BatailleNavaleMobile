@@ -1,10 +1,12 @@
 package com.mobile.bataillenavale.lulu.bataillenavalemobile.modele;
 
+import java.io.Serializable;
+
 /**
  * Created by simon on 09/01/18.
  */
 
-public class Bateau {
+public class Bateau implements Serializable{
 
     public static final int TORPILLEUR = 2;//2 case
     public static final int CONTRE_TORPILLEUR = 3;//3 case

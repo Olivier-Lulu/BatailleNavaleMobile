@@ -1,5 +1,6 @@
 package com.mobile.bataillenavale.lulu.bataillenavalemobile.modele;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Vector;
 
@@ -7,7 +8,7 @@ import java.util.Vector;
  * Created by simon on 08/01/18.
  */
 
-public abstract class Joueur {
+public abstract class Joueur implements Serializable {
     protected PlateauModele plateauModele;
     protected boolean[][] grilleTir;
 

@@ -17,13 +17,11 @@ import java.util.Vector;
 
 public class EcranAdverseActivity extends BaseEcranJeu {
 
-    private Modele controleurModele;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ecranadverse);
-        controleurModele = Modele.getInstance();
         plateau = new PlateauJeu(PlateauJeu.ADVERSE, this, controleurModele.getSizeX(), controleurModele.getSizeY(), this, R.id.tableadverse);
         controleurModele.setTableauJeu(this);
     }
