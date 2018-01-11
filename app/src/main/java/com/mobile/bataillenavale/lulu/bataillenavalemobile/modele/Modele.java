@@ -19,8 +19,8 @@ public class Modele implements Serializable{
 
     private Humain humain;
     private Joueur j2;
-    private EcranAdverseActivity tableauDeJeu;
-    private EcranJoueurActivity affichageJoueur;
+    private transient EcranAdverseActivity tableauDeJeu;
+    private transient EcranJoueurActivity affichageJoueur;
 
     public void setTableauJeu(EcranAdverseActivity tableau) {
         if (tableauDeJeu == null)
@@ -82,6 +82,7 @@ public class Modele implements Serializable{
                 Toast toastVictoire = Toast.makeText(tableauDeJeu, "Victoire !", Toast.LENGTH_LONG);
                 tableauDeJeu.toast(toastVictoire);
                 tableauDeJeu.finish();
+                affichageJoueur.partieFinie();
                 affichageJoueur.finish();
                 tableauDeJeu.startActivity(new Intent(tableauDeJeu,MenuActivity.class));
                 FactoryModele.detruireModele();
@@ -108,6 +109,7 @@ public class Modele implements Serializable{
                 Toast toastDefaite = Toast.makeText(tableauDeJeu, "Défaite...", Toast.LENGTH_LONG);
                 tableauDeJeu.toast(toastDefaite);
                 tableauDeJeu.finish();
+                affichageJoueur.partieFinie();
                 affichageJoueur.finish();
                 tableauDeJeu.startActivity(new Intent(tableauDeJeu,MenuActivity.class));
                 FactoryModele.detruireModele();

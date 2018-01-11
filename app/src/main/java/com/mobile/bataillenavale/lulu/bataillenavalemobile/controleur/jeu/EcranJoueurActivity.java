@@ -12,6 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 /**
  * Created by lulu on 08/01/18.
@@ -40,27 +41,25 @@ public class EcranJoueurActivity extends BaseEcranJeu {
         EcranJoueurActivity.super.onPause();
     }
 
-    @Override
-    public void toast(Toast toast) {
+    public void partieFinie (){
         fini = true;
-        super.toast(toast);
     }
-
     @Override
-    protected void onDestroy() {
+    protected void onPause() {
+        System.out.println(""+fini);
         if(!fini) {
             try (ObjectOutputStream oos = new ObjectOutputStream(openFileOutput("save", MODE_PRIVATE))) {
                 oos.writeObject(controleurModele);
             } catch (FileNotFoundException e) {
                 System.out.println(e.getMessage());
-                Toast toastVictoire = Toast.makeText(this, "Erreur fnf: partie non sauvegarder", Toast.LENGTH_LONG);
-                toastVictoire.show();
+                Toast toast = Toast.makeText(this, "Erreur fnf: partie non sauvegarder", Toast.LENGTH_LONG);
+                toast.show();
             } catch (IOException e) {
-                System.out.println(e.getMessage());
-                Toast toastVictoire = Toast.makeText(this, "Erreur io: partie non sauvegarder", Toast.LENGTH_LONG);
-                toastVictoire.show();
+                e.printStackTrace();
+                Toast toast = Toast.makeText(this, "Erreur io: partie non sauvegarder", Toast.LENGTH_LONG);
+                toast.show();
             }
         }
-        super.onDestroy();
+        super.onPause();
     }
 }

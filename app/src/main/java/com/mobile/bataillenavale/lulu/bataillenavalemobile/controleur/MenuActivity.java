@@ -15,7 +15,6 @@ import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.placement.
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.FactoryModele;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Modele;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -89,6 +88,7 @@ public class MenuActivity extends Activity {
 
         String[] fileList = fileList();
         for(String nom:fileList) {
+            System.out.println(nom);
             if (nom.equals("save")){
                 Button continuer = new Button(this);
                 continuer.setText("CONTINUER");

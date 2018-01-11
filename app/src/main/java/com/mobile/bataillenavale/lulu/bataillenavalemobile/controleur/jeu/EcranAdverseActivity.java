@@ -9,6 +9,7 @@ import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.jeu.PlateauJeu;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 /**
@@ -16,7 +17,6 @@ import java.util.Vector;
  */
 
 public class EcranAdverseActivity extends BaseEcranJeu {
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
