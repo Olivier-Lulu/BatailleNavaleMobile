@@ -10,7 +10,6 @@ import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.jeu.PlateauJeu;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
@@ -19,6 +18,7 @@ import java.io.ObjectOutputStream;
  */
 
 public class EcranJoueurActivity extends BaseEcranJeu {
+    private boolean fini = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,17 +41,25 @@ public class EcranJoueurActivity extends BaseEcranJeu {
     }
 
     @Override
+    public void toast(Toast toast) {
+        fini = true;
+        super.toast(toast);
+    }
+
+    @Override
     protected void onDestroy() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(openFileOutput("save", MODE_PRIVATE))){
-            oos.writeObject(controleurModele);
-        }catch(FileNotFoundException e){
-            System.out.println(e.getMessage());
-            Toast toastVictoire = Toast.makeText(this, "Erreur fnf: partie non sauvegarder", Toast.LENGTH_LONG);
-            toastVictoire.show();
-        }catch (IOException e){
-            System.out.println(e.getMessage());
-            Toast toastVictoire = Toast.makeText(this, "Erreur io: partie non sauvegarder", Toast.LENGTH_LONG);
-            toastVictoire.show();
+        if(!fini) {
+            try (ObjectOutputStream oos = new ObjectOutputStream(openFileOutput("save", MODE_PRIVATE))) {
+                oos.writeObject(controleurModele);
+            } catch (FileNotFoundException e) {
+                System.out.println(e.getMessage());
+                Toast toastVictoire = Toast.makeText(this, "Erreur fnf: partie non sauvegarder", Toast.LENGTH_LONG);
+                toastVictoire.show();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+                Toast toastVictoire = Toast.makeText(this, "Erreur io: partie non sauvegarder", Toast.LENGTH_LONG);
+                toastVictoire.show();
+            }
         }
         super.onDestroy();
     }
