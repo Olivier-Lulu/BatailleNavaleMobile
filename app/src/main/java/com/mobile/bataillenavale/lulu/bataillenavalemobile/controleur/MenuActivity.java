@@ -64,8 +64,18 @@ public class MenuActivity extends Activity {
     }
 
     public void clickJouer (View v) {
-        startActivity(new Intent(this, InitPartieActivity.class));
-        this.finish();
+        LinearLayout conteneur = (LinearLayout) findViewById(R.id.layout_menu);
+        conteneur.removeAllViews();
+
+        Button boutonVsIa = new Button(this);
+        boutonVsIa.setText("Jouer contre l'ordinateur");
+        boutonVsIa.setOnClickListener(lambda -> jouerContreOrdinateur());
+        conteneur.addView(boutonVsIa);
+
+        Button boutonVsJoueur = new Button(this);
+        boutonVsJoueur.setText("Jouer contre un autre joueur");
+        boutonVsJoueur.setOnClickListener(lambda -> jouerContreHumain());
+        conteneur.addView(boutonVsJoueur);
     }
 
     public void clickParametre (View v) {
@@ -76,8 +86,19 @@ public class MenuActivity extends Activity {
         this.finish();
     }
 
-    public void clickMultijoueurMenu(View view) {
-        startActivity(new Intent(this, MultijoueurMenuActivity.class));
+    public void jouerContreOrdinateur (){
+        LinearLayout conteneur = (LinearLayout) findViewById(R.id.layout_menu);
+        conteneur.removeAllViews();
+
+        Button boutonVsIaFacile = new Button(this);
+        boutonVsIaFacile.setText("Facile");
+        boutonVsIaFacile.setOnClickListener(lambda -> iaFacile());
+        conteneur.addView(boutonVsIaFacile);
+
+        Button boutonVsIaMoinsFacile = new Button(this);
+        boutonVsIaMoinsFacile.setText("Moins facile");
+        boutonVsIaMoinsFacile.setOnClickListener(lambda -> iaMoinsFacile());
+        conteneur.addView(boutonVsIaMoinsFacile);
     }
 
     private void jouerContreHumain() {
