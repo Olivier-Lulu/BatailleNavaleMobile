@@ -1,7 +1,4 @@
 <resources>
     <string name="app_name">BatailleNavaleMobile</string>
-    <string name="cancel">Annuler</string>
-    <string name="dialog_fire_missiles">Fire</string>
-    <string name="fire">Confirmer</string>
     <string name="preference_file_initPartie">com.mobile.bataillenavale.lulu.bataillenavalemobile.data.data_partie.xml</string>
 </resources>

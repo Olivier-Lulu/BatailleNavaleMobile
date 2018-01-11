@@ -246,4 +246,5 @@ public class BateauVue{
             shadowTouchPoint.set(shadowSize.x / 2, shadowSize.y / 2);
         }
     }
+
 }

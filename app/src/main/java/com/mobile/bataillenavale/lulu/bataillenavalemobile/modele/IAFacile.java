@@ -7,72 +7,36 @@ import java.util.Vector;
  * Created by simon on 08/01/18.
  */
 
-public class IA extends Joueur {
+public class IAFacile extends Joueur {
     private int[][] adverse;
     //0 non decouvert
     //1 toucher
     //2 couler
     private Vector<Integer> dernierCoup = null;
+    private int tailleX;
+    private int tailleY;
 
-    public IA(int tailleX, int tailleY, int nbTorpilleur, int nbContreTorpilleur, int nbCroiseur, int nbPorteAvion){
+    public IAFacile(int tailleX, int tailleY, int nbTorpilleur, int nbContreTorpilleur, int nbCroiseur, int nbPorteAvion){
         super(tailleX, tailleY);
         adverse = new int[tailleX][tailleY];
+        this.tailleX = tailleX;
+        this.tailleY = tailleY;
         Runnable run = new initPlateau(plateauModele,nbTorpilleur,nbContreTorpilleur,nbCroiseur,nbPorteAvion,tailleX,tailleY);
         Thread t = new Thread(run);
         t.start();
     }
 
     public Vector<Integer> tirer(){
-        int x;
-        int y;
-        if(dernierCoup != null) {
-            x = dernierCoup.get(0);
-            y = dernierCoup.get(1);
-            if (adverse[x][y] == 1) {
-                double direction = Math.random();
-                if (direction > 0.75) {
-                    //haut
-                    if (y > 0 && adverse[x][y - 1] == 0) {
-                        dernierCoup = new Vector<>();
-                        dernierCoup.add(0, x);
-                        dernierCoup.add(1, y - 1);
-                        return dernierCoup;
-                    }
-                } else if (direction > 0.5) {
-                    //droite
-                    if (x + 1 < adverse.length && adverse[x + 1][y] == 0) {
-                        dernierCoup = new Vector<>();
-                        dernierCoup.add(0, x + 1);
-                        dernierCoup.add(1, y);
-                        return dernierCoup;
-                    }
-                } else if (direction > 0.25) {
-                    //bas
-                    if (y + 1 < adverse[0].length && adverse[x][y + 1] == 0) {
-                        dernierCoup = new Vector<>();
-                        dernierCoup.add(0, x);
-                        dernierCoup.add(1, y + 1);
-                        return dernierCoup;
-                    }
-                } else {
-                    //gauche
-                    if (x > adverse.length && adverse[x - 1][y] == 0) {
-                        dernierCoup = new Vector<>();
-                        dernierCoup.add(0, x - 1);
-                        dernierCoup.add(1, y);
-                        return dernierCoup;
-                    }
-                }
-            }
-        }
+        Vector<Integer> cible = new Vector<>();
+        int x,y;
         do {
             x = (int) (Math.random() * adverse.length);
             y = (int) (Math.random() * adverse[0].length);
         }while(adverse[x][y] != 0);
-        dernierCoup = new Vector<>();
-        dernierCoup.add(0,x);
-        dernierCoup.add(1,y);
-        return dernierCoup;
+        cible.add(0,x);
+        cible.add(1,y);
+
+        return cible;
     }
 
     public void reponse(int x, int y, boolean toucher){

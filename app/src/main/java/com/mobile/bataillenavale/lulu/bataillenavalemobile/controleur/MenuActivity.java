@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import android.widget.LinearLayout;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.communication.MultijoueurMenuActivity;
@@ -78,4 +79,28 @@ public class MenuActivity extends Activity {
     public void clickMultijoueurMenu(View view) {
         startActivity(new Intent(this, MultijoueurMenuActivity.class));
     }
+
+    private void jouerContreHumain() {
+        Intent lancement = new Intent(this, MultijoueurMenuActivity.class);
+        lancement.putExtra("typeAdversaire", "Humain");
+        startActivity(lancement);
+        finish();
+    }
+
+    private void iaFacile() {
+        Intent lancement = new Intent(this, InitPartieActivity.class);
+        lancement.putExtra("typeAdversaire", "IA");
+        lancement.putExtra("niveauIA", "IAFacile");
+        startActivity(lancement);
+        finish();
+    }
+
+    private void iaMoinsFacile() {
+        Intent lancement = new Intent(this, InitPartieActivity.class);
+        lancement.putExtra("typeAdversaire", "IA");
+        lancement.putExtra("niveauIA", "IAMoinsFacile");
+        startActivity(lancement);
+        finish();
+    }
+
 }

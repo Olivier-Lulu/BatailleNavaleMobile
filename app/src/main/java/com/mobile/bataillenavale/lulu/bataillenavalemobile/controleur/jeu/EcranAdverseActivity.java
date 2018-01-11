@@ -49,8 +49,4 @@ public class EcranAdverseActivity extends BaseEcranJeu {
         controleurModele.tour(cible.elementAt(0), cible.elementAt(1));
     }
 
-    public void resetCible (){
-        plateau.resetCible();
-    }
-
 }
