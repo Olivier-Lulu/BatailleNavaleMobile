@@ -45,5 +45,8 @@
         <activity android:name=".controleur.jeu.EcranJoueurActivity" android:hardwareAccelerated="true">
         </activity>
 
+        <activity android:name=".controleur.communication.MultijoueurMenuActivity" android:hardwareAccelerated="true">
+        </activity>
+
     </application>
 </manifest>

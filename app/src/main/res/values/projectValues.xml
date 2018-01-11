@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item type="id" name="X" />
-    <item type="id" name="Y" />
     <item type="id" name="BoatID" />
-    <item type="id" name="Rotation" />
-    <item type="id" name="tableadverse" />
-    <item type="id" name="tablejoueur" />
-    <item type="id" name="rootadverse" />
-    <item type="id" name="rootjoueur" />
 </resources>

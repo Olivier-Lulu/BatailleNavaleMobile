@@ -26,9 +26,9 @@ public class Modele {
     initialise et retourne l'instance de modele
     Ne devrait etre appeler qu'une seule fois
      */
-    public static synchronized Modele getInstanceInit(int tailleX, int tailleY, int nbTorpilleur, int nbContreTorpilleur, int nbCroiseur, int nbPorteAvion) {
+    public static synchronized Modele getInstanceInit(int tailleX, int tailleY, int nbTorpilleur, int nbContreTorpilleur, int nbCroiseur, int nbPorteAvion, String niveauIA) {
         if(instance == null)
-            instance = new Modele(tailleX, tailleY, nbTorpilleur, nbContreTorpilleur, nbCroiseur, nbPorteAvion);
+            instance = new Modele(tailleX, tailleY, nbTorpilleur, nbContreTorpilleur, nbCroiseur, nbPorteAvion, niveauIA);
         return instance;
     }
 
@@ -48,9 +48,16 @@ public class Modele {
         return instance;
     }
 
-    private Modele(int tailleX, int tailleY, int nbTorpilleur, int nbContreTorpilleur, int nbCroiseur, int nbPorteAvion) {
+    private Modele(int tailleX, int tailleY, int nbTorpilleur, int nbContreTorpilleur, int nbCroiseur, int nbPorteAvion, String niveauIA) {
         humain = new Humain(tailleX, tailleY);
-        j2 = new IA(tailleX, tailleY, nbTorpilleur, nbContreTorpilleur, nbCroiseur, nbPorteAvion);
+        switch (niveauIA) {
+            case "IAFacile" :
+                j2 = new IAFacile(tailleX, tailleY, nbTorpilleur, nbContreTorpilleur, nbCroiseur, nbPorteAvion);
+            case "IAMoinsFacile":
+                j2 = new IAMoinsFacile(tailleX, tailleY, nbTorpilleur, nbContreTorpilleur, nbCroiseur, nbPorteAvion);
+            default:
+                j2 = new IAFacile(tailleX, tailleY, nbTorpilleur, nbContreTorpilleur, nbCroiseur, nbPorteAvion);
+        }
     }
 
     public Humain getHumain(){
@@ -97,13 +104,12 @@ public class Modele {
                 return;
             }
 
-            //verif victoire
             Vector<Integer> tirJ2 = j2.tirer();
             int xj2 = tirJ2.elementAt(0);
             int yj2 = tirJ2.elementAt(1);
 
             toucher = humain.toucher(xj2, yj2);
-            if ( toucher == 1) {
+            if (toucher == 1) {
                 affichageJoueur.cibleTouche(xj2, yj2);
                 j2.reponse(xj2,yj2,true);
             }else if (toucher == 2) {
@@ -124,13 +130,10 @@ public class Modele {
                 return;
             }
 
-            //verif victoire
-            tableauDeJeu.resetCible();
             tableauDeJeu.activer();
         }else{
             Toast toastCaseInvalide = Toast.makeText(tableauDeJeu, "Cible invalide", Toast.LENGTH_SHORT);
             tableauDeJeu.toast(toastCaseInvalide);
-            tableauDeJeu.resetCible();
             tableauDeJeu.activer();
         }
     }
@@ -142,4 +145,5 @@ public class Modele {
     public void remove(int x, int y) {
         humain.remove(x,y);
     }
+
 }

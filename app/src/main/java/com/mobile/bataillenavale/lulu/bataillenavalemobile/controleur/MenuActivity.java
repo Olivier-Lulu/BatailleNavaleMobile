@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.communication.MultijoueurMenuActivity;
@@ -18,8 +20,16 @@ public class MenuActivity extends Activity {
     }
 
     public void clickJouer (View v) {
-        startActivity(new Intent(this, InitPartieActivity.class));
-        this.finish();
+        LinearLayout conteneur = (LinearLayout) findViewById(R.id.layout_menu);
+        conteneur.removeAllViews();
+
+        Button boutonVsIa = new Button(this);
+        boutonVsIa.setText("Jouer contre l'ordinateur");
+        boutonVsIa.setOnClickListener(lambda -> jouerContreOrdinateur());
+
+        Button boutonVsJoueur = new Button(this);
+        boutonVsJoueur.setText("Jouer contre un autre joueur");
+        boutonVsJoueur.setOnClickListener(lambda -> jouerContreHumain());
     }
 
     public void clickParametre (View v) {
@@ -30,7 +40,40 @@ public class MenuActivity extends Activity {
         this.finish();
     }
 
-    public void clickMultijoueurMenu(View view) {
-        startActivity(new Intent(this, MultijoueurMenuActivity.class));
+    public void jouerContreOrdinateur (){
+        LinearLayout conteneur = (LinearLayout) findViewById(R.id.layout_menu);
+        conteneur.removeAllViews();
+
+        Button boutonVsIaFacile = new Button(this);
+        boutonVsIaFacile.setText("Facile");
+        boutonVsIaFacile.setOnClickListener(lambda -> iaFacile());
+
+        Button boutonVsIaMoinsFacile = new Button(this);
+        boutonVsIaMoinsFacile.setText("Moins facile");
+        boutonVsIaMoinsFacile.setOnClickListener(lambda -> iaMoinsFacile());
     }
+
+    private void jouerContreHumain() {
+        Intent lancement = new Intent(this, MultijoueurMenuActivity.class);
+        lancement.putExtra("typeAdversaire", "Humain");
+        startActivity(lancement);
+        finish();
+    }
+
+    private void iaFacile() {
+        Intent lancement = new Intent(this, InitPartieActivity.class);
+        lancement.putExtra("typeAdversaire", "IA");
+        lancement.putExtra("niveauIA", "IAFacile");
+        startActivity(lancement);
+        finish();
+    }
+
+    private void iaMoinsFacile() {
+        Intent lancement = new Intent(this, InitPartieActivity.class);
+        lancement.putExtra("typeAdversaire", "IA");
+        lancement.putExtra("niveauIA", "IAMoinsFacile");
+        startActivity(lancement);
+        finish();
+    }
+
 }

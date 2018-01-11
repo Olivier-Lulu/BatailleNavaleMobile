@@ -3,8 +3,6 @@ package com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.jeu;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.view.DragEvent;
-import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,8 +11,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.GestureListener;
-import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.OnSwipeTouchListener;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.jeu.BaseEcranJeu;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.jeu.EcranAdverseActivity;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Bateau;
@@ -37,7 +33,7 @@ public class PlateauJeu {
     private RelativeLayout[][] cells;
     private boolean dejaExec = false;
 
-    private Vector<Integer> cible = null;
+    //private Vector<Integer> cible = null;
 
     public PlateauJeu(int typePlateau, BaseEcranJeu controleur, int x, int y, Activity activity, int id){
         if(x<0 || y<0)
@@ -55,8 +51,6 @@ public class PlateauJeu {
                 row.addView(cell,xi,params);
                 cell.setGravity(Gravity.CENTER);
                 cell.setBackgroundColor(Color.BLUE);
-                cell.setTag(R.id.X,xi);
-                cell.setTag(R.id.Y,yi);
 
                 final int xFinal = xi;
                 final int yFinal = yi;
@@ -75,12 +69,10 @@ public class PlateauJeu {
                                 if (Math.abs(deltaX) >= 100) {
                                     controleur.swipe();
                                 } else {
-                                    if (cible == null) {
-                                        cible = new Vector<Integer>();
-                                        cible.add(0, xFinal);
-                                        cible.add(1, yFinal);
-                                        ((EcranAdverseActivity) controleur).tour(cible);
-                                    }
+                                    Vector <Integer> cible = new Vector<Integer>();
+                                    cible.add(0, xFinal);
+                                    cible.add(1, yFinal);
+                                    ((EcranAdverseActivity) controleur).tour(cible);
                                 }
                             }
                             return true;
@@ -112,8 +104,6 @@ public class PlateauJeu {
         }
 
     }
-
-    public void resetCible () { cible = null; }
 
     public PlateauJeu (int typePlateau, BaseEcranJeu controleur, int x, int y, Activity activity, int id, List<Bateau> listeBateaux){
         this(typePlateau, controleur, x, y, activity, id);

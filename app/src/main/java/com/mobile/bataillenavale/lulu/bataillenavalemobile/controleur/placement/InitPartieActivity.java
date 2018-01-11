@@ -2,6 +2,7 @@ package com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.placement
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -21,11 +22,16 @@ public class InitPartieActivity extends Activity implements ControleurPlacement 
     private int x;
     private int y;
     private Modele controleurModele;
+    private String niveauIA = "vide";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initpartie);
+        Intent intentRecu = getIntent();
+        if (intentRecu.getStringExtra("typeAdversaire").equals("IA")){
+            niveauIA = intentRecu.getStringExtra("niveauIA");
+        }
     }
 
     @Override
@@ -43,7 +49,7 @@ public class InitPartieActivity extends Activity implements ControleurPlacement 
 
         p = new PlateauPlacement(x,y,this,this);
 
-        controleurModele = Modele.getInstanceInit(x, y, nbTorpilleur, nbContreTorpilleur, nbCroiseur, nbPorteAvion);
+        controleurModele = Modele.getInstanceInit(x, y, nbTorpilleur, nbContreTorpilleur, nbCroiseur, nbPorteAvion, niveauIA);
         List<Bateau> bateaux = controleurModele.getListeBateaux();
         pool = new Pool(nbTorpilleur,nbContreTorpilleur,nbCroiseur,nbPorteAvion,this,this, bateaux);
 

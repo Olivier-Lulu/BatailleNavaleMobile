@@ -10,6 +10,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/layout_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -28,13 +29,6 @@
             android:layout_height="wrap_content"
             android:onClick="clickParametre"
             android:text="Paramètres" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="clickMultijoueurMenu"
-            android:text="Multijoueur" />
 
         <Button
             android:id="@+id/quitter"
