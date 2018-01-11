@@ -78,7 +78,10 @@ public class Bateau implements Serializable{
     }
 
     public boolean estIci(int x, int y) {
-        return (this.x==x && this.y==y);
+        if (y == this.y && x == this.x)
+            return true;
+            return x >= this.x - type -1&& x <= this.x &&
+            y <= this.y + type  -1&& y >= this.y;
     }
 
     public boolean intersect(Bateau bateau) {
@@ -102,5 +105,19 @@ public class Bateau implements Serializable{
                return bateau.y >= this.y && bateau.y<=this.y+this.type-1
                        && this.x <= bateau.x && this.x >= bateau.x-bateau.type-1;
        }
+    }
+
+    public int getXFin() {
+        if(direction == HORIZONTAL)
+            return x+type;
+        else
+            return x;
+    }
+
+    public int getYFin() {
+        if(direction == HORIZONTAL)
+            return y;
+        else
+            return y+getType();
     }
 }

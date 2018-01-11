@@ -19,6 +19,7 @@ public abstract class BaseEcranJeu extends Activity {
 
     protected PlateauJeu plateau;
     protected Modele controleurModele;
+    protected boolean fini = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,6 +51,16 @@ public abstract class BaseEcranJeu extends Activity {
     }
 
     public void toast(Toast toast) {
+        fini = true;
         toast.show();
+    }
+
+    public void cibleCouler(int x, int y, int xFin, int yFin) {
+        if(x == xFin)
+            for(int yi = y;yi<yFin;yi++)
+                plateau.tintCellKaboom(x,yi);
+        else
+            for(int xi = x;xi<xFin;xi++)
+                plateau.tintCellKaboom(xi,y);
     }
 }

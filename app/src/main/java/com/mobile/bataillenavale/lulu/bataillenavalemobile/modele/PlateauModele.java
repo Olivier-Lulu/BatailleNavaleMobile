@@ -12,6 +12,7 @@ public class PlateauModele implements Serializable {
     private int sizeX;
     private int sizeY;
     private LinkedList<Bateau> bateaux;
+    private LinkedList<Bateau> bateauxCouler;
 
     public PlateauModele (int x, int y){
         sizeX = x;
@@ -71,5 +72,12 @@ public class PlateauModele implements Serializable {
             if (curseur.getPv() > 0)
                 return false;
         return true;
+    }
+
+    public Bateau getBateau(int x, int y) {
+        for (Bateau curseur : bateaux)
+            if (curseur.estIci(x,y))
+                return curseur;
+        return null;
     }
 }

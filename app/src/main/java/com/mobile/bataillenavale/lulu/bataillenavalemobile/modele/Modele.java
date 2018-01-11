@@ -71,11 +71,13 @@ public class Modele implements Serializable{
 
             humain.invaliderCase(x, y);
             int toucher = j2.toucher(x, y);
+            System.out.println(toucher);
             if ( toucher == 1)
                 tableauDeJeu.cibleTouche(x, y);
-            else if (toucher == 2)
-                tableauDeJeu.cibleTouche(x, y);
-            else
+            else if (toucher == 2) {
+                Bateau couler = j2.getBateau(x,y);
+                tableauDeJeu.cibleCouler(couler.getX(), couler.getY(),couler.getXFin(),couler.getYFin());
+            }else
                 tableauDeJeu.cibleVide(x, y);
 
             if (j2.perdu()){
@@ -98,7 +100,8 @@ public class Modele implements Serializable{
                 affichageJoueur.cibleTouche(xj2, yj2);
                 j2.reponse(xj2,yj2,true);
             }else if (toucher == 2) {
-                affichageJoueur.cibleTouche(xj2, yj2);
+                Bateau couler = humain.getBateau(xj2,yj2);
+                affichageJoueur.cibleCouler(couler.getX(), couler.getY(),couler.getXFin(),couler.getYFin());
                 j2.reponse(xj2,yj2,true);
             }else {
                 affichageJoueur.cibleVide(xj2, yj2);

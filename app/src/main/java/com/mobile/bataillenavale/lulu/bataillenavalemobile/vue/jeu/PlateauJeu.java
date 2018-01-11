@@ -139,39 +139,6 @@ public class PlateauJeu {
         cells[x][y].addView(v,params);
     }
 
-    public boolean isEmpty(int x, int y){
-        return cells[x][y].getChildCount() == 0;
-    }
-
-    public void removeView(View v,int x,int y) {
-        cells[x][y].removeView(v);
-    }
-
-    public void tint(int xCell, int yCell,boolean enter) {
-        ColorDrawable draw = (ColorDrawable) cells[xCell][yCell].getBackground();
-        int color  = draw.getColor();
-        int r = Color.red( color );
-        int g = Color.green( color );
-        int b = Color.blue( color );
-        if(enter) {
-            if (r != 0)
-                r -= 100;
-            if (g != 0)
-                g -= 100;
-            if (b != 0)
-                b -= 100;
-        }else {
-            if (r != 0)
-                r += 100;
-            if (g != 0)
-                g += 100;
-            if (b != 0)
-                b += 100;
-        }
-        cells[xCell][yCell].setBackgroundColor(Color.rgb(r,g,b));
-        cells[xCell][yCell].invalidate();
-    }
-
     /*
     remet tout les backgrounds a bleu
      */
@@ -207,5 +174,9 @@ public class PlateauJeu {
 
     public void tintCellBoom(int x, int y) {
         cells[x][y].setBackgroundColor(Color.RED);
+    }
+
+    public void tintCellKaboom(int x, int y) {
+        cells[x][y].setBackgroundColor(Color.rgb(100,0,0));
     }
 }

@@ -12,7 +12,6 @@ import org.jetbrains.annotations.Nullable;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 
 /**
  * Created by lulu on 08/01/18.

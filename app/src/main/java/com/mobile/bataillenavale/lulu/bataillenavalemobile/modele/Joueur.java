@@ -49,4 +49,8 @@ public abstract class Joueur implements Serializable {
     public boolean perdu () {
         return plateauModele.perdu();
     }
+
+    public Bateau getBateau(int x, int y) {
+        return plateauModele.getBateau(x,y);
+    }
 }
