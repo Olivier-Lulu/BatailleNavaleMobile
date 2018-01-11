@@ -78,10 +78,16 @@ public class Bateau implements Serializable{
     }
 
     public boolean estIci(int x, int y) {
-        if (y == this.y && x == this.x)
+        if(direction == VERTICAL)
+            if(this.x == x && this.y <= y && this.y+type > y) {
+                return true;
+            }else
+                return false;
+        else
+        if(this.y == y && this.x >= x && this.x-type < x) {
             return true;
-            return x >= this.x - type -1&& x <= this.x &&
-            y <= this.y + type  -1&& y >= this.y;
+        }else
+            return false;
     }
 
     public boolean intersect(Bateau bateau) {

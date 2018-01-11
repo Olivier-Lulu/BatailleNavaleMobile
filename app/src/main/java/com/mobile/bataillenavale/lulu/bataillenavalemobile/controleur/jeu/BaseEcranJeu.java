@@ -60,7 +60,7 @@ public abstract class BaseEcranJeu extends Activity {
             for(int yi = y;yi<yFin;yi++)
                 plateau.tintCellKaboom(x,yi);
         else
-            for(int xi = x;xi<xFin;xi++)
+            for(int xi = x;xi>xFin;xi--)
                 plateau.tintCellKaboom(xi,y);
     }
 }

@@ -71,7 +71,6 @@ public class Modele implements Serializable{
 
             humain.invaliderCase(x, y);
             int toucher = j2.toucher(x, y);
-            System.out.println(toucher);
             if ( toucher == 1)
                 tableauDeJeu.cibleTouche(x, y);
             else if (toucher == 2) {
