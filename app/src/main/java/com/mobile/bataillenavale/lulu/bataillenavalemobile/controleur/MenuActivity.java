@@ -26,10 +26,12 @@ public class MenuActivity extends Activity {
         Button boutonVsIa = new Button(this);
         boutonVsIa.setText("Jouer contre l'ordinateur");
         boutonVsIa.setOnClickListener(lambda -> jouerContreOrdinateur());
+        conteneur.addView(boutonVsIa);
 
         Button boutonVsJoueur = new Button(this);
         boutonVsJoueur.setText("Jouer contre un autre joueur");
         boutonVsJoueur.setOnClickListener(lambda -> jouerContreHumain());
+        conteneur.addView(boutonVsJoueur);
     }
 
     public void clickParametre (View v) {
@@ -47,10 +49,12 @@ public class MenuActivity extends Activity {
         Button boutonVsIaFacile = new Button(this);
         boutonVsIaFacile.setText("Facile");
         boutonVsIaFacile.setOnClickListener(lambda -> iaFacile());
+        conteneur.addView(boutonVsIaFacile);
 
         Button boutonVsIaMoinsFacile = new Button(this);
         boutonVsIaMoinsFacile.setText("Moins facile");
         boutonVsIaMoinsFacile.setOnClickListener(lambda -> iaMoinsFacile());
+        conteneur.addView(boutonVsIaMoinsFacile);
     }
 
     private void jouerContreHumain() {
