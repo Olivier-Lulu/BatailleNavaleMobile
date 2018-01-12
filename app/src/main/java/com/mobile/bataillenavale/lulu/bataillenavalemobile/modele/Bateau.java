@@ -59,18 +59,11 @@ public class Bateau implements Serializable{
     }
 
     public boolean toucher(int x, int y){
-        if(direction == VERTICAL)
-            if(this.x == x && this.y <= y && this.y+type > y) {
-                pv--;
-                return true;
-            }else
-                return false;
-        else
-            if(this.y == y && this.x >= x && this.x-type < x) {
-                pv--;
-                return true;
-            }else
-                return false;
+        if(estIci(x,y)){
+            pv--;
+            return true;
+        }else
+            return false;
     }
 
     public boolean couler(){
