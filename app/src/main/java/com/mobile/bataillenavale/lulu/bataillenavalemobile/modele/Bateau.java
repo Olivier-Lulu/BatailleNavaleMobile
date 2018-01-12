@@ -115,7 +115,7 @@ public class Bateau implements Serializable{
 
     public int getXFin() {
         if(direction == HORIZONTAL)
-            return x+type;
+            return x-type;
         else
             return x;
     }
