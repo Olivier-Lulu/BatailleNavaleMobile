@@ -26,7 +26,6 @@ public class EcranJoueurActivity extends BaseEcranJeu {
         setContentView(R.layout.activity_ecranjoueur);
         plateau = new PlateauJeu(PlateauJeu.JOUEUR, this, controleurModele.getSizeX(), controleurModele.getSizeY(), this, R.id.tablejoueur,controleurModele.getListeBateaux());
         controleurModele.setAffichageJoueur(this);
-        startActivity(new Intent(this,EcranAdverseActivity.class));
     }
 
     @Override

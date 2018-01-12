@@ -103,7 +103,6 @@ public class MenuActivity extends Activity {
     private void jouerContreHumain() {
         Intent lancement = new Intent(this, MultijoueurMenuActivity.class);
         lancement.putExtra("typeAdversaire", "Humain");
-        deleteFile("save");
         startActivity(lancement);
         finish();
     }
@@ -112,7 +111,6 @@ public class MenuActivity extends Activity {
         Intent lancement = new Intent(this, InitPartieActivity.class);
         lancement.putExtra("typeAdversaire", "IA");
         lancement.putExtra("niveauIA", niveau);
-        deleteFile("save");
         startActivity(lancement);
         finish();
     }

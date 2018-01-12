@@ -41,11 +41,11 @@ public class InitPartieActivity extends Activity implements ControleurPlacement 
 
         //on recupere les options
         SharedPreferences option = getSharedPreferences(getString(R.string.preference_file_initPartie), Context.MODE_PRIVATE);
-        x = option.getInt(getString(R.string.largeurPlateau), 3);
-        y = option.getInt(getString(R.string.hauteurPlateau),3);
-        int nbTorpilleur = option.getInt(getString(R.string.nbBateau2), 1);
+        x = option.getInt(getString(R.string.largeurPlateau), 10);
+        y = option.getInt(getString(R.string.hauteurPlateau),10);
+        int nbTorpilleur = option.getInt(getString(R.string.nbBateau2), 2);
         int nbContreTorpilleur = option.getInt(getString(R.string.nbBateau3), 1);
-        int nbCroiseur = option.getInt(getString(R.string.nbBateau4), 1);
+        int nbCroiseur = option.getInt(getString(R.string.nbBateau4), 2);
         int nbPorteAvion = option.getInt(getString(R.string.nbBateau5), 1);
 
         p = new PlateauPlacement(x,y,this,this);

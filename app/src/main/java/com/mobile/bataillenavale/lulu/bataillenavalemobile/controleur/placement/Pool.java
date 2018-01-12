@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.util.SparseArray;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.jeu.EcranAdverseActivity;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.jeu.EcranJoueurActivity;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.modele.Bateau;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.BateauVue;
@@ -162,7 +164,10 @@ public class Pool {
         lance le jeu et fini le placement
      */
     public void clickStart () {
+        Toast infoJoueur = Toast.makeText(initialiseur, "Faite glisser l'écran sur le côté pour changer l'affichage", Toast.LENGTH_LONG);
+        infoJoueur.show();
         initialiseur.startActivity(new Intent(initialiseur,EcranJoueurActivity.class));
+        initialiseur.startActivity(new Intent(initialiseur, EcranAdverseActivity.class));
         initialiseur.finish();
     }
 
