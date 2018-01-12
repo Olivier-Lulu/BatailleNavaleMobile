@@ -24,9 +24,9 @@ public class Humain extends Joueur{
         return null;
     }
 
-    @Override
-    public void reponse(int x, int y, boolean toucher) {}
-
+    /*
+     * Ajoute un bateau au modele du joueur
+     */
     public void poser (int x, int y, int direction, int type) {
         plateauModele.poser(x, y, direction, type);
     }

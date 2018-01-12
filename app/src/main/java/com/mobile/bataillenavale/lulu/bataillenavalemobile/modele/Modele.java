@@ -22,11 +22,18 @@ public class Modele implements Serializable{
     private transient EcranAdverseActivity tableauDeJeu;
     private transient EcranJoueurActivity affichageJoueur;
 
+    /*
+     * Positionne le controleur de l'affichage de l'ecran sur lequel le joueur vise
+     */
     public void setTableauJeu(EcranAdverseActivity tableau) {
         if (tableauDeJeu == null)
             tableauDeJeu = tableau;
     }
 
+    /*
+     * Positionne le controleur de l'affichage de l'ecran sur lequel le joueur voit
+     * ses bateaux
+     */
     public void setAffichageJoueur(EcranJoueurActivity tableau) {
         if (affichageJoueur == null)
             affichageJoueur = tableau;
@@ -42,10 +49,6 @@ public class Modele implements Serializable{
             default:
                 j2 = new IAFacile(tailleX, tailleY, nbTorpilleur, nbContreTorpilleur, nbCroiseur, nbPorteAvion);
         }
-    }
-
-    public Humain getHumain(){
-        return humain;
     }
 
     public void poser (int x, int y, int direction, int type){
@@ -64,12 +67,13 @@ public class Modele implements Serializable{
         return humain.getListeBateaux();
     }
 
+    /*
+     * Effectue un echange de tir. Appelee quand le joueur clique une case.
+     */
     public void tour(int x, int y){
         tableauDeJeu.desactiver();
 
         if (humain.tirEstValide(x, y)) {
-
-
             int toucher = j2.toucher(x, y);
             if (toucher == 1) {
                 tableauDeJeu.cibleTouche(x, y);
@@ -102,15 +106,12 @@ public class Modele implements Serializable{
             if (toucher == 1) {
                 j2.invaliderCase(xj2, yj2,2);
                 affichageJoueur.cibleTouche(xj2, yj2);
-                j2.reponse(xj2,yj2,true);
             }else if (toucher == 2) {
                 Bateau couler = humain.getBateau(xj2,yj2);
                 invaliderCouler(couler.getX(), couler.getY(),couler.getXFin(),couler.getYFin(), j2);
                 affichageJoueur.cibleCouler(couler.getX(), couler.getY(),couler.getXFin(),couler.getYFin());
-                j2.reponse(xj2,yj2,true);
             }else {
                 affichageJoueur.cibleVide(xj2, yj2);
-                j2.reponse(xj2,yj2,false);
                 j2.invaliderCase(xj2, yj2,1);
             }
 
@@ -153,4 +154,5 @@ public class Modele implements Serializable{
     public int getJ2TirType(int i, int j) {
         return j2.getTirType(i,j);
     }
+
 }

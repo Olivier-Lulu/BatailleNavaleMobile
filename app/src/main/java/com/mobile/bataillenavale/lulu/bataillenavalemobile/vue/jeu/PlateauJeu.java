@@ -23,6 +23,7 @@ import static com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.BateauVue.
 
 /**
  * Created by Simon on 18/12/2017.
+ * Represente le plateau du jeu pour les ecrans de controle du joueur
  */
 
 public class PlateauJeu {
@@ -31,10 +32,10 @@ public class PlateauJeu {
     public static final int ADVERSE = 2;
 
     private RelativeLayout[][] cells;
-    private boolean dejaExec = false;
 
-    //private Vector<Integer> cible = null;
-
+    /*
+     * Constructeur de PlateauJeu specifique a l'ecran ou le joueur vise
+     */
     public PlateauJeu(int typePlateau, BaseEcranJeu controleur, int x, int y, Activity activity, int id){
         if(x<0 || y<0)
             throw new IllegalArgumentException("taille negative");
@@ -105,6 +106,9 @@ public class PlateauJeu {
 
     }
 
+    /*
+     * Constructeur de PlateauJeu specifique a l'ecran ou le joueur voit ses bateaux
+     */
     public PlateauJeu (int typePlateau, BaseEcranJeu controleur, int x, int y, Activity activity, int id, List<Bateau> listeBateaux){
         this(typePlateau, controleur, x, y, activity, id);
 
@@ -126,28 +130,6 @@ public class PlateauJeu {
         }
     }
 
-    public void addView(int x, int y, View v) {
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(cells[x][y].getWidth(),cells[x][y].getHeight());
-        if(!dejaExec) {
-            for (RelativeLayout[] rs : cells)
-                for (RelativeLayout layout : rs) {
-                    layout.setMinimumHeight(cells[x][y].getHeight());
-                    layout.setMinimumWidth(cells[x][y].getWidth());
-                }
-            dejaExec = true;
-        }
-        cells[x][y].addView(v,params);
-    }
-
-    /*
-    remet tout les backgrounds a bleu
-     */
-    private void allBlue(){
-        for(RelativeLayout[] rs: cells)
-            for(RelativeLayout layout: rs)
-                layout.setBackgroundColor(Color.BLUE);
-    }
-
     public int getXSize () {
         return cells.length;
     }
@@ -156,26 +138,42 @@ public class PlateauJeu {
         return cells[0].length;
     }
 
+    /*
+     * Permet d'activer les detections d'interaction du joueur sur la grille
+     */
     public void activerGrille(){
         for (RelativeLayout[] cellRow : cells)
             for (RelativeLayout cell : cellRow)
                 cell.setEnabled(true);
     }
 
+    /*
+     * Permet d'activer les detections d'interaction du joueur sur la grille
+     */
     public void desactiverGrille() {
         for (RelativeLayout[] cellRow : cells)
             for (RelativeLayout cell : cellRow)
                 cell.setEnabled(false);
     }
 
+    /*
+     * Colore la case en blanc. Appelee si cette case est vide lorsqu'on lui tire dessus
+     */
     public void tintCellWhite(int x, int y) {
         cells[x][y].setBackgroundColor(Color.WHITE);
     }
 
+    /*
+     * Colore la case en rouge. Appelee si cette case contient un bateau lorsqu'on lui
+     * tire dessus
+     */
     public void tintCellBoom(int x, int y) {
         cells[x][y].setBackgroundColor(Color.RED);
     }
 
+    /*
+     * Colore la case en brun. Appelee si le tir sur cette case coule un bateau
+     */
     public void tintCellKaboom(int x, int y) {
         cells[x][y].setBackgroundColor(Color.rgb(100,0,0));
     }

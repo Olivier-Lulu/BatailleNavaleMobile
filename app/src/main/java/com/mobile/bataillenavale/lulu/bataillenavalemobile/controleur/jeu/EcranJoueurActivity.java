@@ -19,7 +19,6 @@ import java.io.ObjectOutputStream;
  */
 
 public class EcranJoueurActivity extends BaseEcranJeu {
-    private boolean fini = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,6 +26,7 @@ public class EcranJoueurActivity extends BaseEcranJeu {
         setContentView(R.layout.activity_ecranjoueur);
         plateau = new PlateauJeu(PlateauJeu.JOUEUR, this, controleurModele.getSizeX(), controleurModele.getSizeY(), this, R.id.tablejoueur,controleurModele.getListeBateaux());
         controleurModele.setAffichageJoueur(this);
+        startActivity(new Intent(this, EcranAdverseActivity.class));
     }
 
     /*
@@ -50,7 +50,6 @@ public class EcranJoueurActivity extends BaseEcranJeu {
 
     @Override
     protected void onPause() {
-
         try (ObjectOutputStream oos = new ObjectOutputStream(openFileOutput("save", MODE_PRIVATE))) {
             oos.writeObject(controleurModele);
         } catch (FileNotFoundException e) {

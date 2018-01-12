@@ -8,44 +8,39 @@ import java.util.Vector;
  */
 
 public class IAFacile extends Joueur {
-    private int[][] adverse;
-    //0 non decouvert
-    //1 toucher
-    //2 couler
-    private Vector<Integer> dernierCoup = null;
-    private int tailleX;
-    private int tailleY;
 
     public IAFacile(int tailleX, int tailleY, int nbTorpilleur, int nbContreTorpilleur, int nbCroiseur, int nbPorteAvion){
         super(tailleX, tailleY);
-        adverse = new int[tailleX][tailleY];
-        this.tailleX = tailleX;
-        this.tailleY = tailleY;
         Runnable run = new initPlateau(plateauModele,nbTorpilleur,nbContreTorpilleur,nbCroiseur,nbPorteAvion,tailleX,tailleY);
         Thread t = new Thread(run);
         t.start();
     }
 
+    /*
+     * Construit un vecteur de tir selon la strategie de l'IA facile :
+     *  les coordonnees choisie sont entierement aleatoire
+     */
+    @Override
     public Vector<Integer> tirer(){
         Vector<Integer> cible = new Vector<>();
         int x,y;
         do {
-            x = (int) (Math.random() * adverse.length);
-            y = (int) (Math.random() * adverse[0].length);
-        }while(adverse[x][y] != 0);
+            x = (int) (Math.random() * plateauModele.getSizeX());
+            y = (int) (Math.random() * plateauModele.getSizeY());
+        }while(getTirType(x,y) != 0);
+
         cible.add(0,x);
         cible.add(1,y);
 
         return cible;
     }
 
-    public void reponse(int x, int y, boolean toucher){
-        if (toucher)
-            adverse[x][y] = 1;
-        else
-            adverse[x][y] = 2;
-    }
-
+    /*
+     * Positionne les bateaux de l'IA.
+     * Execute dans un thread a part pour etre effectue en meme temps que la placement du
+     *  joueur et pour eviter que cette operation qui peut etre assez longue ne soit arretee
+     *  par le systeme avant d'avoir termine
+     */
     private class initPlateau implements Runnable{
         private PlateauModele plateau;
         private int nbTorpilleur;
@@ -156,4 +151,5 @@ public class IAFacile extends Joueur {
             }while(!reussi);
         }
     }
+
 }

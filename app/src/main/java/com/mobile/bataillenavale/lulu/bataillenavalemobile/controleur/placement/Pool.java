@@ -167,7 +167,6 @@ public class Pool {
         Toast infoJoueur = Toast.makeText(initialiseur, "Faite glisser l'écran sur le côté pour changer l'affichage", Toast.LENGTH_LONG);
         infoJoueur.show();
         initialiseur.startActivity(new Intent(initialiseur,EcranJoueurActivity.class));
-        initialiseur.startActivity(new Intent(initialiseur, EcranAdverseActivity.class));
         initialiseur.finish();
     }
 

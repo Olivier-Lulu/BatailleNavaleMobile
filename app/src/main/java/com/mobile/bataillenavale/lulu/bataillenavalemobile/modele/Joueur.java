@@ -10,6 +10,14 @@ import java.util.Vector;
 
 public abstract class Joueur implements Serializable {
     protected PlateauModele plateauModele;
+
+    /*
+     * Recense les cases et leur type :
+     *  - 0 pour une case qu'on a pas encore visee
+     *  - 1 pour une case qui a ete visee et ne contenait pas de bateau
+     *  - 2 pour une case qui a ete visee et qui contenait un bateau
+     *  - 3 pour une case d'un bateau coule
+     */
     protected int[][] grilleTir;
 
     public Joueur (int x, int y){
@@ -20,13 +28,14 @@ public abstract class Joueur implements Serializable {
                 grilleTir[i][j]=0;
     }
 
+    /*
+     * Interroge le modele pour savoir si le tir en (x,y) a touche
+     */
     public int toucher(int x, int y){
         return plateauModele.toucher(x, y);
     }
 
     abstract public Vector<Integer> tirer();
-
-    abstract public void reponse(int x, int y, boolean toucher);
 
     public int getSizeX (){
         return plateauModele.getSizeX();
@@ -40,10 +49,17 @@ public abstract class Joueur implements Serializable {
         return plateauModele.getListeBateaux();
     }
 
+    /*
+     * Verifie que l'on puisse viser la case grilleTir[x][y]
+     */
     public boolean tirEstValide (int x, int y){
         return grilleTir[x][y]==0;
     }
 
+
+    /*
+     * Met a jour le type de la case grilleTir[x][y]
+     */
     public void invaliderCase (int x, int y, int type){
         grilleTir[x][y]=type;
     }
@@ -56,6 +72,9 @@ public abstract class Joueur implements Serializable {
         return plateauModele.getBateau(x,y);
     }
 
+    /*
+     * Renvoie le type de la case grilleTir[x][y]
+     */
     public int getTirType(int i, int j) {
         return grilleTir[i][j];
     }

@@ -12,14 +12,16 @@ import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.placement.
 
 /**
  * Created by lulu on 20/12/17.
+ * Classe stockant les informations necessaires a afficher un bateau
  */
 
 public class BateauVue{
 
-    public static final int TORPILLEUR = 2;//2 case
-    public static final int CONTRE_TORPILLEUR = 3;//3 case
-    public static final int CROISEUR = 4;//4 case
-    public static final int PORTE_AVION = 5;//5 case
+    //Type de bateau disponibles
+    public static final int TORPILLEUR = 2;
+    public static final int CONTRE_TORPILLEUR = 3;
+    public static final int CROISEUR = 4;
+    public static final int PORTE_AVION = 5;
 
     public static final int HORIZONTAL = 90;
     public static final int VERTICAL = 0;
@@ -116,7 +118,7 @@ public class BateauVue{
         this(type,activity);
         complet.setTag(R.id.BoatID,id);//type
 
-        //ajout de la possibliter de bouger les bateaux
+        //ajout de la possiblite de bouger les bateaux
         complet.setOnLongClickListener(
                 v -> {
                     ClipData dragData = ClipData.newPlainText("","");
@@ -125,7 +127,7 @@ public class BateauVue{
                     return true;
                 });
 
-        //ajout de la possibiliter de renvoyer les bateaux dans le pool a partire des parties
+        //ajout de la possibilite de renvoyer les bateaux dans le pool a partir des parties
         for(ImageView partie: parts)
             partie.setOnLongClickListener(
                     v -> {
@@ -135,14 +137,14 @@ public class BateauVue{
     }
 
     /*
-        retourne l'image complette
+        retourne l'image complete
      */
     public ImageView getComplet(){
         return complet;
     }
 
     /*
-        retourne la n-eme partie du bateau
+        retourne la n-ieme partie du bateau
      */
     public ImageView getParts(int n) {
         return parts[n];
@@ -157,7 +159,7 @@ public class BateauVue{
     }
 
     /*
-        tourne le bateau dans la direction donne
+        tourne le bateau dans la direction donnee
      */
     public void setDirection(int direction){
         if(direction != HORIZONTAL && direction != VERTICAL)
@@ -187,7 +189,7 @@ public class BateauVue{
         this.y = y;
     }
 
-    //retourne vrais si le bateau est poser sur le plateau
+    //retourne vrai si le bateau est pose sur le plateau
     public boolean isOnBoard() {
         return x > -1;
     }
@@ -197,9 +199,9 @@ public class BateauVue{
     }
 
     /*
-    class permetant d'avoir une ombre de la meme taille et dans la meme direction que le l'ImageView
+    classe permettant d'avoir une ombre de la meme taille et dans la meme direction que l'ImageView
 
-    adpater de la reponse trouver ici:
+    adpatee de la reponse trouvee ici:
         https://stackoverflow.com/questions/17049938/how-to-drag-a-rotated-dragshadow
      */
     private class testShadow extends View.DragShadowBuilder{

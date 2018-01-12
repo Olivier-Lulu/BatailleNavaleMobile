@@ -15,6 +15,7 @@ import com.mobile.bataillenavale.lulu.bataillenavalemobile.controleur.placement.
 
 /**
  * Created by Simon on 18/12/2017.
+ * Represente le plateau du jeu pendant le placement des bateaux par le joueur
  */
 
 
@@ -76,7 +77,7 @@ public class PlateauPlacement {
     }
 
     /*
-        retourne vrais si un cellule n'a pas d'enfant
+        retourne vrai si un cellule n'a pas d'enfant
      */
     public boolean isEmpty(int x, int y){
         return cells[x][y].getChildCount() == 0;
@@ -121,7 +122,7 @@ public class PlateauPlacement {
     }
 
     /*
-        class s'occupant de gerer la couleur des cellule en fonction du bateau
+        class s'occupant de gerer la couleur des cellules en fonction du bateau
      */
     private class dragBoat implements View.OnDragListener {
         private int x;

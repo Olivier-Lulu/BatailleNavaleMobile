@@ -8,6 +8,7 @@ import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
 
 /**
  * Created by @kylewbanks on 06/08/16.
+ * Utility class to provide side sliding animation
  */
 
 public class SlideAnimation {

@@ -12,7 +12,6 @@ public class PlateauModele implements Serializable {
     private int sizeX;
     private int sizeY;
     private LinkedList<Bateau> bateaux;
-    private LinkedList<Bateau> bateauxCouler;
 
     public PlateauModele (int x, int y){
         sizeX = x;
@@ -20,7 +19,10 @@ public class PlateauModele implements Serializable {
         bateaux = new LinkedList<Bateau>();
     }
 
-    public int  toucher (int x, int y){
+    /*
+     * Teste si le tir en (x,y) touche et renvoie le type de la touche
+     */
+    public int toucher (int x, int y){
         for (Bateau curseur : bateaux)
             if (curseur.toucher(x, y))
                 if (curseur.couler())
@@ -30,6 +32,9 @@ public class PlateauModele implements Serializable {
         return 0;
     }
 
+    /*
+     * Enregistre un nouveau bateau dans sur le modele du plateau
+     */
     public boolean poser (int x, int y, int direction, int type){
         Bateau nouveauBateau = new Bateau(type);
         nouveauBateau.poser(x, y, direction);
@@ -40,6 +45,9 @@ public class PlateauModele implements Serializable {
         return true;
     }
 
+    /*
+     * Supprime le bateau qui etait sur la case (x,y)
+     */
     public void supprimerBateau (int x, int y){
         Bateau aSupprimer = null;
         for (Bateau curseur : bateaux)
@@ -80,4 +88,5 @@ public class PlateauModele implements Serializable {
                 return curseur;
         return null;
     }
+
 }

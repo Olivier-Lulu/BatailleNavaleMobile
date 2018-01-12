@@ -8,31 +8,32 @@ import java.util.Vector;
  */
 
 public class IAMoinsFacile extends Joueur {
-    private int[][] adverse;
-    //0 non decouvert
-    //1 toucher
-    //2 couler
     private Vector<Integer> dernierCoup = null;
 
     public IAMoinsFacile(int tailleX, int tailleY, int nbTorpilleur, int nbContreTorpilleur, int nbCroiseur, int nbPorteAvion){
         super(tailleX, tailleY);
-        adverse = new int[tailleX][tailleY];
         Runnable run = new initPlateau(plateauModele,nbTorpilleur,nbContreTorpilleur,nbCroiseur,nbPorteAvion,tailleX,tailleY);
         Thread t = new Thread(run);
         t.start();
     }
 
+    /*
+     * Construit un vecteur de tir selon la strategie de l'IA facile :
+     *  les coordonnees sont choisies aleatoirement sauf si le dernier coup avait touche,
+     *  auquel cas l'IA visera aleatoirement autour du tir precedent
+     */
+    @Override
     public Vector<Integer> tirer(){
         int x;
         int y;
         if(dernierCoup != null) {
             x = dernierCoup.get(0);
             y = dernierCoup.get(1);
-            if (adverse[x][y] == 1) {
+            if (getTirType(x,y) == 2) {
                 double direction = Math.random();
                 if (direction > 0.75) {
                     //haut
-                    if (y > 0 && adverse[x][y - 1] == 0) {
+                    if (y > 0 && getTirType(x,y - 1) == 0) {
                         dernierCoup = new Vector<>();
                         dernierCoup.add(0, x);
                         dernierCoup.add(1, y - 1);
@@ -40,7 +41,7 @@ public class IAMoinsFacile extends Joueur {
                     }
                 } else if (direction > 0.5) {
                     //droite
-                    if (x + 1 < adverse.length && adverse[x + 1][y] == 0) {
+                    if (x + 1 < plateauModele.getSizeX() && getTirType(x + 1,y) == 0) {
                         dernierCoup = new Vector<>();
                         dernierCoup.add(0, x + 1);
                         dernierCoup.add(1, y);
@@ -48,7 +49,7 @@ public class IAMoinsFacile extends Joueur {
                     }
                 } else if (direction > 0.25) {
                     //bas
-                    if (y + 1 < adverse[0].length && adverse[x][y + 1] == 0) {
+                    if (y + 1 < plateauModele.getSizeY() && getTirType(x,y + 1) == 0) {
                         dernierCoup = new Vector<>();
                         dernierCoup.add(0, x);
                         dernierCoup.add(1, y + 1);
@@ -56,7 +57,7 @@ public class IAMoinsFacile extends Joueur {
                     }
                 } else {
                     //gauche
-                    if (x > adverse.length && adverse[x - 1][y] == 0) {
+                    if (x > plateauModele.getSizeX() && getTirType(x - 1,y) == 0) {
                         dernierCoup = new Vector<>();
                         dernierCoup.add(0, x - 1);
                         dernierCoup.add(1, y);
@@ -66,22 +67,26 @@ public class IAMoinsFacile extends Joueur {
             }
         }
         do {
-            x = (int) (Math.random() * adverse.length);
-            y = (int) (Math.random() * adverse[0].length);
-        }while(adverse[x][y] != 0);
+            x = (int) (Math.random() * plateauModele.getSizeX());
+            y = (int) (Math.random() * plateauModele.getSizeY());
+        }while(getTirType(x,y) != 0);
         dernierCoup = new Vector<>();
         dernierCoup.add(0,x);
         dernierCoup.add(1,y);
         return dernierCoup;
     }
 
-    public void reponse(int x, int y, boolean toucher){
-        if (toucher)
-            adverse[x][y] = 1;
-        else
-            adverse[x][y] = 2;
+    @Override
+    public void invaliderCase(int x, int y, int type) {
+        super.invaliderCase(x, y, type);
     }
 
+    /*
+     * Positionne les bateaux de l'IA.
+     * Execute dans un thread a part pour etre effectue en meme temps que la placement du
+     *  joueur et pour eviter que cette operation qui peut etre assez longue ne soit arretee
+     *  par le systeme avant d'avoir termine
+     */
     private class initPlateau implements Runnable{
         private PlateauModele plateau;
         private int nbTorpilleur;
