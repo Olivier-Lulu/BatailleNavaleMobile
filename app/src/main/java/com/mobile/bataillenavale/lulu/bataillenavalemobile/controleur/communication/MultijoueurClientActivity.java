@@ -56,25 +56,28 @@ public class MultijoueurClientActivity extends MultijoueurActivity {
     @Override
     public void onResume() {
         super.onResume();
-        registerReceiver(mReceiver, intentFilter);
+        registerReceiver(mReceiver, intentFilter);//On enrengistre le receiver avec les valeurs d'intent voulues
 
         mManager.discoverPeers(mChannel, new WifiP2pManager.ActionListener() {
+        //on découvre les peers auquels ont peut se connecter
             @Override
             public void onSuccess() {
                 Collection<WifiP2pDevice> devices= devicesList.getDeviceList();
                 mDevice=devices.iterator().next();
                 WifiP2pConfig config = new WifiP2pConfig();
                 config.deviceAddress = mDevice.deviceAddress;
+                //TODO : ajouter une selections des peers
+                //après avoir obtenu un peer on s'y connecte
                 mManager.connect(mChannel, config, new WifiP2pManager.ActionListener() {
 
                     @Override
                     public void onSuccess() {
-                        //success logic
+                        //to add once resolved
                     }
 
                     @Override
                     public void onFailure(int reason) {
-                        //failure logic
+
                     }
                 });
             }
@@ -88,7 +91,7 @@ public class MultijoueurClientActivity extends MultijoueurActivity {
     @Override
     public void onPause() {
         super.onPause();
-        unregisterReceiver(mReceiver);
+        unregisterReceiver(mReceiver);//désenregistre le receiver
     }
 
 

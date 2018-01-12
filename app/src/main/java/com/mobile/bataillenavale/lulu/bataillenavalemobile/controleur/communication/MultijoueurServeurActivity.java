@@ -70,12 +70,12 @@ public class MultijoueurServeurActivity extends MultijoueurActivity {
 
                     @Override
                     public void onSuccess() {
-                        //success logic
+                        //to add once resolved
                     }
 
                     @Override
                     public void onFailure(int reason) {
-                        //failure logic
+
                     }
                 });
             }
