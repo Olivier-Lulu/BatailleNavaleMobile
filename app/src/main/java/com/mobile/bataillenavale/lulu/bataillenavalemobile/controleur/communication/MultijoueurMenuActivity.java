@@ -14,7 +14,7 @@ public class MultijoueurMenuActivity extends MultijoueurActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.activity_menumulti);
     }
 
     public void clickMultijoueurClient(View view) {

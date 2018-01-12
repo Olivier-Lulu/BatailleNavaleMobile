@@ -68,9 +68,6 @@ public class MenuActivity extends Activity {
         startActivity(new Intent(this, ParametresActivity.class));
     }
 
-    public void clickQuitter (View v){
-        this.finish();
-    }
 
     public void jouerContreOrdinateur (){
         LinearLayout conteneur = (LinearLayout) findViewById(R.id.layout_menu);
@@ -97,6 +94,10 @@ public class MenuActivity extends Activity {
                 break;
             }
         }
+    }
+
+    public void clickQuitter (View v){
+        this.finish();
     }
 
     private void jouerContreHumain() {

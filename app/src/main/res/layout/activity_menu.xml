@@ -30,6 +30,7 @@
             android:onClick="clickParametre"
             android:text="Paramètres" />
 
+
         <Button
             android:id="@+id/quitter"
             android:layout_width="match_parent"
