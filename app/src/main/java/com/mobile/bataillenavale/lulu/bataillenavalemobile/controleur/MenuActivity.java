@@ -19,6 +19,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+/*
+ * Premier ecran affiché par l'application, propose au joueur differentes actions
+ */
 public class MenuActivity extends Activity {
 
     @Override
@@ -27,6 +30,10 @@ public class MenuActivity extends Activity {
         setContentView(R.layout.activity_menu);
     }
 
+    /*
+     * Reaction au bouton continuer
+     * Lance le chargement de la sauvegarde courante
+     */
     private void clickContinuer() {
         try (ObjectInputStream ois = new ObjectInputStream(openFileInput("save"))){
             Modele m = (Modele) ois.readObject();
@@ -67,7 +74,6 @@ public class MenuActivity extends Activity {
     public void clickParametre (View v) {
         startActivity(new Intent(this, ParametresActivity.class));
     }
-
 
     public void jouerContreOrdinateur (){
         LinearLayout conteneur = (LinearLayout) findViewById(R.id.layout_menu);

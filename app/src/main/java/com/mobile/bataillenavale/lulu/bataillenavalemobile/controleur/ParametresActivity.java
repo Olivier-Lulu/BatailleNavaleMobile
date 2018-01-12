@@ -50,6 +50,9 @@ public class ParametresActivity extends Activity {
         nbBateau5champ.setText("" + sharedPrefs.getInt(getString(R.string.nbBateau5), 1));
     }
 
+    /*
+     * Ecrit les parametres au moment du click sur le bouton valider
+     */
     public void clickValider (View v){
         SharedPreferences.Editor editor = sharedPrefs.edit();
 

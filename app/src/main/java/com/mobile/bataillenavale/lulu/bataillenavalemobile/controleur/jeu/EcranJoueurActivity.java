@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.SlideAnimation;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.jeu.PlateauJeu;
 
 import org.jetbrains.annotations.Nullable;
@@ -28,17 +29,21 @@ public class EcranJoueurActivity extends BaseEcranJeu {
         controleurModele.setAffichageJoueur(this);
     }
 
+    /*
+     * Passage vers l'affichage du côté adverse
+     */
     @Override
     public void swipe(){
-        System.out.println("swipeleft");
-
         Intent resumeJoueurActivity = new Intent(EcranJoueurActivity.this, EcranAdverseActivity.class);
         resumeJoueurActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivityIfNeeded(resumeJoueurActivity, 0);
-
-        EcranJoueurActivity.super.onPause();
+        SlideAnimation.slideOutToRight(this, findViewById(R.id.rootjoueur));
+        onPause();
     }
 
+    /*
+     * Appelee a la fin d'une partie pour effacer la sauvegarde de la partie courante
+     */
     public void partieFinie (){
         deleteFile("save");
     }
@@ -64,6 +69,7 @@ public class EcranJoueurActivity extends BaseEcranJeu {
     @Override
     protected void onResume() {
         super.onResume();
+        SlideAnimation.slideInFromRight(this, findViewById(R.id.rootjoueur));
         int sizeX = plateau.getXSize();
         int sizeY = plateau.getYSize();
 

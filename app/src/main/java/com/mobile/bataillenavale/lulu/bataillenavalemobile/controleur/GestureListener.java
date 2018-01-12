@@ -5,6 +5,7 @@ import android.view.MotionEvent;
 
 /**
  * Created by lulu on 10/01/18.
+ * Sert a detecter les glissements d'ecrans
  */
 
 public class GestureListener extends GestureDetector.SimpleOnGestureListener {
@@ -15,7 +16,6 @@ public class GestureListener extends GestureDetector.SimpleOnGestureListener {
     public void onSwipeLeft(){}
 
     public void onSwipeRight(){}
-
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {

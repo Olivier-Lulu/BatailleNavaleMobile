@@ -60,7 +60,7 @@ public class InitPartieActivity extends Activity implements ControleurPlacement 
     }
 
     /*
-        definie si la case x,y peut accepter la tete du bateau boat
+     *  definie si la case x,y peut accepter la tete du bateau boat
      */
     @Override
     public boolean canHostBoat(View boat,int x, int y) {
@@ -69,7 +69,7 @@ public class InitPartieActivity extends Activity implements ControleurPlacement 
         int size = pool.getBoat(id).getSize();
         int direction = pool.getBoat(id).getDirection();
 
-        //on test si les cases concernes peuvent aceuillir un morceau de bateau
+        //on teste si les cases concernees peuvent acueillir un morceau de bateau
         if(direction == BateauVue.HORIZONTAL) {
             if (x+1 - size < 0)
                 return false;
@@ -88,7 +88,7 @@ public class InitPartieActivity extends Activity implements ControleurPlacement 
     }
 
     /*
-        ajoute un bateau au plateau, en partant des coordonée xCell,yCell
+     *  ajoute un bateau au plateau, en partant des coordonnees xCell,yCell
      */
     @Override
     public void obtainBoat(View boat, int xCell, int yCell) {
@@ -102,7 +102,7 @@ public class InitPartieActivity extends Activity implements ControleurPlacement 
         int direction = b.getDirection();
         int size = b.getSize();
 
-        //on pose chaque partie du bateau sur la cellule corespondante
+        //on pose chaque partie du bateau sur la cellule correspondante
         b.setCoord(xCell,yCell);
         if(direction == BateauVue.HORIZONTAL)
             for(int x = xCell; x>xCell-size;x--)
@@ -112,16 +112,16 @@ public class InitPartieActivity extends Activity implements ControleurPlacement 
                 p.addView(xCell,y,b.getParts(y-yCell));
         controleurModele.poser(xCell, yCell, direction, b.getSize());
 
-        //si tout les bateaux sont pose, on ajoute le bouton pour jouer
+        //si tous les bateaux sont poses, on ajoute le bouton pour jouer
         if(pool.isEmpty()) {
             pool.addFinishButton(this);
         }
     }
 
     /*
-        pose le bateau dans la celulle xCell,yCell
-
-        cet fonction ne doit etre appeler que lors de l'initialisation de l'activity
+     *  pose le bateau dans la celulle xCell,yCell
+     *
+     *  cette fonction ne doit etre appelee que lors de l'initialisation de l'activity
      */
     public void putBoat(BateauVue b, int xCell, int yCell){
         //on recupere les informations sur le bateau
@@ -139,7 +139,7 @@ public class InitPartieActivity extends Activity implements ControleurPlacement 
     }
 
     /*
-    supprime un bateau du plateau
+     * supprime un bateau du plateau
      */
     @Override
     public void removeBoat(int id) {
@@ -153,23 +153,23 @@ public class InitPartieActivity extends Activity implements ControleurPlacement 
             for(int i = 0;i<b.getSize();i++)
                 p.removeView(b.getParts(i),b.getX(),b.getY()+i);
 
-        //suprime le bateau du modele et le renvois dans le pool
+        //supprime le bateau du modele et le renvoi dans le pool
         controleurModele.remove(b.getX(),b.getY());
         pool.returnPool(id);
     }
 
     /*
-        donne une teinte sombre aux au cases qui recevrais un morceau de bateau
+     *  donne une teinte sombre aux cases qui recevrais un morceau de bateau
      */
     @Override
     public void tint(View boat, int xCell, int yCell,boolean enter){
-        //recuperation des information du bateau
+        //recuperation des informations du bateau
         int id = (int) boat.getTag(R.id.BoatID);
         BateauVue b = pool.getBoat(id);
         int size = b.getSize();
         int direction = b.getDirection();
 
-        //ajout de la teinte aux cellule
+        //ajout de la teinte aux cellules
         if(direction == BateauVue.HORIZONTAL)
             for(int x = xCell; x>xCell-size;x--)
                 p.tint(x,yCell,enter);

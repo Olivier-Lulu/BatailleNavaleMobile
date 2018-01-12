@@ -10,7 +10,7 @@ public class FactoryModele
 
     /*
     initialise et retourne l'instance de modele
-    Ne devrait etre appeler qu'une seule fois
+    Ne devrait etre appelee qu'une seule fois
     */
     public static synchronized Modele getInstanceInit(int tailleX, int tailleY, int nbTorpilleur, int nbContreTorpilleur, int nbCroiseur, int nbPorteAvion, String niveauIA) {
         if(instance == null)

@@ -15,6 +15,9 @@ import org.jetbrains.annotations.Nullable;
  * Created by lulu on 08/01/18.
  */
 
+/*
+ * Super classe des Activities utilisees pour representer les deux affichages du joueur
+ */
 public abstract class BaseEcranJeu extends Activity {
 
     protected PlateauJeu plateau;
@@ -27,11 +30,9 @@ public abstract class BaseEcranJeu extends Activity {
         controleurModele = FactoryModele.getInstance();
     }
 
-    @Override
-    public void finish() {
-        super.finish();
-    }
-
+    /*
+     * Utilise pour redefinir l'animation d'entree
+     */
     protected void overrideTransitionEnter(){
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
     }
@@ -42,10 +43,16 @@ public abstract class BaseEcranJeu extends Activity {
 
     public abstract void swipe();
 
+    /*
+     * Methode de recolaration d'affichage pour un tir dans l'eau
+     */
     public void cibleVide(int x, int y) {
         plateau.tintCellWhite(x, y);
     }
 
+    /*
+     * Methode de recolaration d'affichage pour un tir qui touche
+     */
     public void cibleTouche(int x, int y) {
         plateau.tintCellBoom(x,y);
     }
@@ -55,6 +62,9 @@ public abstract class BaseEcranJeu extends Activity {
         toast.show();
     }
 
+    /*
+     * Methode de recolaration d'affichage pour un tir qui coule un bateau
+     */
     public void cibleCouler(int x, int y, int xFin, int yFin) {
         if(x == xFin)
             for(int yi = y;yi<yFin;yi++)

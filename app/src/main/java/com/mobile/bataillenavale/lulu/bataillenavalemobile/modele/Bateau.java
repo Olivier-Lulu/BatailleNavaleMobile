@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * Created by simon on 09/01/18.
+ * Version du modele des bateaux
  */
 
 public class Bateau implements Serializable{
@@ -49,6 +50,10 @@ public class Bateau implements Serializable{
         return y;
     }
 
+    /*
+     * Parametre les coordonnees du bateau. Appelee lorsqu'un bateauVue est pose pendant
+     * l'initialisation de la partie
+     */
     public void poser(int x, int y, int direction){
         if(direction != VERTICAL && direction != HORIZONTAL)
             throw new IllegalArgumentException("direction inconnue");
@@ -58,6 +63,10 @@ public class Bateau implements Serializable{
         this.direction = direction;
     }
 
+    /*
+     * Renvoie si le bateau est touche par le tir de coordonnees (x,y)
+     * et lui enleve un pv, renvoie faux sinon
+     */
     public boolean toucher(int x, int y){
         if(estIci(x,y)){
             pv--;
@@ -70,6 +79,9 @@ public class Bateau implements Serializable{
         return pv == 0;
     }
 
+    /*
+     * Permet à la methode toucher(x, y) si le tir a touche le bateau
+     */
     public boolean estIci(int x, int y) {
         if(direction == VERTICAL)
             if(this.x == x && this.y <= y && this.y+type > y) {
@@ -83,6 +95,9 @@ public class Bateau implements Serializable{
             return false;
     }
 
+    /*
+     * Renvoie vrai si le bateau this et le bateau en parametre s'intersecte
+     */
     public boolean intersect(Bateau bateau) {
        if(this.direction == bateau.direction) {
            if (this.direction == HORIZONTAL){
@@ -106,6 +121,9 @@ public class Bateau implements Serializable{
        }
     }
 
+    /*
+     * Renvoie l'abscisse de la proue du bateau
+     */
     public int getXFin() {
         if(direction == HORIZONTAL)
             return x-type;
@@ -113,6 +131,9 @@ public class Bateau implements Serializable{
             return x;
     }
 
+    /*
+     * Renvoie l'ordonnee de la proue du bateau
+     */
     public int getYFin() {
         if(direction == HORIZONTAL)
             return y;

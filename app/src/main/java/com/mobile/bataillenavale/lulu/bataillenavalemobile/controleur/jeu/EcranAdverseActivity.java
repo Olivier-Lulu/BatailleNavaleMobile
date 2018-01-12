@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.R;
+import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.SlideAnimation;
 import com.mobile.bataillenavale.lulu.bataillenavalemobile.vue.jeu.PlateauJeu;
 
 import org.jetbrains.annotations.Nullable;
@@ -24,15 +25,16 @@ public class EcranAdverseActivity extends BaseEcranJeu {
         controleurModele.setTableauJeu(this);
     }
 
+    /*
+     * Passage vers l'affichage du côté joueur
+     */
     @Override
     public void swipe(){
-        System.out.println("swipeleft");
-
         Intent resumeJoueurActivity = new Intent(EcranAdverseActivity.this, EcranJoueurActivity.class);
         resumeJoueurActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivityIfNeeded(resumeJoueurActivity, 0);
-
-        EcranAdverseActivity.super.onPause();
+        SlideAnimation.slideOutToLeft(this, findViewById(R.id.rootadverse));
+        onPause();
     }
 
     public void activer (){
@@ -43,6 +45,9 @@ public class EcranAdverseActivity extends BaseEcranJeu {
         plateau.desactiverGrille();
     }
 
+    /*
+     * Methode invoquee lors de la detection d'un clique
+     */
     public void tour (Vector<Integer>cible){
         controleurModele.tour(cible.elementAt(0), cible.elementAt(1));
     }
@@ -50,6 +55,7 @@ public class EcranAdverseActivity extends BaseEcranJeu {
     @Override
     protected void onResume() {
         super.onResume();
+        SlideAnimation.slideInFromLeft(this, findViewById(R.id.rootadverse));
         int sizeX = plateau.getXSize();
         int sizeY = plateau.getYSize();
 

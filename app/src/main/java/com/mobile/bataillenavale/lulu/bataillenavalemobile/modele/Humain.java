@@ -6,6 +6,7 @@ import java.util.Vector;
 
 /**
  * Created by lulu on 11/12/17.
+ * Super classe des joueurs
  */
 
 public class Humain extends Joueur{
@@ -14,6 +15,10 @@ public class Humain extends Joueur{
         super(x, y);
     }
 
+    /*
+     * La fonction tirer de l'humain n'est pas utilisee car c'est la detection du click
+     * qui declenche le tir.
+     */
     @Override
     public Vector<Integer> tirer() {
         return null;
